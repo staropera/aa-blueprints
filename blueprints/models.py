@@ -1,4 +1,4 @@
-from django.db import models, transaction
+from django.db import models
 from django.utils.timezone import now
 
 from allianceauth.authentication.models import CharacterOwnership
@@ -105,61 +105,59 @@ class Owner(models.Model):
             except TokenError:
                 blueprints = []
             stored_blueprints = []
-            with transaction.atomic():
-                Blueprint.objects.filter(owner=self).delete()
-                for blueprint in blueprints:
-                    runs = blueprint["runs"]
-                    if runs < 1:
-                        runs = None
-                    quantity = blueprint["quantity"]
-                    if quantity < 0:
-                        quantity = 1
-                    duplicate = False
-                    for stored in stored_blueprints:
-                        if (
-                            stored["type_id"] == blueprint["type_id"]
-                            and stored["runs"] == blueprint["runs"]
-                            and stored["material_efficiency"]
-                            == blueprint["material_efficiency"]
-                            and stored["time_efficiency"]
-                            == blueprint["time_efficiency"]
-                            and stored["location_id"] == blueprint["location_id"]
-                            and stored["location_flag"] == blueprint["location_flag"]
-                        ):
-                            duplicate = True
-                            break
-                    if duplicate:
-                        duplicated = Blueprint.objects.filter(
-                            owner=self,
-                            location=Location.objects.get_or_create_esi_async(
-                                blueprint["location_id"],
-                                token=token,
-                            )[0],
-                            location_flag=blueprint["location_flag"],
-                            runs=runs,
-                            eve_type=blueprint["type_id"],
-                            material_efficiency=blueprint["material_efficiency"],
-                            time_efficiency=blueprint["time_efficiency"],
-                        ).first()
-                        duplicated.quantity += quantity
-                        duplicated.save()
-                    else:
-                        Blueprint.objects.create(
-                            owner=self,
-                            location=Location.objects.get_or_create_esi_async(
-                                blueprint["location_id"],
-                                token=token,
-                            )[0],
-                            location_flag=blueprint["location_flag"],
-                            eve_type=EveType.objects.get_or_create_esi(
-                                id=blueprint["type_id"]
-                            )[0],
-                            runs=runs,
-                            material_efficiency=blueprint["material_efficiency"],
-                            time_efficiency=blueprint["time_efficiency"],
-                            quantity=quantity,
-                        )
-                        stored_blueprints.append(blueprint)
+            Blueprint.objects.filter(owner=self).delete()
+            for blueprint in blueprints:
+                runs = blueprint["runs"]
+                if runs < 1:
+                    runs = None
+                quantity = blueprint["quantity"]
+                if quantity < 0:
+                    quantity = 1
+                duplicate = False
+                for stored in stored_blueprints:
+                    if (
+                        stored["type_id"] == blueprint["type_id"]
+                        and stored["runs"] == blueprint["runs"]
+                        and stored["material_efficiency"]
+                        == blueprint["material_efficiency"]
+                        and stored["time_efficiency"] == blueprint["time_efficiency"]
+                        and stored["location_id"] == blueprint["location_id"]
+                        and stored["location_flag"] == blueprint["location_flag"]
+                    ):
+                        duplicate = True
+                        break
+                if duplicate:
+                    duplicated = Blueprint.objects.filter(
+                        owner=self,
+                        location=Location.objects.get_or_create_esi_async(
+                            blueprint["location_id"],
+                            token=token,
+                        )[0],
+                        location_flag=blueprint["location_flag"],
+                        runs=runs,
+                        eve_type=blueprint["type_id"],
+                        material_efficiency=blueprint["material_efficiency"],
+                        time_efficiency=blueprint["time_efficiency"],
+                    ).first()
+                    duplicated.quantity += quantity
+                    duplicated.save()
+                else:
+                    Blueprint.objects.create(
+                        owner=self,
+                        location=Location.objects.get_or_create_esi_async(
+                            blueprint["location_id"],
+                            token=token,
+                        )[0],
+                        location_flag=blueprint["location_flag"],
+                        eve_type=EveType.objects.get_or_create_esi(
+                            id=blueprint["type_id"]
+                        )[0],
+                        runs=runs,
+                        material_efficiency=blueprint["material_efficiency"],
+                        time_efficiency=blueprint["time_efficiency"],
+                        quantity=quantity,
+                    )
+                    stored_blueprints.append(blueprint)
 
     def _fetch_blueprints(self, token: Token) -> list:
         """fetch Blueprints from ESI for self"""

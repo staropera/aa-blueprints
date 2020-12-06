@@ -51,7 +51,7 @@ python manage.py collectstatic
 
 Restart your supervisor services for Auth
 
-### Step 4 -
+### Step 4 - Data import
 
 Load EVE Online type data from ESI:
 

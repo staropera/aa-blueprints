@@ -36,6 +36,9 @@ class Blueprints(models.Model):
 class Owner(models.Model):
     """A corporation that owns blueprints"""
 
+    class Meta:
+        default_permissions = ()
+
     # errors
     ERROR_NONE = 0
     ERROR_TOKEN_INVALID = 1
@@ -245,6 +248,7 @@ class Blueprint(models.Model):
                 ],
             ),
         ]
+        default_permissions = ()
 
     owner = models.ForeignKey(
         Owner,

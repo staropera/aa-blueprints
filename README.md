@@ -10,6 +10,10 @@ This is an blueprints library app for [Alliance Auth](https://gitlab.com/allianc
 
 - Lists blueprints owned by corporation or alliance (configurable with permissions)
 
+## Screenshots
+
+![main-view](https://i.imgur.com/ij5j1kL.png)
+
 # Installation
 
 ## Requirements

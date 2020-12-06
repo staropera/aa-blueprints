@@ -7,7 +7,31 @@ from .models import Blueprint, Location
 
 @admin.register(Blueprint)
 class BlueprintAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        "_type",
+        "_owner",
+        "material_efficiency",
+        "time_efficiency",
+        "_original",
+    )
+
+    list_select_related = ("eve_type", "owner")
+    search_fields = ["eve_type__name"]
+
+    def _type(self, obj):
+        return obj.eve_type.name if obj.eve_type else None
+
+    def _owner(self, obj):
+        return obj.owner.corporation.corporation_name
+
+    def _original(self, obj):
+        return "No" if obj.runs and obj.runs > 0 else "Yes"
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(Location)

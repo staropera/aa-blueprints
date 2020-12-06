@@ -36,7 +36,7 @@ Make sure you are in the virtual environment (venv) of your Alliance Auth instal
 ```python
 CELERYBEAT_SCHEDULE['blueprints_update_all_blueprints'] = {
             'task': 'blueprints.tasks.update_all_blueprints',
-            'schedule': crontab(minute=0, hour='*/1'),
+            'schedule': crontab(minute=0, hour='*/3'),
 }
 ```
 

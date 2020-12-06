@@ -274,7 +274,7 @@ class Blueprint(models.Model):
     runs = models.PositiveIntegerField(
         blank=True,
         null=True,
-        help_text="Runs remaining or a null value if the blueprint is an original",
+        help_text="Runs remaining or null if the blueprint is an original",
     )
     material_efficiency = models.PositiveIntegerField(
         help_text="Material efficiency of the blueprint"

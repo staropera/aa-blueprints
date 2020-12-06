@@ -51,7 +51,14 @@ python manage.py collectstatic
 
 Restart your supervisor services for Auth
 
-### Step 4 - Data import
+### Step 4 - Update EVE Online API Application
+
+Update the Eve Online API app used for authentication in your AA installation to include the following scopes:
+
+- `esi-corporations.read_blueprints.v1`
+- `esi-universe.read_structures.v1`
+
+### Step 5 - Data import
 
 Load EVE Online type data from ESI:
 

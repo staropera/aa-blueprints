@@ -47,7 +47,10 @@ $(document).ready(function () {
       //{ "visible": false, "targets": [6] }
     ],
 
-    //order: [[1, "asc"], [5, "asc"]],
+    order: [
+      [1, "asc"],
+      [2, "asc"],
+    ],
     /*
         filterDropDown:
         {

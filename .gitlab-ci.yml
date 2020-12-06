@@ -24,7 +24,6 @@ pre-commit-check:
 deploy-pypi:
   stage: deploy
   image: python:3.7-buster
-
   before_script:
     - pip install twine
 

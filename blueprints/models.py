@@ -256,23 +256,25 @@ class Blueprint(models.Model):
         help_text="Corporation that owns the blueprint",
     )
     eve_type = models.ForeignKey(
-        EveType, on_delete=models.CASCADE, help_text="Blueprint Type"
+        EveType, on_delete=models.CASCADE, help_text="Blueprint type"
     )
     location = models.ForeignKey(
-        "Location", on_delete=models.CASCADE, help_text="Location of the blueprints"
+        "Location", on_delete=models.CASCADE, help_text="Blueprint location"
     )
     _location_flag_choices = []
     for choice in EVE_LOCATION_FLAGS:
         _location_flag_choices.append((choice, choice))
 
     location_flag = models.CharField(
-        help_text="Specific location of the blueprint",
+        help_text="Additional location information",
         choices=_location_flag_choices,
         max_length=36,
     )
     quantity = models.PositiveIntegerField(help_text="Number of blueprints", default=1)
     runs = models.PositiveIntegerField(
-        blank=True, null=True, help_text="Runs remaining, if applicable"
+        blank=True,
+        null=True,
+        help_text="Runs remaining or a null value if the blueprint is an original",
     )
     material_efficiency = models.PositiveIntegerField(
         help_text="Material efficiency of the blueprint"

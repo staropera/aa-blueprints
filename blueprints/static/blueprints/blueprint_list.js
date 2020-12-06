@@ -1,9 +1,9 @@
+/* global blueprintsDataTableSettings */
+
 $(document).ready(function () {
-    /* retrieve generated data from HTML page */
-    var elem = document.getElementById("dataExport");
-    var listDataUrl = elem.getAttribute("data-listDataUrl");
-    var dataTablesPageLength = elem.getAttribute("data-dataTablesPageLength");
-    var dataTablesPaging = elem.getAttribute("data-dataTablesPaging") == "True";
+    var listDataUrl = blueprintsDataTableSettings.listDataurl;
+    var dataTablesPageLength = blueprintsDataTableSettings.dataTablesPageLength;
+    var dataTablesPaging = blueprintsDataTableSettings.dataTablesPaging;
 
     /* dataTable def */
     $("#tab_blueprints").DataTable({

@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.0a3 - 2020-12-06
+
+Pagination fix
+
+### Added
+
+### Changed
+
+### Fixed
+
+- Fixed pagination bug
+
 ## 0.1.0a2 - 2020-12-06
 
 Small fixes

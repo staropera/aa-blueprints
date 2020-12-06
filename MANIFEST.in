@@ -3,3 +3,4 @@ include README.md
 recursive-include blueprints *.py
 recursive-include blueprints/static *
 recursive-include blueprints/templates *
+include blueprints/swagger.json

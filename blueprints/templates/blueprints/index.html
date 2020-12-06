@@ -22,15 +22,6 @@
     <div
       id="dataExport"
       data-listDataUrl="{% url 'blueprints:list_data' %}?tags={{ active_tags|join:',' }}"
-      data-titleAlliance="{% trans 'Alliance' %}"
-      data-titleCorporation="{% trans 'Corporation' %}"
-      data-titleRegion="{% trans 'Region' %}"
-      data-titleSolarSystem="{% trans 'Solar System' %}"
-      data-titleCategory="{% trans 'Category' %}"
-      data-titleGroup="{% trans 'Group' %}"
-      data-Reinforced="{% trans 'Reinforced?' %}"
-      data-State="{% trans 'State' %}"
-      data-PowerMode="{% trans 'Power Mode' %}"
       data-dataTablesPageLength="{{ data_tables_page_length }}"
       data-dataTablesPaging="{{ data_tables_paging }}"
     ></div>
@@ -44,13 +35,13 @@
       <thead>
         <tr>
           <th></th>
-          <th>{% trans "Type" %}</th>
-          <!-- <th>{% trans "Location" %}</th> -->
-          <th>{% trans "Owner" %}</th>
-          <th>{% trans "Material Efficiency" %}</th>
-          <th>{% trans "Time Efficiency" %}</th>
-          <th>{% trans "Original" %}</th>
-          <th>{% trans "Runs Remaining" %}</th>
+          <th>{% translate "Type" %}</th>
+          <!-- <th>{% translate "Location" %}</th> -->
+          <th>{% translate "Owner" %}</th>
+          <th>{% translate "Material Efficiency" %}</th>
+          <th>{% translate "Time Efficiency" %}</th>
+          <th>{% translate "Original" %}</th>
+          <th>{% translate "Runs Remaining" %}</th>
         </tr>
       </thead>
     </table>

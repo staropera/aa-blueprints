@@ -28,12 +28,17 @@ setup(
         "Framework :: Django",
         "Framework :: Django :: 3.1",
         "Intended Audience :: Developers",
-        # example license
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.6",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    ],
+    python_requires="~=3.6",
+    install_requires=[
+        "allianceauth>=2.8.0",
+        "django-esi>=2.0.4",
+        "django-eveuniverse>=0.6.1",
     ],
 )

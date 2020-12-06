@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-06 10:10-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: auth_hooks.py:16 templates/blueprints/base.html:4
+#: templates/blueprints/base.html:8
+msgid "Blueprint Library"
+msgstr ""
+
+#: templates/blueprints/index.html:18
+msgid "Add Blueprint Owner"
+msgstr ""
+
+#: templates/blueprints/index.html:38
+msgid "Type"
+msgstr ""
+
+#: templates/blueprints/index.html:39
+msgid "Location"
+msgstr ""
+
+#: templates/blueprints/index.html:40
+msgid "Owner"
+msgstr ""
+
+#: templates/blueprints/index.html:41
+msgid "Material Efficiency"
+msgstr ""
+
+#: templates/blueprints/index.html:42
+msgid "Time Efficiency"
+msgstr ""
+
+#: templates/blueprints/index.html:43
+msgid "Original"
+msgstr ""
+
+#: templates/blueprints/index.html:44
+msgid "Runs Remaining"
+msgstr ""
+
+#: views.py:53
+#, python-format
+msgid ""
+"You can only use your main or alt characters to add corporations. However, "
+"character %s is neither. "
+msgstr ""
+
+#: views.py:85
+#, python-format
+msgid ""
+"%(corporation)s has been added with %(character)s as sync character. We have "
+"started fetching blueprints for this corporation. You will receive a report "
+"once the process is finished."
+msgstr ""
+
+#: views.py:101
+#, python-format
+msgid "%(corporation)s was added as new blueprint owner by %(user)s."
+msgstr ""

@@ -21,3 +21,9 @@ compilemessages:
 	django-admin compilemessages -l ko  && \
 	django-admin compilemessages -l ru  && \
 	django-admin compilemessages -l zh_Hans
+
+tx_push:
+	tx push --source
+
+tx_pull:
+	tx pull -f

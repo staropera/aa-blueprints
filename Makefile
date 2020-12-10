@@ -27,3 +27,6 @@ tx_push:
 
 tx_pull:
 	tx pull -f
+
+update_swagger:
+	curl -o $(package)/swagger.json https://esi.evetech.net/latest/swagger.json

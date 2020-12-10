@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.0b2 - 2020-12-\_\_
+
+### Added
+
+- Mechanism to update swagger.json (`make update_swagger`)
+
+### Changed
+
+- Updated swagger from latest EVE API
+
+### Fixed
+
 ## 0.1.0b1 - 2020-12-09
 
 Transifex support

@@ -11,7 +11,7 @@ logger = LoggerAddTag(logging.getLogger(__name__), __title__)
 
 
 class Command(BaseCommand):
-    help = "Preloads data required for this app from ESI"
+    help = "Preloads data required for aa-blueprints from ESI"
 
     def handle(self, *args, **options):
         call_command(

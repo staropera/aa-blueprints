@@ -54,7 +54,11 @@ class LocationAdmin(admin.ModelAdmin):
     )
 
     def _name(self, obj):
-        return obj.name_plus
+        if obj.name:
+            return obj.name
+        if obj.parent and obj.parent.name:
+            return "Child of " + obj.parent.name
+        return None
 
     _name.admin_order_field = "name"
 

@@ -38,6 +38,10 @@ CELERYBEAT_SCHEDULE['blueprints_update_all_blueprints'] = {
             'task': 'blueprints.tasks.update_all_blueprints',
             'schedule': crontab(minute=0, hour='*/3'),
 }
+CELERYBEAT_SCHEDULE['blueprints_update_all_locations'] = {
+            'task': 'blueprints.tasks.update_all_locations',
+            'schedule': crontab(minute=0, hour='*/12'),
+}
 ```
 
 ### Step 3 - Finalize App installation

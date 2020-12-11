@@ -35,7 +35,11 @@ def index(request):
 @login_required
 @permission_required("blueprints.add_blueprint_owner")
 @token_required(
-    scopes=["esi-universe.read_structures.v1", "esi-corporations.read_blueprints.v1"]
+    scopes=[
+        "esi-universe.read_structures.v1",
+        "esi-corporations.read_blueprints.v1",
+        "esi-assets.read_corporation_assets.v1",
+    ]
 )
 def add_blueprint_owner(request, token):
     token_char = EveCharacter.objects.get(character_id=token.character_id)
@@ -78,6 +82,7 @@ def add_blueprint_owner(request, token):
             owner.save()
 
         tasks.update_blueprints_for_owner.delay(owner_pk=owner.pk)
+        tasks.update_locations_for_owner.delay(owner_pk=owner.pk)
         messages_plus.info(
             request,
             format_html(
@@ -123,7 +128,7 @@ def convert_blueprint(blueprint) -> dict:
     return {
         "type_icon": icon,
         "type": blueprint.eve_type.name,
-        # "location": blueprint.location.name_plus,
+        "location": blueprint.location.name_plus,
         "material_efficiency": blueprint.material_efficiency,
         "time_efficiency": blueprint.time_efficiency,
         "original": original,

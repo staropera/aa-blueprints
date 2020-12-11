@@ -7,15 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.1.0b2 - 2020-12-\_\_
 
+Blueprint Locations!
+
 ### Added
 
+- Location resolution and display for blueprints
 - Mechanism to update swagger.json (`make update_swagger`)
+- Management command to update all blueprints and locations
 
 ### Changed
 
 - Updated swagger from latest EVE API
-
-### Fixed
+- Switched to decorators for fetching tokens in the `Owner` model
 
 ## 0.1.0b1 - 2020-12-09
 
@@ -25,17 +28,9 @@ Transifex support
 
 - Transifex config / support commands to Makefile
 
-### Changed
-
-### Fixed
-
 ## 0.1.0a3 - 2020-12-06
 
 Pagination fix
-
-### Added
-
-### Changed
 
 ### Fixed
 
@@ -51,11 +46,7 @@ Small fixes
 - Admin interface improved
   - Blueprints are now read-only
   - Blueprints are now searchable and display additional information on the list page.
-- Increaed recommended update interval to 3 hours
-
-### Changed
-
-### Fixed
+- Increased recommended update interval to 3 hours
 
 ## 0.1.0a1 - 2020-12-06
 
@@ -66,19 +57,11 @@ Initial Alpha
 - i18n support
 - Management command to download blueprint types
 
-### Changed
-
-### Fixed
-
 ## 0.1.0.dev2 - 2020-12-06
-
-### Added
 
 ### Changed
 
 - Removed default permissions for Location and Blueprint models
-
-### Fixed
 
 ## 0.1.0.dev1 - 2020-12-06
 

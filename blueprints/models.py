@@ -1,16 +1,17 @@
+from bravado.exception import HTTPNotFound
 from django.db import models
-from django.utils.timezone import now
 
 from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.evelinks import dotlan
 from allianceauth.eveonline.models import EveCorporationInfo
 from allianceauth.services.hooks import get_extension_logger
-from esi.errors import TokenError, TokenExpiredError, TokenInvalidError
+from esi.errors import TokenExpiredError, TokenInvalidError
 from esi.models import Token
 from eveuniverse.models import EveEntity, EveSolarSystem, EveType
 
 from . import __title__
 from .constants import EVE_LOCATION_FLAGS
+from .decorators import fetch_token_for_owner
 from .managers import LocationManager
 from .providers import esi
 from .utils import LoggerAddTag, make_logger_prefix
@@ -39,30 +40,6 @@ class Owner(models.Model):
     class Meta:
         default_permissions = ()
 
-    # errors
-    ERROR_NONE = 0
-    ERROR_TOKEN_INVALID = 1
-    ERROR_TOKEN_EXPIRED = 2
-    ERROR_INSUFFICIENT_PERMISSIONS = 3
-    ERROR_NO_CHARACTER = 4
-    ERROR_ESI_UNAVAILABLE = 5
-    ERROR_OPERATION_MODE_MISMATCH = 6
-    ERROR_UNKNOWN = 99
-
-    ERRORS_LIST = [
-        (ERROR_NONE, "No error"),
-        (ERROR_TOKEN_INVALID, "Invalid token"),
-        (ERROR_TOKEN_EXPIRED, "Expired token"),
-        (ERROR_INSUFFICIENT_PERMISSIONS, "Insufficient permissions"),
-        (ERROR_NO_CHARACTER, "No character set for fetching data from ESI"),
-        (ERROR_ESI_UNAVAILABLE, "ESI API is currently unavailable"),
-        (
-            ERROR_OPERATION_MODE_MISMATCH,
-            "Operaton mode does not match with current setting",
-        ),
-        (ERROR_UNKNOWN, "Unknown error"),
-    ]
-
     corporation = models.OneToOneField(
         EveCorporationInfo,
         primary_key=True,
@@ -79,35 +56,66 @@ class Owner(models.Model):
         help_text="character used for syncing blueprints",
         related_name="+",
     )
-    blueprints_last_sync = models.DateTimeField(
-        null=True, default=None, blank=True, help_text="when the last sync happened"
-    )
-    blueprints_last_error = models.IntegerField(
-        choices=ERRORS_LIST,
-        default=ERROR_NONE,
-        help_text="error that occurred at the last sync atttempt (if any)",
-    )
     is_active = models.BooleanField(
         default=True,
         help_text=("whether this owner is currently included in the sync process"),
     )
 
-    def update_blueprints_esi(self):
+    @fetch_token_for_owner(
+        ["esi-universe.read_structures.v1", "esi-assets.read_corporation_assets.v1"]
+    )
+    def update_locations_esi(self, token):
+
+        assets = self._fetch_assets()
+
+        asset_ids = []
+        asset_locations = {}
+        assets_by_id = {}
+        for asset in assets:
+            asset_ids.append(asset["item_id"])
+            assets_by_id[asset["item_id"]] = asset
+        for asset in assets:
+            if asset["location_id"] in asset_ids:
+                location_id = asset["location_id"]
+                if asset_locations.get(location_id):
+                    asset_locations[location_id].append(asset["item_id"])
+                else:
+                    asset_locations[location_id] = [asset["item_id"]]
+        for location in list(asset_locations.keys()):
+            if not Location.objects.filter(id=location).count() > 0:
+                try:
+                    loc = assets_by_id[location]["location_id"]
+                    Location.objects.create(
+                        id=location,
+                        parent=Location.objects.get_or_create_esi_async(
+                            id=loc, token=token
+                        )[0],
+                        eve_type=EveType.objects.filter(
+                            id=assets_by_id[location]["type_id"]
+                        ).first(),
+                    )
+                except HTTPNotFound:
+                    pass
+            else:
+                parent_location = assets_by_id[location]["location_id"]
+                location_obj = Location.objects.filter(id=location).first()
+                location_obj.parent = Location.objects.get_or_create_esi_async(
+                    id=parent_location, token=token
+                )[0]
+                location_obj.save()
+
+    @fetch_token_for_owner(
+        ["esi-universe.read_structures.v1", "esi-corporations.read_blueprints.v1"]
+    )
+    def update_blueprints_esi(self, token):
         """updates all blueprints from ESI"""
 
         if self.is_active:
-            try:
-                token, error = self.token()
-                if error:
-                    self.blueprints_last_error = error
-                    self.blueprints_last_sync = now()
-                    self.save()
-                    raise TokenError(self.to_friendly_error_message(error))
 
-                blueprints = self._fetch_blueprints(token)
-            except TokenError:
-                blueprints = []
+            blueprints = self._fetch_blueprints()
+
             stored_blueprints = []
+            item_ids = []
             Blueprint.objects.filter(owner=self).delete()
             for blueprint in blueprints:
                 runs = blueprint["runs"]
@@ -161,27 +169,28 @@ class Owner(models.Model):
                         quantity=quantity,
                     )
                     stored_blueprints.append(blueprint)
+                    item_ids.append(blueprint["item_id"])
 
-    def _fetch_blueprints(self, token: Token) -> list:
+    @fetch_token_for_owner(["esi-assets.read_corporation_assets.v1"])
+    def _fetch_assets(self, token) -> list:
+        return esi.client.Assets.get_corporations_corporation_id_assets(
+            corporation_id=self.corporation.corporation_id,
+            token=token.valid_access_token(),
+        ).results()
+
+    @fetch_token_for_owner(["esi-corporations.read_blueprints.v1"])
+    def _fetch_blueprints(self, token) -> list:
         """fetch Blueprints from ESI for self"""
 
         corporation_id = self.corporation.corporation_id
 
-        # fetch all blueprints incl. localizations for services
-        # blueprints = esi_fetch(
-        #     esi_path="Corporation.get_corporations_corporation_id_blueprints",
-        #     args={"corporation_id": corporation_id},
-        #     token=token,
-        #     has_pages=True,
-        #     logger_tag=add_prefix(),
-        # )
         blueprints = esi.client.Corporation.get_corporations_corporation_id_blueprints(
             corporation_id=corporation_id,
             token=token.valid_access_token(),
         ).results()
         return blueprints
 
-    def token(self) -> Token:
+    def token(self, scopes=None) -> (Token, int):
         """returns a valid Token for the owner"""
         token = None
         error = None
@@ -207,7 +216,7 @@ class Owner(models.Model):
                         user=self.character.user,
                         character_id=self.character.character.character_id,
                     )
-                    .require_scopes(["esi-corporations.read_blueprints.v1"])
+                    .require_scopes(scopes)
                     .require_valid()
                     .first()
                 )
@@ -305,6 +314,16 @@ class Location(models.Model):
             "either item ID for stations or structure ID for structures"
         ),
     )
+    parent = models.ForeignKey(
+        "Location",
+        on_delete=models.SET_DEFAULT,
+        default=None,
+        null=True,
+        blank=True,
+        help_text=("Eve Online location ID of the parent object"),
+        related_name="+",
+    )
+
     name = models.CharField(
         max_length=NAMES_MAX_LENGTH,
         help_text="In-game name of this station or structure",
@@ -342,7 +361,7 @@ class Location(models.Model):
         default_permissions = ()
 
     def __str__(self) -> str:
-        return self.name
+        return self.name_plus
 
     def __repr__(self) -> str:
         return "{}(id={}, name='{}')".format(
@@ -354,12 +373,13 @@ class Location(models.Model):
         """return the actual name or 'Unknown location' for empty locations"""
         if self.is_empty:
             return f"Unknown location #{self.id}"
-
+        if not self.name and self.parent:
+            return self.parent.name_plus
         return self.name
 
     @property
     def is_empty(self) -> bool:
-        return not self.eve_solar_system and not self.eve_type
+        return not self.eve_solar_system and not self.eve_type and not self.parent_id
 
     @property
     def solar_system_url(self) -> str:

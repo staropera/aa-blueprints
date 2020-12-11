@@ -76,6 +76,7 @@ EVE_LOCATION_FLAGS = [
     "Pilot",
     "PlanetSurface",
     "QuafeBay",
+    "QuantumCoreRoom",
     "Reward",
     "RigSlot0",
     "RigSlot1",

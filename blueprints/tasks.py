@@ -52,10 +52,32 @@ def update_blueprints_for_owner(self, owner_pk):
     return _get_owner(owner_pk).update_blueprints_esi()
 
 
+@shared_task(
+    **{**TASK_ESI_KWARGS},
+    **{
+        "base": QueueOnce,
+        "once": {"keys": ["owner_pk"], "graceful": True},
+        "max_retries": None,
+    },
+)
+def update_locations_for_owner(self, owner_pk):
+    """fetches all blueprints for owner from ESI"""
+    return _get_owner(owner_pk).update_locations_esi()
+
+
 @shared_task(**TASK_DEFAULT_KWARGS)
 def update_all_blueprints():
     for owner in Owner.objects.all():
         update_blueprints_for_owner.apply_async(
+            kwargs={"owner_pk": owner.pk},
+            priority=DEFAULT_TASK_PRIORITY,
+        )
+
+
+@shared_task(**TASK_DEFAULT_KWARGS)
+def update_all_locations():
+    for owner in Owner.objects.all():
+        update_locations_for_owner.apply_async(
             kwargs={"owner_pk": owner.pk},
             priority=DEFAULT_TASK_PRIORITY,
         )

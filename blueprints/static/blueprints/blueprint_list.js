@@ -16,7 +16,7 @@ $(document).ready(function () {
         columns: [
             { data: "type_icon" },
             { data: "type" },
-            // { data: 'location'},
+            { data: "location" },
             { data: "owner" },
             { data: "material_efficiency" },
             { data: "time_efficiency" },
@@ -35,30 +35,33 @@ $(document).ready(function () {
 
         columnDefs: [
             { sortable: false, targets: [0] },
-            //{ "visible": false, "targets": [6] }
+            { visible: false, targets: [2] },
         ],
 
         order: [
-            [1, "asc"],
             [2, "asc"],
+            [1, "asc"],
         ],
-        /*
-        filterDropDown:
-        {
-            columns: [
-                {
-                    idx: 6,
-                    title: titleCorporation
-                },
+        drawCallback: function (settings) {
+            var api = this.api();
+            var rows = api.rows({ page: "current" }).nodes();
+            var last = null;
 
-            ],
-            bootstrap: true
-        }
+            api.column(2, { page: "current" })
+                .data()
+                .each(function (group, i) {
+                    if (last !== group) {
+                        $(rows)
+                            .eq(i)
+                            .before(
+                                '<tr class="group"><td colspan="7">' +
+                                    group +
+                                    "</td></tr>"
+                            );
 
-        createdRow: function (row, data, dataIndex) {
-            if (data['is_reinforced']) {
-                $(row).addClass('danger');
-            }
-        }*/
+                        last = group;
+                    }
+                });
+        },
     });
 });

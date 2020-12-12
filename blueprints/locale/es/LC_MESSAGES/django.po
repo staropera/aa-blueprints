@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-06 10:10-0500\n"
+"POT-Creation-Date: 2020-12-12 20:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,51 +18,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: auth_hooks.py:16 templates/blueprints/base.html:4
-#: templates/blueprints/base.html:8
+#: auth_hooks.py:16 templates/blueprints/base.html:6
+#: templates/blueprints/base.html:11
 msgid "Blueprint Library"
 msgstr ""
 
-#: templates/blueprints/index.html:18
+#: templates/blueprints/index.html:10
+msgid "Blueprints"
+msgstr ""
+
+#: templates/blueprints/index.html:17
 msgid "Add Blueprint Owner"
 msgstr ""
 
-#: templates/blueprints/index.html:38
+#: templates/blueprints/index.html:27
 msgid "Type"
 msgstr ""
 
-#: templates/blueprints/index.html:39
-msgid "Location"
-msgstr ""
-
-#: templates/blueprints/index.html:40
+#: templates/blueprints/index.html:28
 msgid "Owner"
 msgstr ""
 
-#: templates/blueprints/index.html:41
+#: templates/blueprints/index.html:29
 msgid "Material Efficiency"
 msgstr ""
 
-#: templates/blueprints/index.html:42
+#: templates/blueprints/index.html:30
 msgid "Time Efficiency"
 msgstr ""
 
-#: templates/blueprints/index.html:43
+#: templates/blueprints/index.html:31
 msgid "Original"
 msgstr ""
 
-#: templates/blueprints/index.html:44
+#: templates/blueprints/index.html:32
 msgid "Runs Remaining"
 msgstr ""
 
-#: views.py:53
+#: templates/blueprints/index.html:62
+msgid "Location"
+msgstr ""
+
+#: templates/blueprints/index.html:63
+msgid "Is BPO?"
+msgstr ""
+
+#: views.py:57
 #, python-format
 msgid ""
 "You can only use your main or alt characters to add corporations. However, "
 "character %s is neither. "
 msgstr ""
 
-#: views.py:85
+#: views.py:90
 #, python-format
 msgid ""
 "%(corporation)s has been added with %(character)s as sync character. We have "
@@ -70,7 +78,15 @@ msgid ""
 "once the process is finished."
 msgstr ""
 
-#: views.py:101
+#: views.py:106
 #, python-format
 msgid "%(corporation)s was added as new blueprint owner by %(user)s."
+msgstr ""
+
+#: views.py:129
+msgid "Yes"
+msgstr ""
+
+#: views.py:131
+msgid "No"
 msgstr ""

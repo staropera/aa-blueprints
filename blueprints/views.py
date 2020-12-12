@@ -125,6 +125,11 @@ def convert_blueprint(blueprint) -> dict:
     )
     runs = "" if not blueprint.runs or blueprint.runs < 1 else blueprint.runs
     original = "✓" if not blueprint.runs or blueprint.runs == -1 else ""
+    filter_is_original = (
+        gettext_lazy("Yes")
+        if not blueprint.runs or blueprint.runs == -1
+        else gettext_lazy("No")
+    )
     return {
         "type_icon": icon,
         "type": blueprint.eve_type.name,
@@ -132,6 +137,7 @@ def convert_blueprint(blueprint) -> dict:
         "material_efficiency": blueprint.material_efficiency,
         "time_efficiency": blueprint.time_efficiency,
         "original": original,
+        "filter_is_original": filter_is_original,
         "runs": runs,
         "owner": blueprint.owner.corporation.corporation_name,
     }

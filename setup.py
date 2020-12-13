@@ -23,6 +23,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Rebecca Murphy",
     author_email="rebecca@rcmurphy.me",
+    url="https://gitlab.com/rcmurphy/aa-blueprints",
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Django",

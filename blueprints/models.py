@@ -40,6 +40,29 @@ class Owner(models.Model):
     class Meta:
         default_permissions = ()
 
+    ERROR_NONE = 0
+    ERROR_TOKEN_INVALID = 1
+    ERROR_TOKEN_EXPIRED = 2
+    ERROR_INSUFFICIENT_PERMISSIONS = 3
+    ERROR_NO_CHARACTER = 4
+    ERROR_ESI_UNAVAILABLE = 5
+    ERROR_OPERATION_MODE_MISMATCH = 6
+    ERROR_UNKNOWN = 99
+
+    ERRORS_LIST = [
+        (ERROR_NONE, "No error"),
+        (ERROR_TOKEN_INVALID, "Invalid token"),
+        (ERROR_TOKEN_EXPIRED, "Expired token"),
+        (ERROR_INSUFFICIENT_PERMISSIONS, "Insufficient permissions"),
+        (ERROR_NO_CHARACTER, "No character set for fetching data from ESI"),
+        (ERROR_ESI_UNAVAILABLE, "ESI API is currently unavailable"),
+        (
+            ERROR_OPERATION_MODE_MISMATCH,
+            "Operaton mode does not match with current setting",
+        ),
+        (ERROR_UNKNOWN, "Unknown error"),
+    ]
+
     corporation = models.OneToOneField(
         EveCorporationInfo,
         primary_key=True,

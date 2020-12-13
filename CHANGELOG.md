@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.0b3 - 2020-12-13
+
+Bugfixes and tweaks
+
+### Added
+
+- Filter to blueprint table
+
+### Fixed
+
+- Re-added some error handling code that shouldn't have been removed
+- Usage of bootstrap classes
+- Blueprint table header classes
+- Menu icon was still using the old FA library, now it isn't
+
 ## 0.1.0b2 - 2020-12-11
 
 Blueprint Locations!

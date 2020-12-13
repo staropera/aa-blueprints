@@ -12,7 +12,7 @@ This is an blueprints library app for [Alliance Auth](https://gitlab.com/allianc
 
 ## Screenshots
 
-![main-view](https://i.imgur.com/ij5j1kL.png)
+![main-view](https://i.imgur.com/VLVPOhW.png)
 
 # Installation
 
@@ -70,3 +70,11 @@ Load EVE Online type data from ESI:
 ```bash
 python manage.py blueprints_load_types
 ```
+
+# Authors
+
+The main authors (in alphabetical order):
+
+- [Erik Kalkoken](https://gitlab.com/ErikKalkoken)
+- [Rebecca Claire Murphy](https://gitlab.com/rcmurphy), aka Myrhea
+- [Peter Pfeufer](https://gitlab.com/ppfeufer), aka Rounon Dax

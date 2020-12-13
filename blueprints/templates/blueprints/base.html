@@ -1,11 +1,15 @@
 {% extends 'allianceauth/base.html' %}
+
 {% load i18n %}
+
 {% block page_title %}
-{% translate "Blueprint Library" %}
+    {% translate "Blueprint Library" %}
 {% endblock %}
+
 {% block content %}
-<div class="col-lg-12">
-  <h1 class="page-header text-center">{% translate "Blueprint Library" %}</h1>
-  <div class="col-lg-12 container">{% block details %}{% endblock %}</div>
-</div>
+    <div class="aa-blueprints">
+        <h1 class="page-header text-center">{% translate "Blueprint Library" %}</h1>
+
+        {% block details %}{% endblock %}
+    </div>
 {% endblock %}

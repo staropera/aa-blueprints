@@ -1,0 +1,42 @@
+/* DataTables
+------------------------------------------------------------------------------------- */
+@media all {
+  .dataTables_wrapper > .form-inline {
+    margin-bottom: 1rem;
+  }
+
+  .dataTables_wrapper > .form-inline select {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .dataTables_wrapper > .form-inline select:last-child {
+    margin-right: 0;
+  }
+
+  .dataTables_length select {
+    margin: 0 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .dataTables_wrapper > .form-inline select:first-child {
+    margin-left: 1rem;
+  }
+}
+
+/* FIX: AA .tr-group
+   I really hate to use !important -.-
+   But it is what it is ...
+------------------------------------------------------------------------------------- */
+.template-light-mode .table-striped > tbody > tr.tr-group,
+.template-light-mode .tr-group {
+  font-weight: bold;
+  background-color: rgb(230, 230, 230) !important;
+}
+
+.template-dark-mode .table-striped > tbody > tr.tr-group,
+.template-dark-mode .tr-group {
+  font-weight: bold;
+  background-color: rgb(61, 61, 61) !important;
+}

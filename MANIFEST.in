@@ -5,3 +5,6 @@ recursive-include blueprints/locale *.mo
 recursive-include blueprints/static *
 recursive-include blueprints/templates *
 include blueprints/swagger.json
+
+recursive-exclude testauth *.*
+recursive-exclude blueprints/tests *.*

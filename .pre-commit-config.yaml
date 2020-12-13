@@ -15,16 +15,6 @@ repos:
     rev: "v5.6.4" # Use the revision sha / tag you want to point at
     hooks:
       - id: isort
-  - repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: "v1.5.4"
-    hooks:
-      - id: autopep8
-        args:
-          - --aggressive
-          - --max-line-length
-          - "88"
-          - --experimental
-          - -i
   - repo: https://gitlab.com/pycqa/flake8
     rev: "3.8.4"
     hooks:

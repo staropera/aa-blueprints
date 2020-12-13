@@ -1,0 +1,85 @@
+{
+  "EveCharacter": [
+    {
+      "character_id": 1001,
+      "character_name": "Bruce Wayne",
+      "corporation_id": 2001,
+      "corporation_name": "Wayne Technologies",
+      "corporation_ticker": "WYT",
+      "alliance_id": 3001,
+      "alliance_name": "Wayne Enterprises",
+      "alliance_ticker": "WYN"
+    },
+    {
+      "character_id": 1002,
+      "character_name": "Clark Kent",
+      "corporation_id": 2001,
+      "corporation_name": "Wayne Technologies",
+      "corporation_ticker": "WYT",
+      "alliance_id": 3001,
+      "alliance_name": "Wayne Enterprises",
+      "alliance_ticker": "WYN"
+    },
+    {
+      "character_id": 1003,
+      "character_name": "Peter Parker",
+      "corporation_id": 2002,
+      "corporation_name": "Wayne Food",
+      "corporation_ticker": "WYF",
+      "alliance_id": 3001,
+      "alliance_name": "Wayne Enterprises",
+      "alliance_ticker": "WYN"
+    },
+    {
+      "character_id": 1101,
+      "character_name": "Lex Luther",
+      "corporation_id": 2101,
+      "corporation_name": "Lexcorp",
+      "corporation_ticker": "LXC",
+      "alliance_id": 3101,
+      "alliance_name": "Lex Global Inc.",
+      "alliance_ticker": "LXG"
+    },
+    {
+      "character_id": 1102,
+      "character_name": "Harley Quinn",
+      "corporation_id": 2102,
+      "corporation_name": "Harley Quinn inc.",
+      "corporation_ticker": "HQ"
+    },
+    {
+      "character_id": 1103,
+      "character_name": "Floyd Lawton",
+      "corporation_id": 2103,
+      "corporation_name": "Suicide Squad",
+      "corporation_ticker": "SS"
+    }
+  ],
+  "EveEntity": [
+    {
+      "id": 3011,
+      "category": 3,
+      "name": "Big Bad Alliance"
+    },
+    {
+      "id": 2011,
+      "category": 2,
+      "name": "Bad Company"
+    },
+    {
+      "id": 1011,
+      "category": 1,
+      "name": "Bad Dude"
+    },
+    {
+      "id": 2021,
+      "category": 2,
+      "name": "Dummy Corp 1"
+    },
+    {
+      "id": 2022,
+      "category": 2,
+      "name": "Dummy Corp 2"
+    }
+  ]
+}

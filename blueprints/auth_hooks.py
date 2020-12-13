@@ -14,7 +14,7 @@ class BlueprintLibraryMenuItem(MenuItemHook):
         MenuItemHook.__init__(
             self,
             _("Blueprint Library"),
-            "fa fa-scroll fa-fw",
+            "fas fa-scroll fa-fw",
             "blueprints:index",
             navactive=["blueprints:index"],
         )

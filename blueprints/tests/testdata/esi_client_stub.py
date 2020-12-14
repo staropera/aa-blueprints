@@ -85,6 +85,12 @@ _endpoints = [
         needs_token=True,
     ),
     EsiEndpoint(
+        "Corporation",
+        "get_corporations_corporation_id_blueprints",
+        "corporation_id",
+        needs_token=True,
+    ),
+    EsiEndpoint(
         "Location",
         "get_characters_character_id_location",
         "character_id",
@@ -138,6 +144,7 @@ _endpoints = [
     ),
     EsiEndpoint("Status", "get_status"),
     EsiEndpoint("Universe", "get_universe_stations_station_id", "station_id"),
+    EsiEndpoint("Universe", "get_universe_types_type_id", "type_id"),
     EsiEndpoint(
         "Universe",
         "get_universe_structures_structure_id",

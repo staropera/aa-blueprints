@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from ..models import Location
+from ..models import Blueprint, Location
 from . import create_owner
 from .testdata.esi_client_stub import esi_client_stub
 from .testdata.load_entities import load_entities
@@ -39,3 +39,12 @@ class TestOwner(NoSocketsTestCase):
             Location.objects.get(id=1100000000001).parent,
             Location.objects.get(id=60003760),
         )
+
+    def test_update_blueprints_esi(
+        self, mock_eveuniverse_managers, mock_esi_managers, mock_esi_models
+    ):
+        mock_eveuniverse_managers.client = esi_client_stub
+        mock_esi_managers.client = esi_client_stub
+        mock_esi_models.client = esi_client_stub
+        self.owner.update_blueprints_esi()
+        self.assertEquals(Blueprint.objects.filter(eve_type_id=33519).count(), 1)

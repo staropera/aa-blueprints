@@ -8,10 +8,6 @@ from . import eveuniverse_test_data_filename
 class CreateEveUniverseTestData(TestCase):
     def test_create_testdata(self):
         testdata_spec = [
-            ModelSpec("EveAncestry", ids=[11]),
-            ModelSpec("EveBloodline", ids=[1]),
-            ModelSpec("EveFaction", ids=[500001]),
-            ModelSpec("EveRace", ids=[1]),
             ModelSpec("EveSolarSystem", ids=[30000142, 30004984, 30001161, 30002537]),
             ModelSpec(
                 "EveType",
@@ -33,6 +29,7 @@ class CreateEveUniverseTestData(TestCase):
                     19540,
                     19551,
                     19553,
+                    33519,
                 ],
                 include_children=True,
             ),

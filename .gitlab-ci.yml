@@ -38,11 +38,13 @@ test-36-django31:
   extends: .test-py36
   script:
     - tox -e py36-django31
+    - bash <(curl -s https://codecov.io/bash)
 
 test-37-django31:
   extends: .test-py37
   script:
     - tox -e py37-django31
+    - bash <(curl -s https://codecov.io/bash)
 
 test-38-django31:
   extends: .test-py38

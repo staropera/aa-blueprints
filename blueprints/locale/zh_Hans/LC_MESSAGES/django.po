@@ -8,13 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 14:03-0500\n"
+"POT-Creation-Date: 2020-12-14 14:15-0500\n"
 "PO-Revision-Date: 2020-12-07 04:19+0000\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/alliance-auth/teams/107430/zh_CN/)\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/alliance-auth/"
+"teams/107430/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: auth_hooks.py:16 templates/blueprints/base.html:6
@@ -50,23 +51,33 @@ msgstr ""
 msgid "Material Efficiency"
 msgstr ""
 
-#: templates/blueprints/index.html:31
+#. Translators: Abbreviation for "Material Efficiency"
+#: templates/blueprints/index.html:32
+msgid "ME"
+msgstr ""
+
+#: templates/blueprints/index.html:34
 msgid "Time Efficiency"
 msgstr ""
 
-#: templates/blueprints/index.html:32
+#. Translators: Abbreviation for "Time Efficiency"
+#: templates/blueprints/index.html:36
+msgid "TE"
+msgstr ""
+
+#: templates/blueprints/index.html:38
 msgid "Original"
 msgstr ""
 
-#: templates/blueprints/index.html:33
+#: templates/blueprints/index.html:39
 msgid "Runs Remaining"
 msgstr ""
 
-#: templates/blueprints/index.html:63
+#: templates/blueprints/index.html:69
 msgid "Location"
 msgstr ""
 
-#: templates/blueprints/index.html:64
+#: templates/blueprints/index.html:70
 msgid "Is BPO?"
 msgstr ""
 
@@ -80,9 +91,9 @@ msgstr ""
 #: views.py:90
 #, python-format
 msgid ""
-"%(corporation)s has been added with %(character)s as sync character. We have"
-" started fetching blueprints for this corporation. You will receive a report"
-" once the process is finished."
+"%(corporation)s has been added with %(character)s as sync character. We have "
+"started fetching blueprints for this corporation. You will receive a report "
+"once the process is finished."
 msgstr ""
 
 #: views.py:106

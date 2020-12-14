@@ -27,8 +27,14 @@
                         <th>{% translate "Type" %}</th>
                         <th><abbr title="{% translate 'Quantity' %}">{% translate "Qty" %}</abbr></th>
                         <th>{% translate "Owner" %}</th>
-                        <th>{% translate "Material Efficiency" %}</th>
-                        <th>{% translate "Time Efficiency" %}</th>
+                        <th><abbr title="{% translate 'Material Efficiency' %}">
+                            {% comment %}Translators: Abbreviation for "Material Efficiency"{% endcomment %}
+                            {% translate 'ME' %}
+                        </abbr></th>
+                        <th><abbr title="{% translate 'Time Efficiency' %}">
+                            {% comment %}Translators: Abbreviation for "Time Efficiency"{% endcomment %}
+                            {% translate 'TE' %}
+                        </abbr></th>
                         <th>{% translate "Original" %}</th>
                         <th>{% translate "Runs Remaining" %}</th>
                     </tr>

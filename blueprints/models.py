@@ -1,4 +1,3 @@
-from bravado.exception import HTTPNotFound
 from django.db import models
 
 from allianceauth.authentication.models import CharacterOwnership
@@ -106,25 +105,18 @@ class Owner(models.Model):
                     asset_locations[location_id] = [asset["item_id"]]
         for location in list(asset_locations.keys()):
             if not Location.objects.filter(id=location).count() > 0:
-                try:
-                    loc = assets_by_id[location]["location_id"]
-                    Location.objects.create(
-                        id=location,
-                        parent=Location.objects.get_or_create_esi_async(
-                            id=loc, token=token
-                        )[0],
-                        eve_type=EveType.objects.filter(
-                            id=assets_by_id[location]["type_id"]
-                        ).first(),
-                    )
-                except HTTPNotFound:
-                    pass
+                parent_location = assets_by_id[location]["location_id"]
+                Location.objects.create(
+                    id=location,
+                    parent=self._fetch_location(parent_location, token=token),
+                    eve_type=EveType.objects.filter(
+                        id=assets_by_id[location]["type_id"]
+                    ).first(),
+                )
             else:
                 parent_location = assets_by_id[location]["location_id"]
                 location_obj = Location.objects.filter(id=location).first()
-                location_obj.parent = Location.objects.get_or_create_esi_async(
-                    id=parent_location, token=token
-                )[0]
+                location_obj.parent = self._fetch_location(parent_location, token=token)
                 location_obj.save()
 
     @fetch_token_for_owner(
@@ -163,10 +155,10 @@ class Owner(models.Model):
                 if duplicate:
                     duplicated = Blueprint.objects.filter(
                         owner=self,
-                        location=Location.objects.get_or_create_esi_async(
+                        location=self._fetch_location(
                             blueprint["location_id"],
                             token=token,
-                        )[0],
+                        ),
                         location_flag=blueprint["location_flag"],
                         runs=runs,
                         eve_type=blueprint["type_id"],
@@ -178,7 +170,7 @@ class Owner(models.Model):
                 else:
                     Blueprint.objects.create(
                         owner=self,
-                        location=Location.objects.get_or_create_esi_async(
+                        location=self._fetch_location(
                             blueprint["location_id"],
                             token=token,
                         )[0],
@@ -255,6 +247,10 @@ class Owner(models.Model):
                     error = self.ERROR_TOKEN_INVALID
 
         return token, error
+
+    def _fetch_location(self, location_id, token) -> "Location":
+        logger.error(f"Fetching location {location_id}")
+        return Location.objects.get_or_create_esi_async(id=location_id, token=token)[0]
 
     def _logger_prefix(self):
         """returns standard logger prefix function"""

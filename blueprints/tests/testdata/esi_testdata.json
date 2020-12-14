@@ -1,0 +1,833 @@
+{
+  "Assets": {
+    "get_characters_character_id_assets": {
+      "1001": [
+        {
+          "is_blueprint_copy": true,
+          "is_singleton": true,
+          "item_id": 1100000000001,
+          "location_flag": "Hangar",
+          "location_id": 60003760,
+          "location_type": "station",
+          "quantity": 1,
+          "type_id": 20185
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000002,
+          "location_flag": "???",
+          "location_id": 1100000000001,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19540
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000003,
+          "location_flag": "???",
+          "location_id": 1100000000001,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 23
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000004,
+          "location_flag": "???",
+          "location_id": 1100000000003,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19553
+        },
+        {
+          "is_blueprint_copy": true,
+          "is_singleton": true,
+          "item_id": 1100000000005,
+          "location_flag": "Hangar",
+          "location_id": 1000000000001,
+          "location_type": "other",
+          "quantity": 1,
+          "type_id": 20185
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000006,
+          "location_flag": "???",
+          "location_id": 1100000000005,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19540
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000007,
+          "location_flag": "???",
+          "location_id": 30000142,
+          "location_type": "solar_system",
+          "quantity": 1,
+          "type_id": 19540
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000008,
+          "location_flag": "???",
+          "location_id": 1000000000001,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19540
+        }
+      ]
+    },
+    "post_characters_character_id_assets_names": {
+      "1001": [
+        {
+          "item_id": 1100000000001,
+          "name": "Parent Item 1"
+        },
+        {
+          "item_id": 1100000000002,
+          "name": "Leaf Item 2"
+        },
+        {
+          "item_id": 1100000000003,
+          "name": "Leaf Item 3"
+        },
+        {
+          "item_id": 1100000000004,
+          "name": "Leaf Item 4"
+        },
+        {
+          "item_id": 1100000000005,
+          "name": "Parent Item 2"
+        },
+        {
+          "item_id": 1100000000006,
+          "name": "Leaf Item 6"
+        },
+        {
+          "item_id": 1100000000007,
+          "name": "None"
+        },
+        {
+          "item_id": 1100000000008,
+          "name": "None"
+        }
+      ]
+    },
+    "get_corporations_corporation_id_assets": {
+      "2101": [
+        {
+          "is_blueprint_copy": true,
+          "is_singleton": true,
+          "item_id": 1100000000001,
+          "location_flag": "Hangar",
+          "location_id": 60003760,
+          "location_type": "station",
+          "quantity": 1,
+          "type_id": 20185
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000002,
+          "location_flag": "???",
+          "location_id": 1100000000001,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19540
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000003,
+          "location_flag": "???",
+          "location_id": 1100000000001,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 23
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000004,
+          "location_flag": "???",
+          "location_id": 1100000000003,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19553
+        },
+        {
+          "is_blueprint_copy": true,
+          "is_singleton": true,
+          "item_id": 1100000000005,
+          "location_flag": "Hangar",
+          "location_id": 1000000000001,
+          "location_type": "other",
+          "quantity": 1,
+          "type_id": 20185
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000006,
+          "location_flag": "???",
+          "location_id": 1100000000005,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19540
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000007,
+          "location_flag": "???",
+          "location_id": 30000142,
+          "location_type": "solar_system",
+          "quantity": 1,
+          "type_id": 19540
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000008,
+          "location_flag": "???",
+          "location_id": 1000000000001,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19540
+        }
+      ]
+    }
+  },
+  "Character": {
+    "get_characters_character_id": {
+      "1001": {
+        "ancestry_id": 11,
+        "birthday": "2015-03-24T11:37:00Z",
+        "bloodline_id": 1,
+        "corporation_id": 2001,
+        "description": "Scio me nihil scire",
+        "gender": "male",
+        "name": "Bruce Wayne",
+        "race_id": 1,
+        "title": "All round pretty awesome guy"
+      }
+    },
+    "get_characters_character_id_corporationhistory": {
+      "1001": [
+        {
+          "corporation_id": 2001,
+          "is_deleted": true,
+          "record_id": 500,
+          "start_date": "2016-06-26T20:00:00Z"
+        },
+        {
+          "corporation_id": 2002,
+          "record_id": 501,
+          "start_date": "2016-07-26T20:00:00Z"
+        }
+      ]
+    }
+  },
+  "Contacts": {
+    "get_characters_character_id_contacts": {
+      "1001": [
+        {
+          "contact_id": 1101,
+          "contact_type": "character",
+          "is_blocked": false,
+          "is_watched": true,
+          "standing": -10,
+          "label_ids": [2]
+        },
+        {
+          "contact_id": 2002,
+          "contact_type": "corporation",
+          "is_blocked": false,
+          "is_watched": false,
+          "standing": 5,
+          "label_ids": null
+        }
+      ]
+    },
+    "get_characters_character_id_contacts_labels": {
+      "1001": [
+        {
+          "label_id": 1,
+          "label_name": "friend"
+        },
+        {
+          "label_id": 2,
+          "label_name": "pirate"
+        }
+      ]
+    }
+  },
+  "Contracts": {
+    "get_characters_character_id_contracts": {
+      "1001": [
+        {
+          "acceptor_id": 1101,
+          "assignee_id": 2101,
+          "availability": "personal",
+          "buyout": null,
+          "collateral": 550000000.0,
+          "contract_id": 100000001,
+          "date_accepted": "2019-10-06T13:15:21Z",
+          "date_completed": "2019-10-07T13:15:21Z",
+          "date_expired": "2019-10-09T13:15:21Z",
+          "date_issued": "2019-10-02T13:15:21Z",
+          "days_to_complete": 3,
+          "end_location_id": 1000000000001,
+          "for_corporation": false,
+          "issuer_corporation_id": 2001,
+          "issuer_id": 1001,
+          "price": 0.0,
+          "reward": 500000000.0,
+          "start_location_id": 60003760,
+          "status": "in_progress",
+          "title": "Test 1",
+          "type": "courier",
+          "volume": 486000.0
+        },
+        {
+          "acceptor_id": 1101,
+          "assignee_id": 2101,
+          "availability": "personal",
+          "buyout": null,
+          "collateral": 0.0,
+          "contract_id": 100000002,
+          "date_accepted": "2019-09-13T17:23:44Z",
+          "date_completed": "2019-09-13T17:23:44Z",
+          "date_expired": "2019-10-10T23:08:38Z",
+          "date_issued": "2019-09-12T23:08:38Z",
+          "days_to_complete": 0,
+          "end_location_id": 1000000000001,
+          "for_corporation": false,
+          "issuer_corporation_id": 2001,
+          "issuer_id": 1001,
+          "price": 270000000.0,
+          "reward": 0.0,
+          "start_location_id": 1000000000001,
+          "status": "finished",
+          "title": "Test 2",
+          "type": "item_exchange",
+          "volume": 486000.0
+        },
+        {
+          "acceptor_id": null,
+          "assignee_id": null,
+          "availability": "personal",
+          "buyout": 200000000.0,
+          "collateral": null,
+          "contract_id": 100000003,
+          "date_accepted": "2019-09-13T17:23:44Z",
+          "date_completed": "2019-09-13T17:23:44Z",
+          "date_expired": "2019-10-10T23:08:38Z",
+          "date_issued": "2019-09-12T23:08:38Z",
+          "days_to_complete": 0,
+          "end_location_id": 1000000000001,
+          "for_corporation": false,
+          "issuer_corporation_id": 2001,
+          "issuer_id": 1001,
+          "price": 20000000.0,
+          "reward": 0,
+          "start_location_id": 1000000000001,
+          "status": "outstanding",
+          "title": "Test 3",
+          "type": "auction",
+          "volume": 400.0
+        }
+      ]
+    },
+    "get_characters_character_id_contracts_contract_id_bids": {
+      "1001": {
+        "100000003": [
+          {
+            "amount": 1000000.23,
+            "bid_id": 1,
+            "bidder_id": 1101,
+            "date_bid": "2017-01-01T10:10:10Z"
+          }
+        ]
+      }
+    },
+    "get_characters_character_id_contracts_contract_id_items": {
+      "1001": {
+        "100000002": [
+          {
+            "is_included": true,
+            "is_singleton": false,
+            "quantity": 3,
+            "record_id": 1,
+            "type_id": 19540
+          },
+          {
+            "is_included": true,
+            "is_singleton": false,
+            "quantity": 5,
+            "record_id": 2,
+            "raw_quantity": -1,
+            "type_id": 19551
+          }
+        ],
+        "100000003": [
+          {
+            "is_included": true,
+            "is_singleton": false,
+            "quantity": 3,
+            "record_id": 1,
+            "type_id": 19540
+          }
+        ]
+      }
+    }
+  },
+  "Clones": {
+    "get_characters_character_id_clones": {
+      "1001": {
+        "home_location": {
+          "location_id": 1000000000001,
+          "location_type": "structure"
+        },
+        "jump_clones": [
+          {
+            "implants": [19540, 19551, 19553],
+            "jump_clone_id": 12345,
+            "location_id": 60003760,
+            "location_type": "station",
+            "name": null
+          }
+        ]
+      },
+      "1002": {
+        "home_location": {
+          "location_id": 1000000000001,
+          "location_type": "structure"
+        },
+        "jump_clones": [
+          {
+            "implants": null,
+            "jump_clone_id": 12345,
+            "location_id": 60003760,
+            "location_type": "station",
+            "name": null
+          }
+        ]
+      }
+    },
+    "get_characters_character_id_implants": {
+      "1001": [19540, 19551, 19553],
+      "1002": []
+    }
+  },
+  "Location": {
+    "get_characters_character_id_location": {
+      "1001": {
+        "solar_system_id": 30000142,
+        "station_id": 60003760
+      },
+      "1002": {
+        "solar_system_id": 30002537,
+        "structure_id": 1000000000001
+      }
+    },
+    "get_characters_character_id_online": {
+      "1001": {
+        "last_login": "2017-01-02T03:04:05Z",
+        "last_logout": "2017-01-02T04:05:06Z",
+        "logins": 9001,
+        "online": true
+      }
+    }
+  },
+  "Loyalty": {
+    "get_characters_character_id_loyalty_points": {
+      "1001": [
+        {
+          "corporation_id": 2002,
+          "loyalty_points": 100
+        }
+      ]
+    }
+  },
+  "Mail": {
+    "get_characters_character_id_mail_lists": {
+      "1001": [
+        {
+          "mailing_list_id": 9001,
+          "name": "Dummy 1"
+        },
+        {
+          "mailing_list_id": 9002,
+          "name": "Dummy 2"
+        }
+      ]
+    },
+    "get_characters_character_id_mail_labels": {
+      "1001": {
+        "labels": [
+          {
+            "color": "#660066",
+            "label_id": 3,
+            "name": "PINK",
+            "unread_count": 4
+          },
+          {
+            "color": "#ffffff",
+            "label_id": 17,
+            "name": "WHITE",
+            "unread_count": 1
+          }
+        ],
+        "total_unread_count": 5
+      }
+    },
+    "get_characters_character_id_mail": {
+      "1001": [
+        {
+          "from": 1002,
+          "is_read": true,
+          "labels": [3],
+          "mail_id": 1,
+          "recipients": [
+            {
+              "recipient_id": 1001,
+              "recipient_type": "character"
+            },
+            {
+              "recipient_id": 9001,
+              "recipient_type": "mailing_list"
+            }
+          ],
+          "subject": "Mail 1",
+          "timestamp": "2015-09-30T16:07:00Z"
+        },
+        {
+          "from": 9001,
+          "labels": [3],
+          "mail_id": 2,
+          "recipients": [
+            {
+              "recipient_id": 1001,
+              "recipient_type": "character"
+            }
+          ],
+          "subject": "Mail 2",
+          "timestamp": "2015-09-30T18:07:00Z"
+        },
+        {
+          "from": 1002,
+          "labels": [3],
+          "mail_id": 3,
+          "recipients": [
+            {
+              "recipient_id": 9003,
+              "recipient_type": "mailing_list"
+            }
+          ],
+          "subject": "Unknown mailing list recipient",
+          "timestamp": "2015-09-30T18:07:00Z"
+        }
+      ],
+      "1002": [
+        {
+          "from": 9099,
+          "labels": null,
+          "mail_id": 21,
+          "recipients": [
+            {
+              "recipient_id": 1001,
+              "recipient_type": "character"
+            }
+          ],
+          "subject": "From unknown mailing list",
+          "timestamp": "2015-09-30T18:07:00Z"
+        }
+      ]
+    },
+    "get_characters_character_id_mail_mail_id": {
+      "1": {
+        "body": "blah blah blah",
+        "from": 1002,
+        "labels": [3],
+        "read": true,
+        "subject": "Mail 1",
+        "timestamp": "2015-09-30T16:07:00Z"
+      },
+      "2": {
+        "body": "<font size=\"13\" color=\"#b3ffffff\">Character: </font><font size=\"13\" color=\"#ffd98d00\"><loc><a href=\"showinfo:1376//1001\">Bruce Wayne</a></loc><br><br></font><font size=\"13\" color=\"#b3ffffff\">Corporation: </font><font size=\"13\" color=\"#ffd98d00\"><a href=\"showinfo:2//2001\">Wayne Technologies</a><br><br></font><font size=\"13\" color=\"#b3ffffff\">Alliance: </font><font size=\"13\" color=\"#ffd98d00\"><loc><a href=\"showinfo:16159//3001\">Wayne Enterprises</a></loc><br><br></font><font size=\"13\" color=\"#b3ffffff\">Solar System: </font><font size=\"13\" color=\"#ffd98d00\"><a href=\"showinfo:5//30004984\">Abune</a><br><br></font><font size=\"13\" color=\"#b3ffffff\">Structure:  </font><font size=\"13\" color=\"#ffd98d00\"><a href=\"showinfo:35834//1000000000001\">Amamake - Test Structure Alpha</a></font><font size=\"13\" color=\"#b3ffffff\"> <br><br>Station: </font><font size=\"13\" color=\"#ffd98d00\"><a href=\"showinfo:1531//60003760\">Jita IV - Moon 4 - Caldari Navy Assembly Plant</a></font><font size=\"13\" color=\"#b3ffffff\"> <br><br>Type: </font><font size=\"13\" color=\"#ffd98d00\"><loc><a href=\"showinfo:603\">Merlin</loc>n</a><br><br></font><font size=\"13\" color=\"#b3ffffff\">Killmail:  </font><font size=\"13\" color=\"#ffd98d00\"><a href=\"killReport:84900666:9e6fe9e5392ff0cfc6ab956677dbe1deb69c4b04\">Kill: Yuna Kobayashi (Badger)</a></font><font size=\"13\" color=\"#b3ffffff\"> <br><br>URL: </font><font size=\"13\" color=\"#ffffe400\"><loc><a href=\"http://www.google.com\">https://www.google.co</loc>m</a><br><br></font><font size=\"13\" color=\"#b3ffffff\">Very nice!</font>",
+        "from": 1101,
+        "labels": null,
+        "subject": "Mail 2",
+        "timestamp": "2015-09-30T18:07:00Z"
+      },
+      "3": {
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "from": 1002,
+        "labels": [3],
+        "read": true,
+        "subject": "Unknown mailing list",
+        "timestamp": "2015-09-30T16:07:00Z"
+      },
+      "21": {
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "from": 9099,
+        "labels": null,
+        "read": true,
+        "subject": "From unknown mailing list",
+        "timestamp": "2015-09-30T18:07:00Z"
+      }
+    }
+  },
+  "Market": {
+    "get_markets_prices": [
+      {
+        "adjusted_price": 306988.09,
+        "average_price": 306292.67,
+        "type_id": 603
+      },
+      {
+        "adjusted_price": 123.45,
+        "average_price": 678.9,
+        "type_id": 420
+      }
+    ]
+  },
+  "Status": {
+    "get_status": {
+      "players": 12345,
+      "server_version": "1132976",
+      "start_time": "2017-01-02T12:34:56Z",
+      "vip": null
+    }
+  },
+  "Skills": {
+    "get_characters_character_id_skills": {
+      "1001": {
+        "skills": [
+          {
+            "active_skill_level": 3,
+            "skill_id": 24311,
+            "skillpoints_in_skill": 20000,
+            "trained_skill_level": 4
+          },
+          {
+            "active_skill_level": 1,
+            "skill_id": 24312,
+            "skillpoints_in_skill": 10000,
+            "trained_skill_level": 1
+          }
+        ],
+        "total_sp": 30000,
+        "unallocated_sp": 1000
+      }
+    },
+    "get_characters_character_id_skillqueue": {
+      "1001": [
+        {
+          "finish_date": "2016-06-29T10:47:00Z",
+          "finished_level": 3,
+          "queue_position": 0,
+          "skill_id": 24311,
+          "start_date": "2016-06-29T10:46:00Z"
+        },
+        {
+          "finish_date": "2016-07-15T10:47:00Z",
+          "finished_level": 4,
+          "level_end_sp": 1000,
+          "level_start_sp": 100,
+          "queue_position": 1,
+          "skill_id": 24312,
+          "start_date": "2016-06-29T10:47:00Z",
+          "training_start_sp": 50
+        },
+        {
+          "finish_date": "2016-08-15T10:47:00Z",
+          "finished_level": 5,
+          "level_end_sp": 10000,
+          "level_start_sp": 1000,
+          "queue_position": 2,
+          "skill_id": 24312,
+          "start_date": "2016-07-15T10:47:00Z",
+          "training_start_sp": 50
+        }
+      ]
+    }
+  },
+  "Universe": {
+    "get_universe_stations_station_id": {
+      "60003760": {
+        "name": "Jita IV - Moon 4 - Caldari Navy Assembly Plant",
+        "system_id": 30000142,
+        "type_id": 52678,
+        "owner": 2002
+      }
+    },
+    "get_universe_structures_structure_id": {
+      "1000000000001": {
+        "owner_id": 2001,
+        "name": "Amamake - Test Structure Alpha",
+        "position": {
+          "x": 55028384780.0,
+          "y": 7310316270.0,
+          "z": -163686684205.0
+        },
+        "solar_system_id": 30002537,
+        "type_id": 35832
+      },
+      "1000000000002": {
+        "owner_id": 2001,
+        "name": "Amamake - Test Structure Bravo",
+        "position": {
+          "x": -2518743930339.066,
+          "y": -130157937025.56424,
+          "z": -442026427345.6355
+        },
+        "solar_system_id": 30002537,
+        "type_id": 35835
+      }
+    },
+    "get_universe_systems_system_id": {
+      "30000142": {
+        "constellation_id": 20000020,
+        "name": "Jita",
+        "planets": [
+          {
+            "planet_id": 40009077
+          },
+          {
+            "planet_id": 40009078
+          },
+          {
+            "moons": [40009081],
+            "planet_id": 40009080
+          },
+          {
+            "moons": [
+              40009083,
+              40009084,
+              40009085,
+              40009087,
+              40009088,
+              40009089,
+              40009090,
+              40009091,
+              40009092,
+              40009093,
+              40009094,
+              40009097
+            ],
+            "planet_id": 40009082
+          },
+          {
+            "moons": [
+              40009099,
+              40009100,
+              40009101,
+              40009102,
+              40009103,
+              40009104,
+              40009105,
+              40009106,
+              40009107,
+              40009108,
+              40009109,
+              40009110,
+              40009111,
+              40009112,
+              40009113,
+              40009114,
+              40009115
+            ],
+            "planet_id": 40009098
+          },
+          {
+            "moons": [40009118],
+            "planet_id": 40009116
+          },
+          {
+            "moons": [40009121, 40009122],
+            "planet_id": 40009119
+          },
+          {
+            "planet_id": 40009123
+          }
+        ],
+        "position": {
+          "x": -129064861734878260,
+          "y": 60755306909963630,
+          "z": 117469227060090290
+        },
+        "security_class": "B",
+        "security_status": 0.9459131360054016,
+        "star_id": 40009076,
+        "stargates": [
+          50001248,
+          50001249,
+          50001250,
+          50013876,
+          50013913,
+          50013921,
+          50013928
+        ],
+        "stations": [
+          60000361,
+          60000364,
+          60000451,
+          60000463,
+          60002953,
+          60002959,
+          60003055,
+          60003460,
+          60003463,
+          60003466,
+          60003469,
+          60003757,
+          60003760,
+          60004423
+        ],
+        "system_id": 30000142
+      }
+    }
+  },
+  "Wallet": {
+    "get_characters_character_id_wallet": {
+      "1001": 123456789
+    },
+    "get_characters_character_id_wallet_journal": {
+      "1001": [
+        {
+          "amount": -100000,
+          "balance": 500000.4316,
+          "context_id": 4,
+          "context_id_type": "contract_id",
+          "date": "2018-02-23T14:31:32Z",
+          "description": "Contract Deposit",
+          "first_party_id": 2001,
+          "id": 89,
+          "ref_type": "contract_deposit",
+          "second_party_id": 2002
+        },
+        {
+          "amount": -500000,
+          "balance": 600000.4316,
+          "context_id": null,
+          "context_id_type": null,
+          "date": "2018-02-23T16:31:32Z",
+          "description": "Dank mission reward",
+          "first_party_id": 2101,
+          "id": 91,
+          "ref_type": "agent_mission_time_bonus_reward_corporation_tax",
+          "second_party_id": 2001
+        }
+      ]
+    }
+  }
+}

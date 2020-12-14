@@ -173,7 +173,7 @@ class Owner(models.Model):
                         location=self._fetch_location(
                             blueprint["location_id"],
                             token=token,
-                        )[0],
+                        ),
                         location_flag=blueprint["location_flag"],
                         eve_type=EveType.objects.get_or_create_esi(
                             id=blueprint["type_id"]

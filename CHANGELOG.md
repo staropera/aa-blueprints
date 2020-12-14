@@ -5,11 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 0.1.0 - 2020-12-13
+## 0.1.0b4 - 2020-12-14
 
 ### Added
 
 - Quantity field to blueprint table
+
+### Changed
+
+- Abbreviated material / time efficiency headings to allow for more compact table layout
 
 ## 0.1.0b3 - 2020-12-13
 

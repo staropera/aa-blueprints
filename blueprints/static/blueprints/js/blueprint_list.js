@@ -18,6 +18,7 @@ $(document).ready(function () {
         columns: [
             { data: "type_icon" },
             { data: "type" },
+            { data: "quantity" },
             { data: "owner" },
             { data: "material_efficiency" },
             { data: "time_efficiency" },
@@ -39,27 +40,27 @@ $(document).ready(function () {
         pageLength: dataTablesPageLength,
 
         columnDefs: [
-            { sortable: false, targets: [0] },
-            { visible: false, targets: [7, 8] },
+            { sortable: false, targets: [0, 2] },
+            { visible: false, targets: [8, 9] },
         ],
 
         order: [
-            [7, "asc"],
+            [8, "asc"],
             [1, "asc"],
         ],
 
         filterDropDown: {
             columns: [
                 {
-                    idx: 7,
+                    idx: 8,
                     title:
                         blueprintsDataTableSettings.translation.filterLocation,
                 },
-                { idx: 2 },
                 { idx: 3 },
                 { idx: 4 },
+                { idx: 5 },
                 {
-                    idx: 8,
+                    idx: 9,
                     title:
                         blueprintsDataTableSettings.translation
                             .filterIsOriginal,
@@ -74,14 +75,14 @@ $(document).ready(function () {
             var rows = api.rows({ page: "current" }).nodes();
             var last = null;
 
-            api.column(7, { page: "current" })
+            api.column(8, { page: "current" })
                 .data()
                 .each(function (group, i) {
                     if (last !== group) {
                         $(rows)
                             .eq(i)
                             .before(
-                                '<tr class="tr-group"><td colspan="7">' +
+                                '<tr class="tr-group"><td colspan="8">' +
                                     group +
                                     "</td></tr>"
                             );

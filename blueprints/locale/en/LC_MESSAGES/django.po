@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-12 20:16+0100\n"
+"POT-Creation-Date: 2020-12-14 14:03-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,30 +36,38 @@ msgid "Type"
 msgstr ""
 
 #: templates/blueprints/index.html:28
-msgid "Owner"
+msgid "Quantity"
+msgstr ""
+
+#: templates/blueprints/index.html:28
+msgid "Qty"
 msgstr ""
 
 #: templates/blueprints/index.html:29
-msgid "Material Efficiency"
+msgid "Owner"
 msgstr ""
 
 #: templates/blueprints/index.html:30
-msgid "Time Efficiency"
+msgid "Material Efficiency"
 msgstr ""
 
 #: templates/blueprints/index.html:31
-msgid "Original"
+msgid "Time Efficiency"
 msgstr ""
 
 #: templates/blueprints/index.html:32
+msgid "Original"
+msgstr ""
+
+#: templates/blueprints/index.html:33
 msgid "Runs Remaining"
 msgstr ""
 
-#: templates/blueprints/index.html:62
+#: templates/blueprints/index.html:63
 msgid "Location"
 msgstr ""
 
-#: templates/blueprints/index.html:63
+#: templates/blueprints/index.html:64
 msgid "Is BPO?"
 msgstr ""
 

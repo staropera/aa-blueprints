@@ -132,6 +132,7 @@ def convert_blueprint(blueprint) -> dict:
     )
     return {
         "type_icon": icon,
+        "quantity": blueprint.quantity,
         "type": blueprint.eve_type.name,
         "location": blueprint.location.name_plus,
         "material_efficiency": blueprint.material_efficiency,

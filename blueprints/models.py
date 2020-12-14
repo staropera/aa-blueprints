@@ -249,7 +249,6 @@ class Owner(models.Model):
         return token, error
 
     def _fetch_location(self, location_id, token) -> "Location":
-        logger.error(f"Fetching location {location_id}")
         return Location.objects.get_or_create_esi_async(id=location_id, token=token)[0]
 
     def _logger_prefix(self):

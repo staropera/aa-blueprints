@@ -2,6 +2,7 @@ import datetime as dt
 from typing import Tuple
 
 from bravado.exception import HTTPForbidden, HTTPUnauthorized
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
 
@@ -225,3 +226,32 @@ class LocationManager(models.Manager):
                 "owner": owner,
             },
         )
+
+
+class RequestManager(models.Manager):
+    def requests_fulfillable_by_user(self, user: User) -> list:
+        corporation_ids = {
+            character.character.corporation_id
+            for character in user.character_ownerships.all()
+        }
+
+        request_query = self.filter(
+            requestee_corporation__corporation_id__in=corporation_ids,
+            closed_at=None,
+            status="OP",
+        )
+        return request_query
+
+    def requests_being_fulfilled_by_user(self, user: User) -> list:
+        corporation_ids = {
+            character.character.corporation_id
+            for character in user.character_ownerships.all()
+        }
+
+        request_query = self.filter(
+            requestee_corporation__corporation_id__in=corporation_ids,
+            closed_at=None,
+            status="IP",
+            fulfulling_user=user,
+        )
+        return request_query

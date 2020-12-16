@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Blueprint, Location
+from .models import Blueprint, Location, Request
 
 # Register your models here.
 
@@ -82,3 +82,27 @@ class LocationAdmin(admin.ModelAdmin):
 
     def has_change_permission(self, request, obj=None):
         return False
+
+
+@admin.register(Request)
+class RequestAdmin(admin.ModelAdmin):
+    list_display = ("_type", "_requestor", "_requestee", "_fulfilled_by")
+
+    list_select_related = ("eve_type", "requesting_user")
+    search_fields = ["eve_type__name"]
+
+    def _type(self, obj):
+        return obj.eve_type.name if obj.eve_type else None
+
+    def _requestor(self, obj):
+        return obj.requesting_user.profile.main_character.character_name
+
+    def _requestee(self, obj):
+        return obj.requestee_corporation.corporation_name
+
+    def _fulfilled_by(self, obj):
+        return (
+            obj.fulfulling_user.profile.main_character.character_name
+            if obj.fulfulling_user
+            else None
+        )

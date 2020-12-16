@@ -5,12 +5,26 @@
 {% load static %}
 
 {% block details %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">{% translate "Blueprints" %}</h3>
-        </div>
+<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#tab-library" data-toggle="tab">{% translate "Library" %}</a>
+        </li>
+        {% if perms.blueprints.request_blueprints %}
+        <li>
+            <a href="#tab-user-requests" data-toggle="tab">{% translate "My Requests" %}</a>
+        </li>
+        {% endif %}
+        {% if perms.blueprints.manage_requests %}
+        <li>
+            <a href="#tab-open-requests" data-toggle="tab">{% translate "Open Requests" %}</a>
+        </li>
+        {% endif %}
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab-library">
 
-        <div class="panel-body">
+
             <div class="pull-right">
                 {% if perms.blueprints.add_blueprint_owner %}
                     <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_blueprint_owner' %}">
@@ -18,9 +32,7 @@
                     </a>
                 {% endif %}
             </div>
-
-            <!-- Main structure table -->
-            <table id="tab_blueprints" style="width: 100%" class="table table-striped table-compact">
+            <table id="table-blueprints" style="width: 100%" class="table table-striped table-compact">
                 <thead>
                     <tr>
                         <th></th>
@@ -37,11 +49,48 @@
                         </abbr></th>
                         <th>{% translate "Original" %}</th>
                         <th>{% translate "Runs Remaining" %}</th>
+                        <th></th>
                     </tr>
                 </thead>
             </table>
+
+        </div>
+            {% if perms.blueprints.request_blueprints %}
+                <div class="tab-pane" id="tab-user-requests">
+                    <table id="table-user-requests" style="width: 100%" class="table table-striped table-compact">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>{% translate "Type" %}</th>
+                                <th>{% translate "Runs" %}</th>
+                                <th>{% translate "Requested From" %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                {% endif %}
+                {% if perms.blueprints.manage_requests %}
+                <div class="tab-pane" id="tab-open-requests">
+                    <table id="table-open-requests" style="width: 100%" class="table table-striped table-compact">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>{% translate "Type" %}</th>
+                                <th>{% translate "Runs" %}</th>
+                                <th>{% translate "Requestor" %}</th>
+                                <th>{% translate "Requested From" %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            {% endif %}
         </div>
     </div>
+
+    {% include 'blueprints/modals/create_request.html' %}
+    {% include 'blueprints/modals/view_request.html' %}
 {% endblock %}
 
 {% block extra_css %}
@@ -56,13 +105,22 @@
     <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}" ></script>
 
     <script type="application/javascript">
-        let listDataUrl = '{% url "blueprints:list_data" %}';
+        let listDataUrl = '{% url "blueprints:list_blueprints" %}';
         {% if active_tags %}
             listDataUrl += '?tags={{ active_tags|join:"," }}'
         {% endif %}
 
         let blueprintsDataTableSettings = {
-            listDataurl: listDataUrl,
+            listDataUrl: listDataUrl,
+            openRequestListUrl: '{% url "blueprints:list_open_requests" %}',
+            userRequestListUrl: '{% url "blueprints:list_user_requests" %}',
+            inProgressRequestUrl: '{% url "blueprints:request_in_progress" %}',
+            cancelRequestUrl:'{% url "blueprints:request_cancelled" %}',
+            createRequestUrl: '{% url "blueprints:create_request" %}',
+            createRequestModalUrl: '{% url "blueprints:create_request_modal" %}',
+            viewRequestModalUrl: '{% url "blueprints:view_request_modal" %}',
+            fulfillRequestUrl: '{% url "blueprints:request_fulfilled" %}',
+            csrfToken: '{% csrf_token %}',
             dataTablesPageLength: {{ data_tables_page_length }},
             dataTablesPaging: {{ data_tables_paging|yesno:"true,false" }},
             translation: {
@@ -70,8 +128,22 @@
                 filterIsOriginal: '{% translate "Is BPO?" %}'
             }
         };
+
+        $('#modalCreateRequestContainer').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget)
+                var ajax_url = button.data('ajax_url');
+                $("#modalCreateRequestContent").load(ajax_url)
+            });
+
+        $('#modalViewRequestContainer').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var ajax_url = button.data('ajax_url');
+            $("#modalViewRequestContent").load(ajax_url)
+        });
     </script>
     <script type="application/javascript" src="{% static 'blueprints/js/blueprint_list.js' %}" ></script>
+    <script type="application/javascript" src="{% static 'blueprints/js/user_request_list.js' %}" ></script>
+    <script type="application/javascript" src="{% static 'blueprints/js/open_request_list.js' %}" ></script>
 {% endblock %}
 
 {% block extra_script %}

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 from allianceauth.authentication.models import CharacterOwnership
@@ -11,9 +12,10 @@ from eveuniverse.models import EveEntity, EveSolarSystem, EveType
 from . import __title__
 from .constants import EVE_LOCATION_FLAGS
 from .decorators import fetch_token_for_owner
-from .managers import LocationManager
+from .managers import LocationManager, RequestManager
 from .providers import esi
 from .utils import LoggerAddTag, make_logger_prefix
+from .validators import validate_material_efficiency, validate_time_efficiency
 
 NAMES_MAX_LENGTH = 100
 
@@ -28,6 +30,8 @@ class Blueprints(models.Model):
         default_permissions = ()
         permissions = (
             ("basic_access", "Can access this app"),
+            ("request_blueprints", "Can request blueprints"),
+            ("manage_requests", "Can review and accept blueprint requests"),
             ("add_blueprint_owner", "Can add blueprint owners"),
             ("view_alliance_blueprints", "Can view alliance's blueprints"),
         )
@@ -304,10 +308,12 @@ class Blueprint(models.Model):
         help_text="Runs remaining or null if the blueprint is an original",
     )
     material_efficiency = models.PositiveIntegerField(
-        help_text="Material efficiency of the blueprint"
+        help_text="Material efficiency of the blueprint",
+        validators=[validate_material_efficiency],
     )
     time_efficiency = models.PositiveIntegerField(
-        help_text="Time efficiency of the blueprint"
+        help_text="Time efficiency of the blueprint",
+        validators=[validate_time_efficiency],
     )
 
     def __str__(self):
@@ -430,3 +436,84 @@ class Location(models.Model):
     @classmethod
     def is_structure_id(cls, location_id: int) -> bool:
         return location_id >= cls._STRUCTURE_ID_START
+
+
+class Request(models.Model):
+    class Meta:
+        default_permissions = ()
+
+    objects = RequestManager()
+    eve_type = models.ForeignKey(
+        EveType,
+        on_delete=models.CASCADE,
+        related_name="+",
+    )
+    requesting_user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="+",
+        help_text="The requesting user",
+    )
+    requestee_corporation = models.ForeignKey(
+        EveCorporationInfo,
+        on_delete=models.CASCADE,
+        help_text="Corporation owning the requested blueprint",
+        related_name="+",
+    )
+    fulfulling_user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="+",
+        help_text="The user that fulfilled the request, if it has been fulfilled",
+    )
+    location = models.ForeignKey(
+        "Location",
+        on_delete=models.CASCADE,
+        help_text="Location of the blueprint requested",
+    )
+    material_efficiency = models.PositiveIntegerField(
+        help_text="Material efficiency of the blueprint requested",
+        validators=[validate_material_efficiency],
+    )
+    time_efficiency = models.PositiveIntegerField(
+        help_text="Time efficiency of the blueprint requested",
+        validators=[validate_time_efficiency],
+    )
+    runs = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        help_text="Runs requested or blank for maximum allowed",
+    )
+    STATUS_OPEN = "OP"
+    STATUS_IN_PROGRESS = "IP"
+    STATUS_FULFILLED = "FL"
+    STATUS_CANCELLED = "CL"
+
+    STATUS_CHOICES = [
+        (STATUS_OPEN, "Open"),
+        (STATUS_IN_PROGRESS, "In Progress"),
+        (STATUS_FULFILLED, "Fulfilled"),
+        (STATUS_CANCELLED, "Cancelled"),
+    ]
+    status = models.CharField(
+        help_text="Status of the blueprint request",
+        choices=STATUS_CHOICES,
+        max_length=2,
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    closed_at = models.DateTimeField(blank=True, null=True, db_index=True)
+
+    def __str__(self) -> str:
+        return f"{self.requesting_user.profile.main_character.character_name}'s request for {self.eve_type.name}"
+
+    def __repr__(self) -> str:
+        return "{}(id={}, requesting_user='{}', type_name='{}')".format(
+            self.__class__.__name__,
+            self.pk,
+            self.requesting_user.profile.main_character.character_name,
+            self.eve_type.name,
+        )

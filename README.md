@@ -9,10 +9,25 @@ This is an blueprints library app for [Alliance Auth](https://gitlab.com/allianc
 ## Features
 
 - Lists blueprints owned by corporation or alliance (configurable with permissions)
+- Collects requests for blueprint copies
 
 ## Screenshots
 
-![main-view](https://i.imgur.com/VLVPOhW.png)
+### Library
+
+![library](https://i.imgur.com/sJJjnUd.png)
+
+### Create a Request
+
+![create-request](https://i.imgur.com/NqsSsNJ.png)
+
+### My Requests
+
+![my-requests](https://i.imgur.com/tB1O2Bv.png)
+
+### Open Requests
+
+![open-requests](https://i.imgur.com/X4mVb6P.png)
 
 # Installation
 

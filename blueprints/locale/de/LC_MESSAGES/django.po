@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 14:15-0500\n"
+"POT-Creation-Date: 2020-12-17 00:24-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,77 +18,137 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: auth_hooks.py:16 templates/blueprints/base.html:6
+#: auth_hooks.py:17 templates/blueprints/base.html:6
 #: templates/blueprints/base.html:11
 msgid "Blueprint Library"
 msgstr ""
 
-#: templates/blueprints/index.html:10
-msgid "Blueprints"
+#: templates/blueprints/index.html:11
+msgid "Library"
 msgstr ""
 
-#: templates/blueprints/index.html:17
+#: templates/blueprints/index.html:15
+msgid "My Requests"
+msgstr ""
+
+#: templates/blueprints/index.html:20
+msgid "Open Requests"
+msgstr ""
+
+#: templates/blueprints/index.html:31
 msgid "Add Blueprint Owner"
 msgstr ""
 
-#: templates/blueprints/index.html:27
+#: templates/blueprints/index.html:39 templates/blueprints/index.html:64
+#: templates/blueprints/index.html:79
 msgid "Type"
 msgstr ""
 
-#: templates/blueprints/index.html:28
+#: templates/blueprints/index.html:40
 msgid "Quantity"
 msgstr ""
 
-#: templates/blueprints/index.html:28
+#: templates/blueprints/index.html:40
 msgid "Qty"
 msgstr ""
 
-#: templates/blueprints/index.html:29
+#: templates/blueprints/index.html:41
 msgid "Owner"
 msgstr ""
 
-#: templates/blueprints/index.html:30
+#: templates/blueprints/index.html:42
+#: templates/blueprints/modals/create_request_content.html:27
+#: templates/blueprints/modals/view_request_content.html:25
 msgid "Material Efficiency"
 msgstr ""
 
 #. Translators: Abbreviation for "Material Efficiency"
-#: templates/blueprints/index.html:32
+#: templates/blueprints/index.html:44
 msgid "ME"
 msgstr ""
 
-#: templates/blueprints/index.html:34
+#: templates/blueprints/index.html:46
+#: templates/blueprints/modals/create_request_content.html:31
+#: templates/blueprints/modals/view_request_content.html:29
 msgid "Time Efficiency"
 msgstr ""
 
 #. Translators: Abbreviation for "Time Efficiency"
-#: templates/blueprints/index.html:36
+#: templates/blueprints/index.html:48
 msgid "TE"
 msgstr ""
 
-#: templates/blueprints/index.html:38
+#: templates/blueprints/index.html:50
 msgid "Original"
 msgstr ""
 
-#: templates/blueprints/index.html:39
+#: templates/blueprints/index.html:51
 msgid "Runs Remaining"
 msgstr ""
 
-#: templates/blueprints/index.html:69
+#: templates/blueprints/index.html:65 templates/blueprints/index.html:80
+#: templates/blueprints/modals/view_request_content.html:33
+msgid "Runs"
+msgstr ""
+
+#: templates/blueprints/index.html:66 templates/blueprints/index.html:82
+msgid "Requested From"
+msgstr ""
+
+#: templates/blueprints/index.html:81
+msgid "Requestor"
+msgstr ""
+
+#: templates/blueprints/index.html:127
 msgid "Location"
 msgstr ""
 
-#: templates/blueprints/index.html:70
+#: templates/blueprints/index.html:128
 msgid "Is BPO?"
 msgstr ""
 
-#: views.py:57
+#: templates/blueprints/modals/create_request.html:13
+#: templates/blueprints/modals/view_request.html:13
+msgid "Loading..."
+msgstr ""
+
+#: templates/blueprints/modals/create_request_content.html:10
+#: templates/blueprints/modals/create_request_content.html:45
+msgid "Create Request"
+msgstr ""
+
+#: templates/blueprints/modals/create_request_content.html:19
+#: templates/blueprints/modals/view_request_content.html:17
+msgid "Blueprint Type"
+msgstr ""
+
+#: templates/blueprints/modals/create_request_content.html:23
+#: templates/blueprints/modals/view_request_content.html:21
+msgid "Blueprint Location"
+msgstr ""
+
+#: templates/blueprints/modals/view_request_content.html:10
+msgid "View Request"
+msgstr ""
+
+#: validators.py:8
+#, python-format
+msgid "%(value)s is not a valid material efficiency"
+msgstr ""
+
+#: validators.py:16
+#, python-format
+msgid "%(value)s is not a valid time efficiency"
+msgstr ""
+
+#: views.py:60
 #, python-format
 msgid ""
 "You can only use your main or alt characters to add corporations. However, "
 "character %s is neither. "
 msgstr ""
 
-#: views.py:90
+#: views.py:93
 #, python-format
 msgid ""
 "%(corporation)s has been added with %(character)s as sync character. We have "
@@ -96,15 +156,70 @@ msgid ""
 "once the process is finished."
 msgstr ""
 
-#: views.py:106
+#: views.py:109
 #, python-format
 msgid "%(corporation)s was added as new blueprint owner by %(user)s."
 msgstr ""
 
-#: views.py:129
+#: views.py:132
 msgid "Yes"
 msgstr ""
 
-#: views.py:131
+#: views.py:134
 msgid "No"
+msgstr ""
+
+#: views.py:221
+#, python-format
+msgid "A copy of %(blueprint)s has been requested."
+msgstr ""
+
+#: views.py:308
+#, python-format
+msgid "The request for %(blueprint)s has been deleted."
+msgstr ""
+
+#: views.py:316
+#, python-format
+msgid "Deleting the request for %(blueprint)s has failed."
+msgstr ""
+
+#: views.py:358
+#, python-format
+msgid "The request for %(blueprint)s has been closed as fulfilled."
+msgstr ""
+
+#: views.py:367
+#, python-format
+msgid "Fulfilling the request for %(blueprint)s has failed."
+msgstr ""
+
+#: views.py:386
+#, python-format
+msgid "The request for %(blueprint)s has been marked as in progress."
+msgstr ""
+
+#: views.py:396
+#, python-format
+msgid "Marking the request for %(blueprint)s as in progress has failed."
+msgstr ""
+
+#: views.py:413
+#, python-format
+msgid "The request for %(blueprint)s has been re-opened."
+msgstr ""
+
+#: views.py:421
+#, python-format
+msgid "Re-opening the request for %(blueprint)s has failed."
+msgstr ""
+
+#: views.py:440
+#, python-format
+msgid "The request for %(blueprint)s has been closed as cancelled."
+msgstr ""
+
+#: views.py:449
+#, python-format
+msgid "Cancelling the request for %(blueprint)s has failed."
 msgstr ""

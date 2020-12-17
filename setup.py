@@ -44,5 +44,7 @@ setup(
         "allianceauth>=2.8.0",
         "django-esi>=2.0.4",
         "django-eveuniverse>=0.6.1",
+        "celery>=4.4.7",
+        "celery-once>=3.0.1",
     ],
 )

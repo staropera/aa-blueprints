@@ -4,8 +4,8 @@ This is an blueprints library app for [Alliance Auth](https://gitlab.com/allianc
 
 ![release](https://img.shields.io/pypi/v/aa-blueprints?label=release)
 ![License](https://img.shields.io/badge/license-GPL-green)
-[![python](https://img.shields.io/pypi/pyversions/aa-blueprints)](https://pypi.org/project/aa-blueprints/)
-[![django](https://img.shields.io/pypi/djversions/aa-blueprints?label=django)](https://pypi.org/project/aa-blueprints/)
+![python](https://img.shields.io/pypi/pyversions/aa-blueprints)
+![django](https://img.shields.io/pypi/djversions/aa-blueprints?label=django)
 ![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 

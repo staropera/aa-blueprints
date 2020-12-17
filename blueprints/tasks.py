@@ -40,12 +40,14 @@ TASK_ESI_KWARGS = {
 
 
 @shared_task(
-    **{**TASK_ESI_KWARGS},
     **{
-        "base": QueueOnce,
-        "once": {"keys": ["owner_pk"], "graceful": True},
-        "max_retries": None,
-    },
+        **TASK_ESI_KWARGS,
+        **{
+            "base": QueueOnce,
+            "once": {"keys": ["owner_pk"], "graceful": True},
+            "max_retries": None,
+        },
+    }
 )
 def update_blueprints_for_owner(self, owner_pk):
     """fetches all blueprints for owner from ESI"""
@@ -53,12 +55,14 @@ def update_blueprints_for_owner(self, owner_pk):
 
 
 @shared_task(
-    **{**TASK_ESI_KWARGS},
     **{
-        "base": QueueOnce,
-        "once": {"keys": ["owner_pk"], "graceful": True},
-        "max_retries": None,
-    },
+        **TASK_ESI_KWARGS,
+        **{
+            "base": QueueOnce,
+            "once": {"keys": ["owner_pk"], "graceful": True},
+            "max_retries": None,
+        },
+    }
 )
 def update_locations_for_owner(self, owner_pk):
     """fetches all blueprints for owner from ESI"""
@@ -84,12 +88,14 @@ def update_all_locations():
 
 
 @shared_task(
-    **{**TASK_ESI_KWARGS},
     **{
-        "base": QueueOnce,
-        "once": {"keys": ["id"], "graceful": True},
-        "max_retries": None,
-    },
+        **TASK_ESI_KWARGS,
+        **{
+            "base": QueueOnce,
+            "once": {"keys": ["id"], "graceful": True},
+            "max_retries": None,
+        },
+    }
 )
 def update_structure_esi(self, id: int, token_pk: int):
     """Updates a structure object from ESI

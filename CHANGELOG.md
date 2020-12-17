@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Ability to request blueprint copies
 
+### Fixed
+
+- Added dependency on recent versions of celery to avoid issues with tasks
+
 ## 0.1.1 - 2020-12-14
 
 ### Fixed

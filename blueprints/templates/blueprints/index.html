@@ -128,6 +128,7 @@
             viewRequestModalUrl: '{% url "blueprints:view_request_modal" %}',
             fulfillRequestUrl: '{% url "blueprints:request_fulfilled" %}',
             csrfToken: '{% csrf_token %}',
+            canAddBlueprints: {% if perms.blueprints.request_blueprints %} true {% else %} false {% endif %},
             dataTablesPageLength: {{ data_tables_page_length }},
             dataTablesPaging: {{ data_tables_paging|yesno:"true,false" }},
             translation: {

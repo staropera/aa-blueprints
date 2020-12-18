@@ -10,6 +10,7 @@ $(document).ready(function () {
     var dataTablesPageLength = blueprintsDataTableSettings.dataTablesPageLength;
     var dataTablesPaging = blueprintsDataTableSettings.dataTablesPaging;
     var csrfToken = blueprintsDataTableSettings.csrfToken;
+    var canAddBlueprints = blueprintsDataTableSettings.canAddBlueprints;
     /* dataTable def */
     $("#table-blueprints").DataTable({
         ajax: {
@@ -51,7 +52,7 @@ $(document).ready(function () {
             {
                 render: function (data, type, row) {
                     if (type === "display") {
-                        if (row["original"] != "") {
+                        if (row["original"] != "" && canAddBlueprints) {
                             return (
                                 '<button class="btn btn-success" data-toggle="modal" data-target="#modalCreateRequestContainer" data-ajax_url="' +
                                 createRequestModalUrl +
@@ -67,7 +68,7 @@ $(document).ready(function () {
                     return data;
                 },
                 targets: [8],
-            },
+            }
         ],
 
         order: [

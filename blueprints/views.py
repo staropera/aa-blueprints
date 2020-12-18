@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
@@ -8,6 +8,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy
 from django.views.decorators.http import require_POST
 
+from allianceauth.authentication.decorators import permissions_required
 from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from esi.decorators import token_required
@@ -24,7 +25,7 @@ from .utils import messages_plus, notify_admins
 
 
 @login_required
-@permission_required("blueprints.basic_access")
+@permissions_required("blueprints.basic_access")
 def index(request):
 
     context = {
@@ -36,7 +37,7 @@ def index(request):
 
 
 @login_required
-@permission_required("blueprints.add_blueprint_owner")
+@permissions_required("blueprints.add_blueprint_owner")
 @token_required(
     scopes=[
         "esi-universe.read_structures.v1",
@@ -150,7 +151,7 @@ def convert_blueprint(blueprint) -> dict:
 
 
 @login_required
-@permission_required("blueprints.basic_access")
+@permissions_required("blueprints.basic_access")
 def list_blueprints(request):
 
     blueprint_rows = list()
@@ -181,7 +182,7 @@ def list_blueprints(request):
 
 
 @login_required
-@permission_required("blueprints.request_blueprints")
+@permissions_required("blueprints.request_blueprints")
 def create_request_modal(request):
     blueprint = Blueprint.objects.get(pk=request.GET.get("blueprint_id"))
     context = {"blueprint": convert_blueprint(blueprint)}
@@ -189,7 +190,7 @@ def create_request_modal(request):
 
 
 @login_required
-@permission_required(("blueprints.request_blueprints", "blueprints.manage_requests"))
+@permissions_required(("blueprints.request_blueprints", "blueprints.manage_requests"))
 def view_request_modal(request):
     user_request = Request.objects.get(pk=request.GET.get("request_id"))
     context = {"request": convert_request(user_request)}
@@ -197,7 +198,7 @@ def view_request_modal(request):
 
 
 @login_required
-@permission_required("blueprints.request_blueprints")
+@permissions_required("blueprints.request_blueprints")
 def create_request(request):
     if request.method == "POST":
         requested = Blueprint.objects.get(pk=request.POST.get("blueprint_id"))
@@ -249,7 +250,7 @@ def convert_request(request: Request) -> dict:
 
 
 @login_required
-@permission_required("blueprints.request_blueprints")
+@permissions_required("blueprints.request_blueprints")
 def list_user_requests(request):
 
     request_rows = list()
@@ -262,7 +263,7 @@ def list_user_requests(request):
 
 
 @login_required
-@permission_required("blueprints.manage_requests")
+@permissions_required("blueprints.manage_requests")
 def list_open_requests(request):
 
     request_rows = list()
@@ -301,7 +302,7 @@ def mark_request(request, status, fulfilling_user, closed):
 
 
 @login_required
-@permission_required("blueprints.manage_requests")
+@permissions_required("blueprints.manage_requests")
 @require_POST
 def mark_request_fulfilled(request):
     user_request, completed = mark_request(
@@ -329,7 +330,7 @@ def mark_request_fulfilled(request):
 
 
 @login_required
-@permission_required("blueprints.manage_requests")
+@permissions_required("blueprints.manage_requests")
 @require_POST
 def mark_request_in_progress(request):
     user_request, completed = mark_request(
@@ -359,7 +360,7 @@ def mark_request_in_progress(request):
 
 
 @login_required
-@permission_required("blueprints.manage_requests")
+@permissions_required("blueprints.manage_requests")
 @require_POST
 def mark_request_open(request):
     user_request, completed = mark_request(request, Request.STATUS_OPEN, None, False)
@@ -383,7 +384,7 @@ def mark_request_open(request):
 
 
 @login_required
-@permission_required(["blueprints.basic_access", "blueprints.manage_requests"])
+@permissions_required(["blueprints.basic_access", "blueprints.manage_requests"])
 @require_POST
 def mark_request_cancelled(request):
     user_request, completed = mark_request(

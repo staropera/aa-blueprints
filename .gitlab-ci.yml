@@ -75,6 +75,3 @@ deploy-pypi:
 
   only:
     - tags
-include:
-  - template: Dependency-Scanning.gitlab-ci.yml
-  - template: Security/SAST.gitlab-ci.yml

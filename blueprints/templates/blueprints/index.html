@@ -5,85 +5,91 @@
 {% load static %}
 
 {% block details %}
-<div>
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#tab-library" data-toggle="tab">{% translate "Library" %}</a>
-        </li>
-        {% if perms.blueprints.request_blueprints %}
-        <li>
-            <a href="#tab-user-requests" data-toggle="tab">{% translate "My Requests" %}</a>
-        </li>
-        {% endif %}
-        {% if perms.blueprints.manage_requests %}
-        <li>
-            <a href="#tab-open-requests" data-toggle="tab">{% translate "Open Requests" %}</a>
-        </li>
-        {% endif %}
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane active" id="tab-library">
-
-
-            <div class="pull-right">
-                {% if perms.blueprints.add_blueprint_owner %}
-                    <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_blueprint_owner' %}">
-                        {% translate "Add Blueprint Owner" %}
-                    </a>
-                {% endif %}
-            </div>
-            <table id="table-blueprints" style="width: 100%" class="table table-striped table-compact">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>{% translate "Type" %}</th>
-                        <th><abbr title="{% translate 'Quantity' %}">{% translate "Qty" %}</abbr></th>
-                        <th>{% translate "Owner" %}</th>
-                        <th><abbr title="{% translate 'Material Efficiency' %}">
-                            {% comment %}Translators: Abbreviation for "Material Efficiency"{% endcomment %}
-                            {% translate 'ME' %}
-                        </abbr></th>
-                        <th><abbr title="{% translate 'Time Efficiency' %}">
-                            {% comment %}Translators: Abbreviation for "Time Efficiency"{% endcomment %}
-                            {% translate 'TE' %}
-                        </abbr></th>
-                        <th>{% translate "Original" %}</th>
-                        <th>{% translate "Runs Remaining" %}</th>
-                        <th></th>
-                    </tr>
-                </thead>
-            </table>
-
-        </div>
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+                <a href="#tab-library" data-toggle="tab">{% translate "Library" %}</a>
+            </li>
             {% if perms.blueprints.request_blueprints %}
-                <div class="tab-pane" id="tab-user-requests">
-                    <table id="table-user-requests" style="width: 100%" class="table table-striped table-compact">
+            <li>
+                <a href="#tab-user-requests" data-toggle="tab">{% translate "My Requests" %}</a>
+            </li>
+            {% endif %}
+            {% if perms.blueprints.manage_requests %}
+            <li>
+                <a href="#tab-open-requests" data-toggle="tab">{% translate "Open Requests" %}</a>
+            </li>
+            {% endif %}
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active panel panel-default" id="tab-library">
+                <div class="panel-body">
+                    <div class="pull-right">
+                        {% if perms.blueprints.add_blueprint_owner %}
+                            <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_blueprint_owner' %}">
+                                {% translate "Add Blueprint Owner" %}
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <table id="table-blueprints" style="width: 100%" class="table table-striped">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th>{% translate "Type" %}</th>
-                                <th>{% translate "Runs" %}</th>
-                                <th>{% translate "Requested From" %}</th>
+                                <th><abbr title="{% translate 'Quantity' %}">{% translate "Qty" %}</abbr></th>
+                                <th>{% translate "Owner" %}</th>
+                                <th><abbr title="{% translate 'Material Efficiency' %}">
+                                    {% comment %}Translators: Abbreviation for "Material Efficiency"{% endcomment %}
+                                    {% translate 'ME' %}
+                                </abbr></th>
+                                <th><abbr title="{% translate 'Time Efficiency' %}">
+                                    {% comment %}Translators: Abbreviation for "Time Efficiency"{% endcomment %}
+                                    {% translate 'TE' %}
+                                </abbr></th>
+                                <th>{% translate "Original" %}</th>
+                                <th>{% translate "Runs Remaining" %}</th>
                                 <th></th>
                             </tr>
                         </thead>
                     </table>
                 </div>
-                {% endif %}
-                {% if perms.blueprints.manage_requests %}
-                <div class="tab-pane" id="tab-open-requests">
-                    <table id="table-open-requests" style="width: 100%" class="table table-striped table-compact">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>{% translate "Type" %}</th>
-                                <th>{% translate "Runs" %}</th>
-                                <th>{% translate "Requestor" %}</th>
-                                <th>{% translate "Requested From" %}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                    </table>
+            </div>
+
+            {% if perms.blueprints.request_blueprints %}
+                <div class="tab-pane panel panel-default" id="tab-user-requests">
+                    <div class="panel-body">
+                        <table id="table-user-requests" style="width: 100%" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>{% translate "Type" %}</th>
+                                    <th>{% translate "Runs" %}</th>
+                                    <th>{% translate "Requested From" %}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if perms.blueprints.manage_requests %}
+                <div class="tab-pane panel panel-default" id="tab-open-requests">
+                    <div class="panel-body">
+                        <table id="table-open-requests" style="width: 100%" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>{% translate "Type" %}</th>
+                                    <th>{% translate "Runs" %}</th>
+                                    <th>{% translate "Requestor" %}</th>
+                                    <th>{% translate "Requested From" %}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             {% endif %}
         </div>

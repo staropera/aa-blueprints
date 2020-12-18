@@ -65,21 +65,15 @@ $(document).ready(function () {
                                 data +
                                 '" aria-label="Request Info"><span class="fas fa-info-circle"></span></button>';
                             buttons +=
-                                '<form class="inline" method="post" action="' +
-                                cancelRequestUrl +
-                                '">' +
+                                '<form class="inline" method="post" action="' + cancelRequestUrl + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' +
-                                data +
-                                '" /><button type="submit" class="btn btn-danger" aria-label="Cancel Request"><span class="fas fa-trash"></span></button></form>';
+                                '<input type="hidden" name="request_id" value="' + data + '" />' +
+                                '<button type="submit" class="btn btn-danger" aria-label="Cancel Request"><span class="fas fa-trash"></span></button></form>';
                             buttons +=
-                                '<form class="inline" method="post" action="' +
-                                inProgressRequestUrl +
-                                '">' +
+                                '<form class="inline" method="post" action="' + inProgressRequestUrl + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' +
-                                data +
-                                '" /><button type="submit" class="btn btn-info" aria-label="Claim Request"><span class="fas fa-clipboard-check"></span></button></form>';
+                                '<input type="hidden" name="request_id" value="' + data + '" />' +
+                                '<button type="submit" class="btn btn-info" aria-label="Claim Request"><span class="fas fa-clipboard-check"></span></button></form>';
                             return buttons;
                         } else if (row["status"] == "IP") {
                             var buttons =
@@ -89,29 +83,20 @@ $(document).ready(function () {
                                 data +
                                 '" aria-label="Request Info"><span class="fas fa-info-circle"></span></button>';
                             buttons +=
-                                '<form class="inline" method="post" action="' +
-                                openRequestUrl +
-                                '">' +
+                                '<form class="inline" method="post" action="' + openRequestUrl + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' +
-                                data +
-                                '" /><button type="submit" class="btn btn-warning" aria-label="Re-Open Request"><span class="fas fa-undo"></span></button></form>';
+                                '<input type="hidden" name="request_id" value="' + data + '" />' +
+                                '<button type="submit" class="btn btn-warning" aria-label="Re-Open Request"><span class="fas fa-undo"></span></button></form>';
                             buttons +=
-                                '<form class="inline" method="post" action="' +
-                                cancelRequestUrl +
-                                '">' +
+                                '<form class="inline" method="post" action="' + cancelRequestUrl + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' +
-                                data +
-                                '" /><button type="submit" class="btn btn-danger" aria-label="Cancel Request"><span class="fas fa-trash"></span></button></form>';
+                                '<input type="hidden" name="request_id" value="' + data + '" />' +
+                                '<button type="submit" class="btn btn-danger" aria-label="Cancel Request"><span class="fas fa-trash"></span></button></form>';
                             buttons +=
-                                '<form class="inline" method="post" action="' +
-                                fulfillRequestUrl +
-                                '">' +
+                                '<form class="inline" method="post" action="' +fulfillRequestUrl +'">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' +
-                                data +
-                                '" /><button type="submit" class="btn btn-success" aria-label="Fulfill Request"><span class="fas fa-clipboard-check"></span></button></form>';
+                                '<input type="hidden" name="request_id" value="' + data + '" />' +
+                                '<button type="submit" class="btn btn-success" aria-label="Fulfill Request"><span class="fas fa-clipboard-check"></span></button></form>';
                             return buttons;
                         } else {
                             return "";

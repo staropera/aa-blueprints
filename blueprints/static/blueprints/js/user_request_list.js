@@ -66,7 +66,8 @@ $(document).ready(function () {
                             csrfToken +
                             '<input type="hidden" name="request_id" value="' +
                             data +
-                            '" /><button type="submit" class="btn btn-danger"><span class="fas fa-trash"></span> </form> ';
+                            '" />' +
+                            '<button type="submit" class="btn btn-danger"><span class="fas fa-trash"></span> </form> ';
                         return buttons;
                     }
 
@@ -91,11 +92,7 @@ $(document).ready(function () {
                     if (last !== group) {
                         $(rows)
                             .eq(i)
-                            .before(
-                                '<tr class="tr-group"><td colspan="5">' +
-                                    group +
-                                    "</td></tr>"
-                            );
+                            .before('<tr class="tr-group"><td colspan="5">' + group + "</td></tr>");
 
                         last = group;
                     }

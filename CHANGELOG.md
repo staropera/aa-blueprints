@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 0.2.1 - 2020-12-18
 
-
 ### Fixed
 
 - Ability to see blueprint request button without permissions

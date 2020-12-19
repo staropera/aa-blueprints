@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Blueprint, Location, Request
+from .models import Blueprint, Location, Owner, Request
 
 # Register your models here.
 
@@ -84,6 +84,17 @@ class LocationAdmin(admin.ModelAdmin):
         return False
 
 
+@admin.register(Owner)
+class OwnerAdmin(admin.ModelAdmin):
+    list_display = ("character", "_type", "corporation", "is_active")
+
+    def has_add_permission(self, request):
+        return False
+
+    def _type(self, obj):
+        return "Corporate" if obj.corporation else "Personal"
+
+
 @admin.register(Request)
 class RequestAdmin(admin.ModelAdmin):
     list_display = ("_type", "_owner", "_owner", "_fulfilled_by")
@@ -106,3 +117,6 @@ class RequestAdmin(admin.ModelAdmin):
             if obj.fulfulling_user
             else None
         )
+
+    def has_add_permission(self, request):
+        return False

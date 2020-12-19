@@ -97,14 +97,20 @@ class Owner(models.Model):
         else:
             return self.character.character.character_name
 
-    @fetch_token_for_owner(
-        ["esi-universe.read_structures.v1", "esi-assets.read_corporation_assets.v1"]
-    )
-    def update_locations_esi(self, token):
+    def update_locations_esi(self):
         if self.corporation:
             assets = self._fetch_corporate_assets()
+            token = self.token(
+                [
+                    "esi-universe.read_structures.v1",
+                    "esi-assets.read_corporation_assets.v1",
+                ]
+            )
         else:
             assets = self._fetch_personal_assets()
+            token = self.token(
+                ["esi-universe.read_structures.v1", "esi-assets.read_assets.v1"]
+            )
 
         asset_ids = []
         asset_locations = {}
@@ -135,10 +141,7 @@ class Owner(models.Model):
                 location_obj.parent = self._fetch_location(parent_location, token=token)
                 location_obj.save()
 
-    @fetch_token_for_owner(
-        ["esi-universe.read_structures.v1", "esi-corporations.read_blueprints.v1"]
-    )
-    def update_blueprints_esi(self, token):
+    def update_blueprints_esi(self):
         """updates all blueprints from ESI"""
 
         if self.is_active:
@@ -147,8 +150,21 @@ class Owner(models.Model):
             )
             if self.corporation:
                 blueprints = self._fetch_corporate_blueprints()
+                token = self.token(
+                    [
+                        "esi-universe.read_structures.v1",
+                        "esi-corporations.read_blueprints.v1",
+                    ]
+                )
             else:
                 blueprints = self._fetch_personal_blueprints()
+                token = self.token(
+                    [
+                        "esi-universe.read_structures.v1",
+                        "esi-characters.read_blueprints.v1",
+                    ]
+                )
+
             for blueprint in blueprints:
                 runs = blueprint["runs"]
                 if runs < 1:

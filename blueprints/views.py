@@ -182,13 +182,13 @@ def add_personal_blueprint_owner(request, token):
         if BLUEPRINTS_ADMIN_NOTIFICATIONS_ENABLED:
             notify_admins(
                 message=gettext_lazy(
-                    "%(user)s was added as a new personal blueprint owner."
+                    "%(character)s was added as a new personal blueprint owner."
                 )
                 % {
-                    "user": request.user.username,
+                    "character": owner.character.character.character_name,
                 },
                 title="{}: blueprint owner added: {}".format(
-                    __title__, request.user.username
+                    __title__, owner.character.character.character_name
                 ),
             )
     return redirect("blueprints:index")

@@ -19,24 +19,6 @@ class TestFetchToken(TestCase):
     def setUp(self) -> None:
         self.owner = create_owner(character_id=1101, corporation_id=2101)
 
-    def test_defaults(self):
-        @fetch_token_for_owner()
-        def dummy(owner, token):
-            self.assertIsInstance(token, Token)
-            self.assertSetEqual(
-                scope_names_set(token),
-                set(
-                    (
-                        "esi-universe.read_structures.v1",
-                        "esi-corporations.read_blueprints.v1",
-                        "esi-assets.read_corporation_assets.v1",
-                        "esi-assets.read_assets.v1",
-                    )
-                ),
-            )
-
-        dummy(self.owner)
-
     def test_specified_scope(self):
         @fetch_token_for_owner("esi-corporations.read_blueprints.v1")
         def dummy(owner, token):

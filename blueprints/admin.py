@@ -88,11 +88,11 @@ class LocationAdmin(admin.ModelAdmin):
 class RequestAdmin(admin.ModelAdmin):
     list_display = ("_type", "_owner", "_owner", "_fulfilled_by")
 
-    list_select_related = ("eve_type", "requesting_user")
-    search_fields = ["eve_type__name"]
+    list_select_related = ("blueprint", "requesting_user")
+    search_fields = ["blueprint__eve_type__name"]
 
     def _type(self, obj):
-        return obj.eve_type.name if obj.eve_type else None
+        return obj.blueprint.eve_type.name if obj.blueprint.eve_type else None
 
     def _requestor(self, obj):
         return obj.requesting_user.profile.main_character.character_name

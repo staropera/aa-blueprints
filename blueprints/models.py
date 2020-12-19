@@ -244,9 +244,24 @@ class Owner(models.Model):
             error = self.ERROR_NO_CHARACTER
 
         # abort if character does not have sufficient permissions
-        elif not self.character.user.has_perm("blueprints.add_blueprint_owner"):
+        elif self.corporation and not self.character.user.has_perm(
+            "blueprints.add_corporate_blueprint_owner"
+        ):
             logger.error(
-                add_prefix("self character does not have sufficient permission to sync")
+                add_prefix(
+                    "This character does not have sufficient permission to sync corporations"
+                )
+            )
+            error = self.ERROR_INSUFFICIENT_PERMISSIONS
+
+        # abort if character does not have sufficient permissions
+        elif not self.character.user.has_perm(
+            "blueprints.add_personal_blueprint_owner"
+        ):
+            logger.error(
+                add_prefix(
+                    "This character does not have sufficient permission to sync personal blueprints"
+                )
             )
             error = self.ERROR_INSUFFICIENT_PERMISSIONS
 

@@ -26,7 +26,7 @@ $(document).ready(function () {
                 className: "right-column",
                 data: "quantity",
             },
-            { data: "owner" },
+            { data: "owner_name" },
             { data: "material_efficiency" },
             { data: "time_efficiency" },
             { data: "original" },
@@ -68,6 +68,22 @@ $(document).ready(function () {
                     return data;
                 },
                 targets: [8],
+            },
+            {
+                render: function (data, type, row) {
+                    if (type === "display") {
+                        if (row["owner_type"] == "corporation") {
+                            return '<span class="fas fa-briefcase"></span> ' + data;
+                        } else if (row["owner_type"] == "character") {
+                            return '<span class="fas fa-user"></span> ' + data;
+                        } else {
+                            return "";
+                        }
+                    }
+
+                    return data;
+                },
+                targets: [3],
             }
         ],
 

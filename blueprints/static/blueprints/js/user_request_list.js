@@ -21,7 +21,7 @@ $(document).ready(function () {
             { data: "type_icon" },
             { data: "type_name" },
             { data: "runs" },
-            { data: "requestee" },
+            { data: "owner_name" },
             {
                 className: "right-column",
                 data: "request_id",
@@ -32,6 +32,9 @@ $(document).ready(function () {
             },
             {
                 data: "status_display",
+            },
+            {
+                data: "owner_type",
             },
         ],
 
@@ -46,7 +49,7 @@ $(document).ready(function () {
 
         columnDefs: [
             { sortable: false, targets: [0, 4] },
-            { visible: false, targets: [5, 6] },
+            { visible: false, targets: [5, 6, 7] },
             {
                 // The `data` parameter refers to the data for the cell (defined by the
                 // `data` option, which defaults to the column being worked with, in
@@ -75,6 +78,22 @@ $(document).ready(function () {
                 },
                 targets: [4],
             },
+            {
+                render: function (data, type, row) {
+                    if (type === "display") {
+                        if (row["owner_type"] == "corporation") {
+                            return '<span class="fas fa-briefcase"></span> ' + data;
+                        } else if (row["owner_type"] == "character") {
+                            return '<span class="fas fa-user"></span> ' + data;
+                        } else {
+                            return "";
+                        }
+                    }
+
+                    return data;
+                },
+                targets: [3],
+            }
         ],
 
         order: [

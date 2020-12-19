@@ -10,7 +10,16 @@ urlpatterns = [
         "modals/create_request", views.create_request_modal, name="create_request_modal"
     ),
     path("modals/view_request", views.view_request_modal, name="view_request_modal"),
-    path("owner/add", views.add_blueprint_owner, name="add_blueprint_owner"),
+    path(
+        "owner/add/character",
+        views.add_personal_blueprint_owner,
+        name="add_personal_blueprint_owner",
+    ),
+    path(
+        "owner/add/corporation",
+        views.add_corporate_blueprint_owner,
+        name="add_corporate_blueprint_owner",
+    ),
     path("blueprints", views.list_blueprints, name="list_blueprints"),
     path("requests/user", views.list_user_requests, name="list_user_requests"),
     path("requests/open", views.list_open_requests, name="list_open_requests"),

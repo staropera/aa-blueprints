@@ -236,7 +236,7 @@ class RequestManager(models.Manager):
         }
 
         request_query = self.filter(
-            requestee_corporation__corporation_id__in=corporation_ids,
+            blueprint__owner__corporation__corporation_id__in=corporation_ids,
             closed_at=None,
             status="OP",
         )
@@ -249,7 +249,7 @@ class RequestManager(models.Manager):
         }
 
         request_query = self.filter(
-            requestee_corporation__corporation_id__in=corporation_ids,
+            blueprint__owner__corporation__corporation_id__in=corporation_ids,
             closed_at=None,
             status="IP",
             fulfulling_user=user,

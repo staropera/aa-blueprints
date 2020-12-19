@@ -26,8 +26,13 @@
                 <div class="panel-body">
                     <div class="pull-right">
                         {% if perms.blueprints.add_blueprint_owner %}
-                            <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_blueprint_owner' %}">
-                                {% translate "Add Blueprint Owner" %}
+                            <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_personal_blueprint_owner' %}">
+                                {% translate "Add My Blueprints" %}
+                            </a>
+                        {% endif %}
+                        {% if perms.blueprints.add_corporate_blueprint_owner %}
+                            <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_corporate_blueprint_owner' %}">
+                                {% translate "Add Corporation Blueprints" %}
                             </a>
                         {% endif %}
                     </div>

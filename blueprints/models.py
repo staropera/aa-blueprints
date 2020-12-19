@@ -22,7 +22,7 @@ NAMES_MAX_LENGTH = 100
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
-class Blueprints(models.Model):
+class General(models.Model):
     """Meta model for app permissions"""
 
     class Meta:
@@ -32,16 +32,14 @@ class Blueprints(models.Model):
             ("basic_access", "Can access this app"),
             ("request_blueprints", "Can request blueprints"),
             ("manage_requests", "Can review and accept blueprint requests"),
-            ("add_blueprint_owner", "Can add blueprint owners"),
+            ("add_personal_blueprint_owner", "Can add personal blueprint owners"),
+            ("add_corporate_blueprint_owner", "Can add corporate blueprint owners"),
             ("view_alliance_blueprints", "Can view alliance's blueprints"),
         )
 
 
 class Owner(models.Model):
     """A corporation that owns blueprints"""
-
-    class Meta:
-        default_permissions = ()
 
     ERROR_NONE = 0
     ERROR_TOKEN_INVALID = 1
@@ -68,9 +66,11 @@ class Owner(models.Model):
 
     corporation = models.OneToOneField(
         EveCorporationInfo,
-        primary_key=True,
+        default=None,
+        null=True,
+        blank=True,
         on_delete=models.CASCADE,
-        help_text="Corporation owning blueprints",
+        help_text="Corporation owning blueprints, if this is a 'corporate' owner",
         related_name="+",
     )
     character = models.ForeignKey(
@@ -87,12 +87,24 @@ class Owner(models.Model):
         help_text=("whether this owner is currently included in the sync process"),
     )
 
+    class Meta:
+        default_permissions = ()
+
+    @property
+    def name(self) -> str:
+        if self.corporation:
+            return self.corporation.corporation_name
+        else:
+            return self.character.character.character_name
+
     @fetch_token_for_owner(
         ["esi-universe.read_structures.v1", "esi-assets.read_corporation_assets.v1"]
     )
     def update_locations_esi(self, token):
-
-        assets = self._fetch_assets()
+        if self.corporation:
+            assets = self._fetch_corporate_assets()
+        else:
+            assets = self._fetch_personal_assets()
 
         asset_ids = []
         asset_locations = {}
@@ -130,12 +142,13 @@ class Owner(models.Model):
         """updates all blueprints from ESI"""
 
         if self.is_active:
-
-            blueprints = self._fetch_blueprints()
-
-            stored_blueprints = []
-            item_ids = []
-            Blueprint.objects.filter(owner=self).delete()
+            blueprint_ids_to_remove = list(
+                Blueprint.objects.filter(owner=self).values_list("item_id", flat=True)
+            )
+            if self.corporation:
+                blueprints = self._fetch_corporate_blueprints()
+            else:
+                blueprints = self._fetch_personal_blueprints()
             for blueprint in blueprints:
                 runs = blueprint["runs"]
                 if runs < 1:
@@ -143,34 +156,25 @@ class Owner(models.Model):
                 quantity = blueprint["quantity"]
                 if quantity < 0:
                     quantity = 1
-                duplicate = False
-                for stored in stored_blueprints:
-                    if (
-                        stored["type_id"] == blueprint["type_id"]
-                        and stored["runs"] == blueprint["runs"]
-                        and stored["material_efficiency"]
-                        == blueprint["material_efficiency"]
-                        and stored["time_efficiency"] == blueprint["time_efficiency"]
-                        and stored["location_id"] == blueprint["location_id"]
-                        and stored["location_flag"] == blueprint["location_flag"]
-                    ):
-                        duplicate = True
-                        break
-                if duplicate:
-                    duplicated = Blueprint.objects.filter(
-                        owner=self,
-                        location=self._fetch_location(
-                            blueprint["location_id"],
-                            token=token,
-                        ),
-                        location_flag=blueprint["location_flag"],
-                        runs=runs,
-                        eve_type=blueprint["type_id"],
-                        material_efficiency=blueprint["material_efficiency"],
-                        time_efficiency=blueprint["time_efficiency"],
-                    ).first()
-                    duplicated.quantity += quantity
-                    duplicated.save()
+                original = Blueprint.objects.filter(
+                    owner=self, item_id=blueprint["item_id"]
+                ).first()
+                if original is not None:
+                    # We've seen this blueprint coming from ESI, so we know it shouldn't be deleted
+                    blueprint_ids_to_remove.remove(original.item_id)
+                    original.location = self._fetch_location(
+                        blueprint["location_id"],
+                        token=token,
+                    )
+                    original.location_flag = blueprint["location_flag"]
+                    original.eve_type = EveType.objects.get_or_create_esi(
+                        id=blueprint["type_id"]
+                    )[0]
+                    original.runs = runs
+                    original.material_efficiency = blueprint["material_efficiency"]
+                    original.time_efficiency = blueprint["time_efficiency"]
+                    original.quantity = quantity
+                    original.save()
                 else:
                     Blueprint.objects.create(
                         owner=self,
@@ -182,29 +186,48 @@ class Owner(models.Model):
                         eve_type=EveType.objects.get_or_create_esi(
                             id=blueprint["type_id"]
                         )[0],
+                        item_id=blueprint["item_id"],
                         runs=runs,
                         material_efficiency=blueprint["material_efficiency"],
                         time_efficiency=blueprint["time_efficiency"],
                         quantity=quantity,
                     )
-                    stored_blueprints.append(blueprint)
-                    item_ids.append(blueprint["item_id"])
+            Blueprint.objects.filter(pk__in=blueprint_ids_to_remove).delete()
 
     @fetch_token_for_owner(["esi-assets.read_corporation_assets.v1"])
-    def _fetch_assets(self, token) -> list:
+    def _fetch_corporate_assets(self, token) -> list:
         return esi.client.Assets.get_corporations_corporation_id_assets(
             corporation_id=self.corporation.corporation_id,
             token=token.valid_access_token(),
         ).results()
 
+    @fetch_token_for_owner(["esi-assets.read_assets.v1"])
+    def _fetch_personal_assets(self, token) -> list:
+        return esi.client.Assets.get_characters_character_id_assets(
+            character_id=self.character.character.character_id,
+            token=token.valid_access_token(),
+        ).results()
+
     @fetch_token_for_owner(["esi-corporations.read_blueprints.v1"])
-    def _fetch_blueprints(self, token) -> list:
+    def _fetch_corporate_blueprints(self, token) -> list:
         """fetch Blueprints from ESI for self"""
 
         corporation_id = self.corporation.corporation_id
 
         blueprints = esi.client.Corporation.get_corporations_corporation_id_blueprints(
             corporation_id=corporation_id,
+            token=token.valid_access_token(),
+        ).results()
+        return blueprints
+
+    @fetch_token_for_owner(["esi-characters.read_blueprints.v1"])
+    def _fetch_personal_blueprints(self, token) -> list:
+        """fetch Blueprints from ESI for self"""
+
+        character_id = self.character.character.character_id
+
+        blueprints = esi.client.Character.get_characters_character_id_blueprints(
+            character_id=character_id,
             token=token.valid_access_token(),
         ).results()
         return blueprints
@@ -257,30 +280,23 @@ class Owner(models.Model):
 
     def _logger_prefix(self):
         """returns standard logger prefix function"""
-        return make_logger_prefix(self.corporation.corporation_ticker)
+        if self.corporation:
+            return make_logger_prefix(self.corporation.corporation_ticker)
+        else:
+            return make_logger_prefix(self.character.character.character_name)
 
     def __str__(self):
-        return self.corporation.corporation_name
+        if self.corporation:
+            return self.corporation.corporation_name
+        else:
+            return self.character.character.character_name
 
 
 class Blueprint(models.Model):
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                name="unique_blueprints",
-                fields=[
-                    "owner",
-                    "location",
-                    "location_flag",
-                    "eve_type",
-                    "runs",
-                    "material_efficiency",
-                    "time_efficiency",
-                ],
-            ),
-        ]
-        default_permissions = ()
 
+    item_id = models.PositiveBigIntegerField(
+        primary_key=True, help_text="The EVE Item ID of the blueprint"
+    )
     owner = models.ForeignKey(
         Owner,
         on_delete=models.CASCADE,
@@ -315,6 +331,9 @@ class Blueprint(models.Model):
         help_text="Time efficiency of the blueprint",
         validators=[validate_time_efficiency],
     )
+
+    class Meta:
+        default_permissions = ()
 
     def __str__(self):
         return (
@@ -385,7 +404,7 @@ class Location(models.Model):
         default_permissions = ()
 
     def __str__(self) -> str:
-        return self.name_plus
+        return self.name_plus + " [id=" + self.id + "]"
 
     def __repr__(self) -> str:
         return "{}(id={}, name='{}')".format(
@@ -439,26 +458,17 @@ class Location(models.Model):
 
 
 class Request(models.Model):
-    class Meta:
-        default_permissions = ()
 
     objects = RequestManager()
-    eve_type = models.ForeignKey(
-        EveType,
+    blueprint = models.ForeignKey(
+        Blueprint,
         on_delete=models.CASCADE,
-        related_name="+",
     )
     requesting_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="+",
         help_text="The requesting user",
-    )
-    requestee_corporation = models.ForeignKey(
-        EveCorporationInfo,
-        on_delete=models.CASCADE,
-        help_text="Corporation owning the requested blueprint",
-        related_name="+",
     )
     fulfulling_user = models.ForeignKey(
         User,
@@ -467,19 +477,6 @@ class Request(models.Model):
         null=True,
         related_name="+",
         help_text="The user that fulfilled the request, if it has been fulfilled",
-    )
-    location = models.ForeignKey(
-        "Location",
-        on_delete=models.CASCADE,
-        help_text="Location of the blueprint requested",
-    )
-    material_efficiency = models.PositiveIntegerField(
-        help_text="Material efficiency of the blueprint requested",
-        validators=[validate_material_efficiency],
-    )
-    time_efficiency = models.PositiveIntegerField(
-        help_text="Time efficiency of the blueprint requested",
-        validators=[validate_time_efficiency],
     )
     runs = models.PositiveIntegerField(
         blank=True,
@@ -506,6 +503,9 @@ class Request(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     closed_at = models.DateTimeField(blank=True, null=True, db_index=True)
+
+    class Meta:
+        default_permissions = ()
 
     def __str__(self) -> str:
         return f"{self.requesting_user.profile.main_character.character_name}'s request for {self.eve_type.name}"

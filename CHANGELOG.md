@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.0.0 - 2020-12-18
+
+### Added
+
+- Ability to add personal blueprints
+
+### Changed
+
+- Reworked object model for better flexibility and performance
+
 ## 0.2.1 - 2020-12-18
 
 ### Changed

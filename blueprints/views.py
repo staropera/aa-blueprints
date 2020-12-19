@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.utils.html import format_html
@@ -45,7 +46,7 @@ def index(request):
         "esi-assets.read_corporation_assets.v1",
     ]
 )
-def add_blueprint_owner(request, token):
+def add_corporate_blueprint_owner(request, token):
     token_char = EveCharacter.objects.get(character_id=token.character_id)
 
     success = True
@@ -120,6 +121,79 @@ def add_blueprint_owner(request, token):
     return redirect("blueprints:index")
 
 
+@login_required
+@permissions_required("blueprints.add_personal_blueprint_owner")
+@token_required(
+    scopes=[
+        "esi-universe.read_structures.v1",
+        "esi-characters.read_blueprints.v1",
+        "esi-assets.read_assets.v1",
+    ]
+)
+def add_personal_blueprint_owner(request, token):
+    token_char = EveCharacter.objects.get(character_id=token.character_id)
+
+    success = True
+    try:
+        owned_char = CharacterOwnership.objects.get(
+            user=request.user, character=token_char
+        )
+    except CharacterOwnership.DoesNotExist:
+        messages_plus.error(
+            request,
+            format_html(
+                gettext_lazy(
+                    "You can only use your main or alt characters "
+                    "to add corporations. "
+                    "However, character %s is neither. "
+                )
+                % format_html("<strong>{}</strong>", token_char.character_name)
+            ),
+        )
+        success = False
+        owned_char = None
+
+    if success:
+
+        with transaction.atomic():
+            owner, _ = Owner.objects.update_or_create(
+                corporation=None, character=owned_char
+            )
+
+            owner.save()
+
+        tasks.update_blueprints_for_owner.delay(owner_pk=owner.pk)
+        tasks.update_locations_for_owner.delay(owner_pk=owner.pk)
+        messages_plus.info(
+            request,
+            format_html(
+                gettext_lazy(
+                    "%(character)s has been added. We have started fetching blueprints "
+                    "for this character. You will receive a report once "
+                    "the process is finished."
+                )
+                % {
+                    "character": format_html(
+                        "<strong>{}</strong>", owner.character.character.character_name
+                    ),
+                }
+            ),
+        )
+        if BLUEPRINTS_ADMIN_NOTIFICATIONS_ENABLED:
+            notify_admins(
+                message=gettext_lazy(
+                    "%(user)s was added as a new personal blueprint owner."
+                )
+                % {
+                    "user": request.user.username,
+                },
+                title="{}: blueprint owner added: {}".format(
+                    __title__, request.user.username
+                ),
+            )
+    return redirect("blueprints:index")
+
+
 def convert_blueprint(blueprint) -> dict:
     icon = format_html(
         '<img src="{}" width="{}" height="{}"/>',
@@ -134,7 +208,10 @@ def convert_blueprint(blueprint) -> dict:
         if not blueprint.runs or blueprint.runs == -1
         else gettext_lazy("No")
     )
-
+    if blueprint.owner.corporation:
+        owner_type = "corporation"
+    else:
+        owner_type = "character"
     return {
         "type_icon": icon,
         "quantity": blueprint.quantity,
@@ -146,7 +223,8 @@ def convert_blueprint(blueprint) -> dict:
         "original": original,
         "filter_is_original": filter_is_original,
         "runs": runs,
-        "owner": blueprint.owner.corporation.corporation_name,
+        "owner_name": blueprint.owner.name,
+        "owner_type": owner_type,
     }
 
 
@@ -171,8 +249,13 @@ def list_blueprints(request):
 
         corporations = list(set(corporations))
 
+    personal_owner_ids = list()
+    for owner in Owner.objects.filter(corporation=None):
+        if owner.character.character.corporation_id in corporation_ids:
+            personal_owner_ids.append(owner.pk)
+
     blueprints_query = Blueprint.objects.filter(
-        owner__corporation__in=corporations
+        Q(owner__corporation__in=corporations) | Q(owner__pk__in=personal_owner_ids)
     ).select_related()
 
     for blueprint in blueprints_query:
@@ -207,13 +290,9 @@ def create_request(request):
             runs = None
         user = request.user
         Request.objects.create(
-            eve_type=requested.eve_type,
-            requestee_corporation=requested.owner.corporation,
+            blueprint=requested,
             requesting_user=user,
             status=Request.STATUS_OPEN,
-            location=requested.location,
-            material_efficiency=requested.material_efficiency,
-            time_efficiency=requested.time_efficiency,
             runs=runs,
         )
         messages_plus.info(
@@ -229,20 +308,25 @@ def create_request(request):
 def convert_request(request: Request) -> dict:
     icon = format_html(
         '<img src="{}" width="{}" height="{}"/>',
-        request.eve_type.icon_url(size=64, is_blueprint=True),
+        request.blueprint.eve_type.icon_url(size=64, is_blueprint=True),
         BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
         BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
     )
 
+    if request.blueprint.owner.corporation:
+        owner_type = "corporation"
+    else:
+        owner_type = "character"
     return {
         "request_id": request.pk,
         "type_icon": icon,
-        "type_name": request.eve_type.name,
-        "requestee": request.requestee_corporation.corporation_name,
+        "type_name": request.blueprint.eve_type.name,
+        "owner_name": request.blueprint.owner.name,
+        "owner_type": owner_type,
         "requestor": request.requesting_user.profile.main_character.character_name,
-        "location": request.location.name_plus,
-        "material_efficiency": request.material_efficiency,
-        "time_efficiency": request.time_efficiency,
+        "location": request.blueprint.location.name_plus,
+        "material_efficiency": request.blueprint.material_efficiency,
+        "time_efficiency": request.blueprint.time_efficiency,
         "runs": request.runs if request.runs else "",
         "status": request.status,
         "status_display": request.get_status_display(),

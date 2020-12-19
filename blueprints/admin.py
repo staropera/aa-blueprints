@@ -22,7 +22,7 @@ class BlueprintAdmin(admin.ModelAdmin):
         return obj.eve_type.name if obj.eve_type else None
 
     def _owner(self, obj):
-        return obj.owner.corporation.corporation_name
+        return obj.owner.name
 
     def _original(self, obj):
         return "No" if obj.runs and obj.runs > 0 else "Yes"
@@ -86,7 +86,7 @@ class LocationAdmin(admin.ModelAdmin):
 
 @admin.register(Request)
 class RequestAdmin(admin.ModelAdmin):
-    list_display = ("_type", "_requestor", "_requestee", "_fulfilled_by")
+    list_display = ("_type", "_owner", "_owner", "_fulfilled_by")
 
     list_select_related = ("eve_type", "requesting_user")
     search_fields = ["eve_type__name"]
@@ -97,8 +97,8 @@ class RequestAdmin(admin.ModelAdmin):
     def _requestor(self, obj):
         return obj.requesting_user.profile.main_character.character_name
 
-    def _requestee(self, obj):
-        return obj.requestee_corporation.corporation_name
+    def _owner(self, obj):
+        return obj.blueprint.owner.name
 
     def _fulfilled_by(self, obj):
         return (

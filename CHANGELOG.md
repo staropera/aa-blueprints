@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Reworked object model for better flexibility and performance
+- Permissions moved to Blueprints >> General to avoid confusion
 
 ## 0.2.1 - 2020-12-18
 

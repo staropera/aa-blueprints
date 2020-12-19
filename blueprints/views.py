@@ -38,7 +38,7 @@ def index(request):
 
 
 @login_required
-@permissions_required("blueprints.add_blueprint_owner")
+@permissions_required("blueprints.add_corporate_blueprint_owner")
 @token_required(
     scopes=[
         "esi-universe.read_structures.v1",

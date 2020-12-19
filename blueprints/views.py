@@ -196,7 +196,7 @@ def add_personal_blueprint_owner(request, token):
 
 def convert_blueprint(blueprint) -> dict:
     icon = format_html(
-        '<img src="{}" width="{}" height="{}"/>',
+        '<img src="{}" width="{}" height="{}">',
         blueprint.eve_type.icon_url(size=64, is_blueprint=True),
         BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
         BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,

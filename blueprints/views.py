@@ -370,9 +370,15 @@ def mark_request(request, status, fulfilling_user, closed):
         character.character.corporation_id
         for character in request.user.character_ownerships.all()
     }
+    character_ownership_ids = {
+        character.pk for character in request.user.character_ownerships.all()
+    }
     if (
-        user_request.requestee_corporation.corporation_id in corporation_ids
-        and not user_request.closed_at
+        user_request.blueprint.owner.corporation
+        and user_request.blueprint.owner.corporation.corporation_id in corporation_ids
+    ) or (
+        not user_request.blueprint.owner.corporation
+        and user_request.blueprint.owner.pk in character_ownership_ids
     ):
         if closed:
             user_request.closed_at = datetime.utcnow()
@@ -399,7 +405,7 @@ def mark_request_fulfilled(request):
                 gettext_lazy(
                     "The request for %(blueprint)s has been closed as fulfilled."
                 )
-                % {"blueprint": user_request.eve_type.name}
+                % {"blueprint": user_request.blueprint.eve_type.name}
             ),
         )
     else:
@@ -407,7 +413,7 @@ def mark_request_fulfilled(request):
             request,
             format_html(
                 gettext_lazy("Fulfilling the request for %(blueprint)s has failed.")
-                % {"blueprint": user_request.eve_type.name}
+                % {"blueprint": user_request.blueprint.eve_type.name}
             ),
         )
     return redirect("blueprints:index")
@@ -427,7 +433,7 @@ def mark_request_in_progress(request):
                 gettext_lazy(
                     "The request for %(blueprint)s has been marked as in progress."
                 )
-                % {"blueprint": user_request.eve_type.name}
+                % {"blueprint": user_request.blueprint.eve_type.name}
             ),
         )
     else:
@@ -437,7 +443,7 @@ def mark_request_in_progress(request):
                 gettext_lazy(
                     "Marking the request for %(blueprint)s as in progress has failed."
                 )
-                % {"blueprint": user_request.eve_type.name}
+                % {"blueprint": user_request.blueprint.eve_type.name}
             ),
         )
     return redirect("blueprints:index")
@@ -453,7 +459,7 @@ def mark_request_open(request):
             request,
             format_html(
                 gettext_lazy("The request for %(blueprint)s has been re-opened.")
-                % {"blueprint": user_request.eve_type.name}
+                % {"blueprint": user_request.blueprint.eve_type.name}
             ),
         )
     else:
@@ -461,7 +467,7 @@ def mark_request_open(request):
             request,
             format_html(
                 gettext_lazy("Re-opening the request for %(blueprint)s has failed.")
-                % {"blueprint": user_request.eve_type.name}
+                % {"blueprint": user_request.blueprint.eve_type.name}
             ),
         )
     return redirect("blueprints:index")
@@ -481,7 +487,7 @@ def mark_request_cancelled(request):
                 gettext_lazy(
                     "The request for %(blueprint)s has been closed as cancelled."
                 )
-                % {"blueprint": user_request.eve_type.name}
+                % {"blueprint": user_request.blueprint.eve_type.name}
             ),
         )
     else:
@@ -489,7 +495,7 @@ def mark_request_cancelled(request):
             request,
             format_html(
                 gettext_lazy("Cancelling the request for %(blueprint)s has failed.")
-                % {"blueprint": user_request.eve_type.name}
+                % {"blueprint": user_request.blueprint.eve_type.name}
             ),
         )
     return redirect("blueprints:index")

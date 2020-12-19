@@ -14,7 +14,7 @@
 
         <form action="{% url 'blueprints:create_request' %}" method="POST" class="form-horizontal">
             {% csrf_token %}
-            <input type=hidden name="blueprint_id" value="{{ blueprint.blueprint_id }}" />
+            <input type=hidden name="blueprint_id" value="{{ blueprint.blueprint_id }}">
             <div class="form-group">
                 <label class="col-sm-4">{% translate "Blueprint Type" %}</label>
                 <div class='col-sm-8'>{{ blueprint.type_icon }} {{ blueprint.type_name }}</div>
@@ -34,7 +34,7 @@
             <div class="form-group">
                 <label for="runs" class="col-sm-4">Runs</label>
                 <div class="col-sm-8">
-                <input type="number" class="form-control" id="runs" name="runs" />
+                <input type="number" class="form-control" id="runs" name="runs">
                 <p class="help-block">Leave blank for maximum runs.</p>
                 </div>
             </div>

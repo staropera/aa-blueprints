@@ -307,7 +307,7 @@ def create_request(request):
 
 def convert_request(request: Request) -> dict:
     icon = format_html(
-        '<img src="{}" width="{}" height="{}"/>',
+        '<img src="{}" width="{}" height="{}">',
         request.blueprint.eve_type.icon_url(size=64, is_blueprint=True),
         BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
         BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,

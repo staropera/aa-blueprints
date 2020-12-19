@@ -69,7 +69,7 @@ $(document).ready(function () {
                             csrfToken +
                             '<input type="hidden" name="request_id" value="' +
                             data +
-                            '" />' +
+                            '">' +
                             '<button type="submit" class="btn btn-danger"><span class="fas fa-trash"></span> </form> ';
                         return buttons;
                     }

@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -248,7 +250,7 @@ class Owner(models.Model):
         ).results()
         return blueprints
 
-    def token(self, scopes=None) -> (Token, int):
+    def token(self, scopes=None) -> Tuple[Token, int]:
         """returns a valid Token for the owner"""
         token = None
         error = None

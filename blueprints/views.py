@@ -340,13 +340,25 @@ def convert_request(request: Request) -> dict:
     }
 
 
+def requests_query_basic():
+    """returns basic query for requests incl. optimizations"""
+    return Request.objects.select_related(
+        "blueprint",
+        "blueprint__owner",
+        "blueprint__eve_type",
+        "requesting_user__profile__main_character",
+    )
+
+
 @login_required
 @permissions_required("blueprints.request_blueprints")
 def list_user_requests(request):
 
     request_rows = list()
 
-    request_query = Request.objects.filter(requesting_user=request.user, closed_at=None)
+    request_query = Request.objects.select_related_default().filter(
+        requesting_user=request.user, closed_at=None
+    )
     for request in request_query:
         request_rows.append(convert_request(request))
 
@@ -359,8 +371,10 @@ def list_open_requests(request):
 
     request_rows = list()
 
-    requests = list(Request.objects.requests_fulfillable_by_user(request.user)) + list(
-        Request.objects.requests_being_fulfilled_by_user(request.user)
+    requests = Request.objects.select_related_default().requests_fulfillable_by_user(
+        request.user
+    ) | Request.objects.select_related_default().requests_being_fulfilled_by_user(
+        request.user
     )
 
     for request in requests:

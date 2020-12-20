@@ -229,14 +229,16 @@ class LocationManager(models.Manager):
         )
 
 
-class RequestManager(models.Manager):
-    def requests_fulfillable_by_user(self, user: User) -> list:
+class RequestQuerySet(models.QuerySet):
+    def requests_fulfillable_by_user(self, user: User) -> models.QuerySet:
         ownerships = user.character_ownerships.all()
         corporation_ids = {
             character.character.corporation_id for character in ownerships
         }
         character_ownership_ids = {character.pk for character in ownerships}
-        request_query = self.filter(
+        request_query = self.select_related(
+            "blueprint__owner", "blueprint__owner__corporation"
+        ).filter(
             (
                 Q(blueprint__owner__corporation__corporation_id__in=corporation_ids)
                 | Q(blueprint__owner__pk__in=character_ownership_ids)
@@ -246,13 +248,15 @@ class RequestManager(models.Manager):
         )
         return request_query
 
-    def requests_being_fulfilled_by_user(self, user: User) -> list:
+    def requests_being_fulfilled_by_user(self, user: User) -> models.QuerySet:
         ownerships = user.character_ownerships.all()
         corporation_ids = {
             character.character.corporation_id for character in ownerships
         }
         character_ownership_ids = {character.pk for character in ownerships}
-        request_query = self.filter(
+        request_query = self.select_related(
+            "blueprint__owner", "blueprint__owner__corporation"
+        ).filter(
             (
                 Q(blueprint__owner__corporation__corporation_id__in=corporation_ids)
                 | Q(blueprint__owner__pk__in=character_ownership_ids)
@@ -262,3 +266,16 @@ class RequestManager(models.Manager):
             & Q(fulfulling_user=user)
         )
         return request_query
+
+
+class RequestManager(models.Manager):
+    def get_queryset(self) -> models.QuerySet:
+        return RequestQuerySet(self.model, using=self._db)
+
+    def select_related_default(self) -> models.QuerySet:
+        return self.select_related(
+            "blueprint",
+            "blueprint__owner",
+            "blueprint__eve_type",
+            "requesting_user__profile__main_character",
+        )

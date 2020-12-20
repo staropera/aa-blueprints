@@ -1,7 +1,8 @@
 # flake8: noqa
 """scripts generates large amount of blueprints for load testing
 
-This script can be executed directly from shell
+This script can be executed directly from shell.
+Please make sure to set your user ID via environment variable: BLUEPRINTS_USER_ID
 """
 
 import os
@@ -41,7 +42,10 @@ from allianceauth.tests.auth_utils import AuthUtils
 from blueprints.models import Owner, EveType, EveSolarSystem, Blueprint, Location
 
 MAX_ITEMS = 10000
-OWNER_USER_ID = 1  # set to your user
+OWNER_USER_ID = os.environ.get("BLUEPRINTS_USER_ID")
+if not OWNER_USER_ID:
+    print("Environment variable BLUEPRINTS_USER_ID is not set")
+    exit(1)
 
 user = User.objects.get(id=OWNER_USER_ID)
 main_character = user.profile.main_character

@@ -17,19 +17,19 @@
             <input type=hidden name="pk" value="{{ blueprint.pk }}">
             <div class="form-group">
                 <label class="col-sm-4">{% translate "Blueprint Type" %}</label>
-                <div class='col-sm-8'>{{ blueprint.type_icon }} {{ blueprint.type_name }}</div>
+                <div class='col-sm-8'>{{ blueprint.icn }} {{ blueprint.nme }}</div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4">{% translate "Blueprint Location" %}</label>
-                <div class='col-sm-8'>{{ blueprint.location }}</div>
+                <div class='col-sm-8'>{{ blueprint.loc }}</div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4">{% translate "Material Efficiency" %}</label>
-                <div class='col-sm-8'>{{ blueprint.material_efficiency }}</div>
+                <div class='col-sm-8'>{{ blueprint.me }}</div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4">{% translate "Time Efficiency" %}</label>
-                <div class='col-sm-8'>{{ blueprint.time_efficiency }}</div>
+                <div class='col-sm-8'>{{ blueprint.te }}</div>
             </div>
             <div class="form-group">
                 <label for="runs" class="col-sm-4">Runs</label>

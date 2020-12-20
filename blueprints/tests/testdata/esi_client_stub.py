@@ -34,6 +34,11 @@ _endpoints = [
     ),
     EsiEndpoint(
         "Character",
+        "get_characters_character_id_blueprints",
+        "character_id",
+    ),
+    EsiEndpoint(
+        "Character",
         "get_characters_character_id_corporationhistory",
         "character_id",
     ),

@@ -82,6 +82,89 @@
           "quantity": 1,
           "type_id": 19540
         }
+      ],
+
+      "1101": [
+        {
+          "is_blueprint_copy": true,
+          "is_singleton": true,
+          "item_id": 1100000000001,
+          "location_flag": "Hangar",
+          "location_id": 60003760,
+          "location_type": "station",
+          "quantity": 1,
+          "type_id": 20185
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000002,
+          "location_flag": "???",
+          "location_id": 1100000000001,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19540
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000003,
+          "location_flag": "???",
+          "location_id": 1100000000001,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 23
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000004,
+          "location_flag": "???",
+          "location_id": 1100000000003,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19553
+        },
+        {
+          "is_blueprint_copy": true,
+          "is_singleton": true,
+          "item_id": 1100000000005,
+          "location_flag": "Hangar",
+          "location_id": 1000000000001,
+          "location_type": "other",
+          "quantity": 1,
+          "type_id": 20185
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000006,
+          "location_flag": "???",
+          "location_id": 1100000000005,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19540
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000007,
+          "location_flag": "???",
+          "location_id": 30000142,
+          "location_type": "solar_system",
+          "quantity": 1,
+          "type_id": 19540
+        },
+        {
+          "is_blueprint_copy": false,
+          "is_singleton": true,
+          "item_id": 1100000000008,
+          "location_flag": "???",
+          "location_id": 1000000000001,
+          "location_type": "item",
+          "quantity": 1,
+          "type_id": 19540
+        }
       ]
     },
     "post_characters_character_id_assets_names": {
@@ -219,6 +302,20 @@
         "title": "All round pretty awesome guy"
       }
     },
+    "get_characters_character_id_blueprints": {
+        "1101": [
+          {
+            "item_id": 1027222693618,
+            "location_flag": "CorpSAG4",
+            "location_id": 1000000000001,
+            "material_efficiency": 10,
+            "quantity": -2,
+            "runs": 2,
+            "time_efficiency": 20,
+            "type_id": 33519
+          }
+        ]
+      },
     "get_characters_character_id_corporationhistory": {
       "1001": [
         {

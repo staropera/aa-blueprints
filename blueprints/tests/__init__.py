@@ -13,7 +13,11 @@ from .utils import add_new_token
 
 def create_owner(character_id, corporation_id):
     _, character_ownership = create_user_from_evecharacter(character_id)
-    corp = EveCorporationInfo.objects.get(corporation_id=corporation_id)
+    corp = (
+        EveCorporationInfo.objects.get(corporation_id=corporation_id)
+        if corporation_id
+        else None
+    )
     return Owner.objects.create(character=character_ownership, corporation=corp)
 
 
@@ -35,6 +39,7 @@ def create_user_from_evecharacter(character_id: int) -> Tuple[User, CharacterOwn
             "esi-universe.read_structures.v1",
             "esi-corporations.read_blueprints.v1",
             "esi-assets.read_corporation_assets.v1",
+            "esi-characters.read_blueprints.v1",
             "esi-assets.read_assets.v1",
         ],
     )

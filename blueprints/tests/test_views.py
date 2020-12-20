@@ -60,10 +60,8 @@ class TestBlueprintsData(TestViewsBase):
         data = json_response_to_python(response)
         self.assertEqual(len(data), 1)
         row = data[0]
-        self.assertEqual(row["type_name"], "Mobile Tractor Unit Blueprint")
-        self.assertEqual(
-            row["location"], "Jita IV - Moon 4 - Caldari Navy Assembly Plant"
-        )
+        self.assertEqual(row["nme"], "Mobile Tractor Unit Blueprint")
+        self.assertEqual(row["loc"], "Jita IV - Moon 4 - Caldari Navy Assembly Plant")
 
     def test_my_requests_data(self):
         blueprint = Blueprint.objects.create(
@@ -92,7 +90,5 @@ class TestBlueprintsData(TestViewsBase):
         data = json_response_to_python(response)
         self.assertEqual(len(data), 1)
         row = data[0]
-        self.assertEqual(row["type_name"], "Mobile Tractor Unit Blueprint")
-        self.assertEqual(
-            row["location"], "Jita IV - Moon 4 - Caldari Navy Assembly Plant"
-        )
+        self.assertEqual(row["nme"], "Mobile Tractor Unit Blueprint")
+        self.assertEqual(row["loc"], "Jita IV - Moon 4 - Caldari Navy Assembly Plant")

@@ -22,7 +22,7 @@ NAMES_MAX_LENGTH = 100
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
-class Blueprints(models.Model):
+class General(models.Model):
     """Meta model for app permissions"""
 
     class Meta:

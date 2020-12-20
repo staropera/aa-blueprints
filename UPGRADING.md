@@ -5,9 +5,17 @@
 **requests as well as permissions to the blueprint app.**
 
 ### Step 1 - Preparation
+
 Shut down your supervisor (any running server / worker processes).
 
-### Step 2 - Clean the DB
+
+### Step 2 - Reset Migrations
+
+Reset migrations for blueprints:
+```
+./manage.py migrate blueprints zero --fake
+```
+### Step 3 - Clean the DB
 
 Run the following SQL:
 ```sql
@@ -19,19 +27,13 @@ DROP TABLE IF EXISTS blueprints_request;
 SET FOREIGN_KEY_CHECKS=1;
 ```
 
-### Step 3 - Remove old permissions
+### Step 4 - Remove old permissions
 
 Run the following in a django shell (`./manage.py shell`)
 ```python
 from django.contrib.auth.models import Permission
 Permission.objects.filter(content_type__app_label="blueprints").delete()
-```
-
-### Step 4 - Reset Migrations
-
-Reset migrations for blueprints:
-```
-./manage.py migrate blueprints zero --fake
+exit()
 ```
 
 ### Step 5 - Upgrade Package

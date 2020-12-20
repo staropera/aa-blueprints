@@ -2,7 +2,7 @@
 ## 0.x.y -> 1.0.0
 
 **WARNING: This is a DESTRUCTIVE operation. You will lose outstanding**
-**requests as well as permissions to the blueprint app.**
+**requests as well as permissions to the blueprint app**
 
 ### Step 1 - Preparation
 Shut down your supervisor (any running server / worker processes).

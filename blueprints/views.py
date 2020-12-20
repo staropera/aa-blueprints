@@ -7,7 +7,6 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy
-from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_POST
 
 from allianceauth.authentication.decorators import permissions_required
@@ -20,7 +19,6 @@ from .app_settings import (
     BLUEPRINTS_ADMIN_NOTIFICATIONS_ENABLED,
     BLUEPRINTS_DEFAULT_PAGE_LENGTH,
     BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
-    BLUEPRINTS_LIST_TTL,
     BLUEPRINTS_PAGING_ENABLED,
 )
 from .models import Blueprint, Owner, Request
@@ -232,7 +230,6 @@ def convert_blueprint(blueprint) -> dict:
 
 @login_required
 @permissions_required("blueprints.basic_access")
-@cache_page(BLUEPRINTS_LIST_TTL)
 def list_blueprints(request):
 
     blueprint_rows = list()

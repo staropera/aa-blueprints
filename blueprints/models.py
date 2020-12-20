@@ -105,12 +105,12 @@ class Owner(models.Model):
                     "esi-universe.read_structures.v1",
                     "esi-assets.read_corporation_assets.v1",
                 ]
-            )
+            )[0]
         else:
             assets = self._fetch_personal_assets()
             token = self.token(
                 ["esi-universe.read_structures.v1", "esi-assets.read_assets.v1"]
-            )
+            )[0]
 
         asset_ids = []
         asset_locations = {}
@@ -155,7 +155,7 @@ class Owner(models.Model):
                         "esi-universe.read_structures.v1",
                         "esi-corporations.read_blueprints.v1",
                     ]
-                )
+                )[0]
             else:
                 blueprints = self._fetch_personal_blueprints()
                 token = self.token(
@@ -163,7 +163,7 @@ class Owner(models.Model):
                         "esi-universe.read_structures.v1",
                         "esi-characters.read_blueprints.v1",
                     ]
-                )
+                )[0]
 
             for blueprint in blueprints:
                 runs = blueprint["runs"]

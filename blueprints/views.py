@@ -362,9 +362,9 @@ def list_open_requests(request):
     return JsonResponse(request_rows, safe=False)
 
 
-def mark_request(request, status, fulfilling_user, closed):
+def mark_request(request, request_id, status, fulfilling_user, closed):
     completed = False
-    user_request = Request.objects.get(pk=request.POST.get("request_id"))
+    user_request = Request.objects.get(pk=request_id)
 
     corporation_ids = {
         character.character.corporation_id
@@ -394,9 +394,9 @@ def mark_request(request, status, fulfilling_user, closed):
 @login_required
 @permissions_required("blueprints.manage_requests")
 @require_POST
-def mark_request_fulfilled(request):
+def mark_request_fulfilled(request, request_id):
     user_request, completed = mark_request(
-        request, Request.STATUS_FULFILLED, request.user, True
+        request, request_id, Request.STATUS_FULFILLED, request.user, True
     )
     if completed:
         messages_plus.info(
@@ -422,9 +422,9 @@ def mark_request_fulfilled(request):
 @login_required
 @permissions_required("blueprints.manage_requests")
 @require_POST
-def mark_request_in_progress(request):
+def mark_request_in_progress(request, request_id):
     user_request, completed = mark_request(
-        request, Request.STATUS_IN_PROGRESS, request.user, False
+        request, request_id, Request.STATUS_IN_PROGRESS, request.user, False
     )
     if completed:
         messages_plus.info(
@@ -452,8 +452,10 @@ def mark_request_in_progress(request):
 @login_required
 @permissions_required("blueprints.manage_requests")
 @require_POST
-def mark_request_open(request):
-    user_request, completed = mark_request(request, Request.STATUS_OPEN, None, False)
+def mark_request_open(request, request_id):
+    user_request, completed = mark_request(
+        request, request_id, Request.STATUS_OPEN, None, False
+    )
     if completed:
         messages_plus.info(
             request,
@@ -476,9 +478,9 @@ def mark_request_open(request):
 @login_required
 @permissions_required(["blueprints.basic_access", "blueprints.manage_requests"])
 @require_POST
-def mark_request_cancelled(request):
+def mark_request_cancelled(request, request_id):
     user_request, completed = mark_request(
-        request, Request.STATUS_CANCELLED, None, True
+        request, request_id, Request.STATUS_CANCELLED, None, True
     )
     if completed:
         messages_plus.info(

@@ -121,17 +121,17 @@
             listDataUrl += '?tags={{ active_tags|join:"," }}'
         {% endif %}
 
-        let blueprintsDataTableSettings = {
+        let blueprintsSettings = {
             listDataUrl: listDataUrl,
             openRequestListUrl: '{% url "blueprints:list_open_requests" %}',
             userRequestListUrl: '{% url "blueprints:list_user_requests" %}',
-            inProgressRequestUrl: '{% url "blueprints:request_in_progress" %}',
-            cancelRequestUrl:'{% url "blueprints:request_cancelled" %}',
+            inProgressRequestUrl: '{% url "blueprints:request_in_progress" request_id=12345 %}',
+            cancelRequestUrl:'{% url "blueprints:request_cancelled" request_id=12345 %}',
+            openRequestUrl: '{% url "blueprints:request_open" request_id=12345 %}',
+            fulfillRequestUrl: '{% url "blueprints:request_fulfilled" request_id=12345 %}',
             createRequestUrl: '{% url "blueprints:create_request" %}',
-            openRequestUrl: '{% url "blueprints:request_open" %}',
             createRequestModalUrl: '{% url "blueprints:create_request_modal" %}',
             viewRequestModalUrl: '{% url "blueprints:view_request_modal" %}',
-            fulfillRequestUrl: '{% url "blueprints:request_fulfilled" %}',
             csrfToken: '{% csrf_token %}',
             canAddBlueprints: {% if perms.blueprints.request_blueprints %} true {% else %} false {% endif %},
             dataTablesPageLength: {{ data_tables_page_length }},

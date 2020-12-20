@@ -1,17 +1,25 @@
-/* global blueprintsDataTableSettings */
+/* global blueprintsSettings */
 
 $(document).ready(function () {
     "use strict";
 
-    var openRequestListUrl = blueprintsDataTableSettings.openRequestListUrl;
-    var openRequestUrl = blueprintsDataTableSettings.openRequestUrl;
-    var cancelRequestUrl = blueprintsDataTableSettings.cancelRequestUrl;
-    var fulfillRequestUrl = blueprintsDataTableSettings.fulfillRequestUrl;
-    var inProgressRequestUrl = blueprintsDataTableSettings.inProgressRequestUrl;
-    var viewRequestModalUrl = blueprintsDataTableSettings.viewRequestModalUrl;
-    var dataTablesPageLength = blueprintsDataTableSettings.dataTablesPageLength;
-    var dataTablesPaging = blueprintsDataTableSettings.dataTablesPaging;
-    var csrfToken = blueprintsDataTableSettings.csrfToken;
+    var openRequestListUrl = blueprintsSettings.openRequestListUrl;
+    function openRequestUrl(id) {
+        return blueprintsSettings.openRequestUrl.replace("12345", id);
+    }
+    function cancelRequestUrl(id) {
+        return blueprintsSettings.cancelRequestUrl.replace("12345", id);
+    }
+    function fulfillRequestUrl(id) {
+        return blueprintsSettings.fulfillRequestUrl.replace("12345", id);
+    }
+    function inProgressRequestUrl(id) {
+        return blueprintsSettings.inProgressRequestUrl.replace("12345", id);
+    }
+    var viewRequestModalUrl = blueprintsSettings.viewRequestModalUrl;
+    var dataTablesPageLength = blueprintsSettings.dataTablesPageLength;
+    var dataTablesPaging = blueprintsSettings.dataTablesPaging;
+    var csrfToken = blueprintsSettings.csrfToken;
     /* dataTable def */
     $("#table-open-requests").DataTable({
         ajax: {
@@ -68,14 +76,12 @@ $(document).ready(function () {
                                 data +
                                 '" aria-label="Request Info"><span class="fas fa-info-circle"></span></button>';
                             buttons +=
-                                '<form class="inline" method="post" action="' + cancelRequestUrl + '">' +
+                                '<form class="inline" method="post" action="' + cancelRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' + data + '">' +
                                 '<button type="submit" class="btn btn-danger" aria-label="Cancel Request"><span class="fas fa-trash"></span></button></form>';
                             buttons +=
-                                '<form class="inline" method="post" action="' + inProgressRequestUrl + '">' +
+                                '<form class="inline" method="post" action="' + inProgressRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' + data + '">' +
                                 '<button type="submit" class="btn btn-info" aria-label="Claim Request"><span class="fas fa-clipboard-check"></span></button></form>';
                             return buttons;
                         } else if (row["status"] == "IP") {
@@ -86,19 +92,16 @@ $(document).ready(function () {
                                 data +
                                 '" aria-label="Request Info"><span class="fas fa-info-circle"></span></button>';
                             buttons +=
-                                '<form class="inline" method="post" action="' + openRequestUrl + '">' +
+                                '<form class="inline" method="post" action="' + openRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' + data + '">' +
                                 '<button type="submit" class="btn btn-warning" aria-label="Re-Open Request"><span class="fas fa-undo"></span></button></form>';
                             buttons +=
-                                '<form class="inline" method="post" action="' + cancelRequestUrl + '">' +
+                                '<form class="inline" method="post" action="' + cancelRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' + data + '">' +
                                 '<button type="submit" class="btn btn-danger" aria-label="Cancel Request"><span class="fas fa-trash"></span></button></form>';
                             buttons +=
-                                '<form class="inline" method="post" action="' +fulfillRequestUrl +'">' +
+                                '<form class="inline" method="post" action="' +fulfillRequestUrl(data) +'">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' + data + '">' +
                                 '<button type="submit" class="btn btn-success" aria-label="Fulfill Request"><span class="fas fa-clipboard-check"></span></button></form>';
                             return buttons;
                         } else {

@@ -1,14 +1,17 @@
-/* global blueprintsDataTableSettings */
+/* global blueprintsSettings */
 
 $(document).ready(function () {
     "use strict";
 
-    var userRequestListUrl = blueprintsDataTableSettings.userRequestListUrl;
-    var deleteRequestUrl = blueprintsDataTableSettings.deleteRequestUrl;
-    var dataTablesPageLength = blueprintsDataTableSettings.dataTablesPageLength;
-    var dataTablesPaging = blueprintsDataTableSettings.dataTablesPaging;
-    var csrfToken = blueprintsDataTableSettings.csrfToken;
-    var viewRequestModalUrl = blueprintsDataTableSettings.viewRequestModalUrl;
+    var userRequestListUrl = blueprintsSettings.userRequestListUrl;
+    function cancelRequestUrl(id) {
+        return blueprintsSettings.cancelRequestUrl.replace("12345",id)
+    }
+    var dataTablesPageLength = blueprintsSettings.dataTablesPageLength;
+    var dataTablesPaging = blueprintsSettings.dataTablesPaging;
+    var csrfToken = blueprintsSettings.csrfToken;
+    var viewRequestModalUrl = blueprintsSettings.viewRequestModalUrl;
+
     /* dataTable def */
     $("#table-user-requests").DataTable({
         ajax: {
@@ -63,13 +66,8 @@ $(document).ready(function () {
                             data +
                             '" aria-label="Request Info"><span class="fas fa-info-circle"></span></button>';
                         buttons +=
-                            '<form method="post" class="inline" action="' +
-                            deleteRequestUrl +
-                            '">' +
+                            '<form method="post" class="inline" action="' + cancelRequestUrl(data) + '">' +
                             csrfToken +
-                            '<input type="hidden" name="request_id" value="' +
-                            data +
-                            '">' +
                             '<button type="submit" class="btn btn-danger"><span class="fas fa-trash"></span> </form> ';
                         return buttons;
                     }

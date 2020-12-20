@@ -1,16 +1,16 @@
-/* global blueprintsDataTableSettings */
+/* global blueprintsSettings */
 
 $(document).ready(function () {
     "use strict";
 
-    var listDataUrl = blueprintsDataTableSettings.listDataUrl;
-    var createRequestUrl = blueprintsDataTableSettings.createRequestUrl;
+    var listDataUrl = blueprintsSettings.listDataUrl;
+    var createRequestUrl = blueprintsSettings.createRequestUrl;
     var createRequestModalUrl =
-        blueprintsDataTableSettings.createRequestModalUrl;
-    var dataTablesPageLength = blueprintsDataTableSettings.dataTablesPageLength;
-    var dataTablesPaging = blueprintsDataTableSettings.dataTablesPaging;
-    var csrfToken = blueprintsDataTableSettings.csrfToken;
-    var canAddBlueprints = blueprintsDataTableSettings.canAddBlueprints;
+        blueprintsSettings.createRequestModalUrl;
+    var dataTablesPageLength = blueprintsSettings.dataTablesPageLength;
+    var dataTablesPaging = blueprintsSettings.dataTablesPaging;
+    var csrfToken = blueprintsSettings.csrfToken;
+    var canAddBlueprints = blueprintsSettings.canAddBlueprints;
     /* dataTable def */
     $("#table-blueprints").DataTable({
         ajax: {
@@ -97,7 +97,7 @@ $(document).ready(function () {
                 {
                     idx: 9,
                     title:
-                        blueprintsDataTableSettings.translation.filterLocation,
+                        blueprintsSettings.translation.filterLocation,
                 },
                 { idx: 3 },
                 { idx: 4 },
@@ -105,7 +105,7 @@ $(document).ready(function () {
                 {
                     idx: 10,
                     title:
-                        blueprintsDataTableSettings.translation
+                        blueprintsSettings.translation
                             .filterIsOriginal,
                 },
             ],

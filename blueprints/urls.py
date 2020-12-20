@@ -24,19 +24,21 @@ urlpatterns = [
     path("requests/user", views.list_user_requests, name="list_user_requests"),
     path("requests/open", views.list_open_requests, name="list_open_requests"),
     path("requests/add", views.create_request, name="create_request"),
-    path("requests/request/open", views.mark_request_open, name="request_open"),
     path(
-        "requests/request/fulfill",
+        "requests/<int:request_id>/open", views.mark_request_open, name="request_open"
+    ),
+    path(
+        "requests/<int:request_id>/fulfill",
         views.mark_request_fulfilled,
         name="request_fulfilled",
     ),
     path(
-        "requests/request/in_progress",
+        "requests/<int:request_id>/in_progress",
         views.mark_request_in_progress,
         name="request_in_progress",
     ),
     path(
-        "requests/request/cancel",
+        "requests/<int:request_id>/cancel",
         views.mark_request_cancelled,
         name="request_cancelled",
     ),

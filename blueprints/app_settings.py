@@ -21,6 +21,8 @@ BLUEPRINTS_ADMIN_NOTIFICATIONS_ENABLED = clean_setting(
     "BLUEPRINTS_ADMIN_NOTIFICATIONS_ENABLED", True
 )
 
+# TTL for the blueprints list cache
+BLUEPRINTS_LIST_TTL = clean_setting("BLUEPRINTS_LIST_TTL", 900)
 # Hard timeout for tasks in seconds to reduce task accumulation during outages
 BLUEPRINTS_TASKS_TIME_LIMIT = clean_setting("BLUEPRINTS_TASKS_TIME_LIMIT", 7200)
 

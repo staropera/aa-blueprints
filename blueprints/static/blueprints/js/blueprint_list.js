@@ -52,7 +52,7 @@ $(document).ready(function () {
             {
                 render: function (data, type, row) {
                     if (type === "display") {
-                        if (row["og"] != "" && canAddBlueprints) {
+                        if (row.og !== "" && canAddBlueprints) {
                             return (
                                 '<button class="btn btn-success" data-toggle="modal" data-target="#modalCreateRequestContainer" data-ajax_url="' +
                                 createRequestModalUrl +
@@ -72,9 +72,9 @@ $(document).ready(function () {
             {
                 render: function (data, type, row) {
                     if (type === "display") {
-                        if (row["ot"] == "corporation") {
+                        if (row.ot === "corporation") {
                             return '<span class="fas fa-briefcase"></span> ' + data;
-                        } else if (row["ot"] == "character") {
+                        } else if (row.ot === "character") {
                             return '<span class="fas fa-user"></span> ' + data;
                         } else {
                             return "";

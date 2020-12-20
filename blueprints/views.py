@@ -213,18 +213,18 @@ def convert_blueprint(blueprint) -> dict:
     else:
         owner_type = "character"
     return {
-        "type_icon": icon,
-        "quantity": blueprint.quantity,
-        "blueprint_id": blueprint.pk,
-        "type_name": blueprint.eve_type.name,
-        "location": blueprint.location.name_plus,
-        "material_efficiency": blueprint.material_efficiency,
-        "time_efficiency": blueprint.time_efficiency,
-        "original": original,
-        "filter_is_original": filter_is_original,
-        "runs": runs,
-        "owner_name": blueprint.owner.name,
-        "owner_type": owner_type,
+        "icn": icon,
+        "qty": blueprint.quantity,
+        "id": blueprint.pk,
+        "nme": blueprint.eve_type.name,
+        "loc": blueprint.location.name_plus,
+        "me": blueprint.material_efficiency,
+        "te": blueprint.time_efficiency,
+        "og": original,
+        "iog": filter_is_original,
+        "rns": runs,
+        "on": blueprint.owner.name,
+        "ot": owner_type,
     }
 
 

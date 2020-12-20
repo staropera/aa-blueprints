@@ -20,21 +20,21 @@ $(document).ready(function () {
         },
 
         columns: [
-            { data: "type_icon" },
-            { data: "type_name" },
+            { data: "icn" },
+            { data: "nme" },
             {
                 className: "right-column",
-                data: "quantity",
+                data: "qty",
             },
-            { data: "owner_name" },
-            { data: "material_efficiency" },
-            { data: "time_efficiency" },
-            { data: "original" },
-            { data: "runs" },
-            { data: "blueprint_id" },
+            { data: "on" },
+            { data: "me" },
+            { data: "te" },
+            { data: "og" },
+            { data: "rns" },
+            { data: "id" },
             // hidden columns
-            { data: "location" },
-            { data: "filter_is_original" },
+            { data: "loc" },
+            { data: "iog" },
         ],
 
         lengthMenu: [
@@ -52,7 +52,7 @@ $(document).ready(function () {
             {
                 render: function (data, type, row) {
                     if (type === "display") {
-                        if (row["original"] != "" && canAddBlueprints) {
+                        if (row["og"] != "" && canAddBlueprints) {
                             return (
                                 '<button class="btn btn-success" data-toggle="modal" data-target="#modalCreateRequestContainer" data-ajax_url="' +
                                 createRequestModalUrl +
@@ -72,9 +72,9 @@ $(document).ready(function () {
             {
                 render: function (data, type, row) {
                     if (type === "display") {
-                        if (row["owner_type"] == "corporation") {
+                        if (row["ot"] == "corporation") {
                             return '<span class="fas fa-briefcase"></span> ' + data;
-                        } else if (row["owner_type"] == "character") {
+                        } else if (row["ot"] == "character") {
                             return '<span class="fas fa-user"></span> ' + data;
                         } else {
                             return "";

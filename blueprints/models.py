@@ -435,7 +435,7 @@ class Location(models.Model):
         default_permissions = ()
 
     def __str__(self) -> str:
-        return self.name_plus + " [id=" + self.id + "]"
+        return self.name_plus + f" [id={self.id}]"
 
     def __repr__(self) -> str:
         return "{}(id={}, name='{}')".format(
@@ -539,7 +539,7 @@ class Request(models.Model):
         default_permissions = ()
 
     def __str__(self) -> str:
-        return f"{self.requesting_user.profile.main_character.character_name}'s request for {self.eve_type.name}"
+        return f"{self.requesting_user.profile.main_character.character_name}'s request for {self.blueprint.eve_type.name}"
 
     def __repr__(self) -> str:
         return "{}(id={}, requesting_user='{}', type_name='{}')".format(

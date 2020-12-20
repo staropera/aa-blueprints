@@ -5,9 +5,9 @@ This script can be executed directly from shell.
 Please make sure to set your user ID via environment variable: BLUEPRINTS_USER_ID
 """
 
+import inspect
 import os
 import sys
-import inspect
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 myauth_dir = (
@@ -17,8 +17,8 @@ myauth_dir = (
 sys.path.insert(0, myauth_dir)
 
 import django
-from django.db import transaction
 from django.apps import apps
+from django.db import transaction
 from django.utils.timezone import now
 
 # init and setup django project
@@ -33,13 +33,12 @@ from random import randint
 
 from django.contrib.auth.models import User
 
-from eveuniverse.models import EveType, EveSolarSystem
-
 from allianceauth.authentication.models import CharacterOwnership
-from allianceauth.eveonline.models import EveCorporationInfo, EveCharacter
+from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from allianceauth.tests.auth_utils import AuthUtils
+from eveuniverse.models import EveSolarSystem, EveType
 
-from blueprints.models import Owner, EveType, EveSolarSystem, Blueprint, Location
+from blueprints.models import Blueprint, EveSolarSystem, EveType, Location, Owner
 
 MAX_ITEMS = 10000
 OWNER_USER_ID = os.environ.get("BLUEPRINTS_USER_ID")

@@ -49,4 +49,5 @@ pip install -U aa-blueprints
 ```
 
 ### Step 7 - Completion
-Bring your server back up, and enjoy the new version of blueprints!
+Bring your server back up, setup your blueprint related permissions, and re-add your blueprint owners.
+Then enjoy the new version of blueprints!

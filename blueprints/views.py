@@ -232,11 +232,11 @@ def convert_blueprint(blueprint) -> dict:
 @permissions_required("blueprints.basic_access")
 def list_blueprints(request):
 
-    blueprint_rows = list()
-    corporation_ids = {
-        character.character.corporation_id
-        for character in request.user.character_ownerships.all()
-    }
+    corporation_ids = set(
+        request.user.character_ownerships.select_related("character").values_list(
+            "character__corporation_id", flat=True
+        )
+    )
     corporations = list(
         EveCorporationInfo.objects.filter(corporation_id__in=corporation_ids)
     )
@@ -266,9 +266,7 @@ def list_blueprints(request):
         "location__eve_solar_system",
         "location__eve_type",
     )
-
-    for blueprint in blueprints_query:
-        blueprint_rows.append(convert_blueprint(blueprint))
+    blueprint_rows = [convert_blueprint(blueprint) for blueprint in blueprints_query]
 
     return JsonResponse(blueprint_rows, safe=False)
 

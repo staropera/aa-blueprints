@@ -88,11 +88,14 @@ class LocationAdmin(admin.ModelAdmin):
 class OwnerAdmin(admin.ModelAdmin):
     list_display = ("character", "_type", "corporation", "is_active")
 
+    def _type(self, obj):
+        return "Corporate" if obj.corporation else "Personal"
+
     def has_add_permission(self, request):
         return False
 
-    def _type(self, obj):
-        return "Corporate" if obj.corporation else "Personal"
+    def has_change_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(Request)

@@ -91,6 +91,9 @@ Load EVE Online type data from ESI:
 python manage.py blueprints_load_types
 ```
 
+# Upgrading
+See [UPGRADING.md](UPGRADING.md).
+
 # Authors
 
 The main authors (in alphabetical order):

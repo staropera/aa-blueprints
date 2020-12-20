@@ -256,7 +256,16 @@ def list_blueprints(request):
 
     blueprints_query = Blueprint.objects.filter(
         Q(owner__corporation__in=corporations) | Q(owner__pk__in=personal_owner_ids)
-    ).select_related("eve_type", "location", "owner")
+    ).select_related(
+        "eve_type",
+        "location",
+        "owner",
+        "owner__corporation",
+        "owner__character",
+        "location",
+        "location__eve_solar_system",
+        "location__eve_type",
+    )
 
     for blueprint in blueprints_query:
         blueprint_rows.append(convert_blueprint(blueprint))

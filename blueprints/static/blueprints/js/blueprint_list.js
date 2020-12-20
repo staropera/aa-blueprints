@@ -31,7 +31,7 @@ $(document).ready(function () {
             { data: "te" },
             { data: "og" },
             { data: "rns" },
-            { data: "id" },
+            { data: "pk" },
             // hidden columns
             { data: "loc" },
             { data: "iog" },
@@ -126,8 +126,8 @@ $(document).ready(function () {
                             .eq(i)
                             .before(
                                 '<tr class="tr-group"><td colspan="9">' +
-                                    group +
-                                    "</td></tr>"
+                                group +
+                                "</td></tr>"
                             );
 
                         last = group;

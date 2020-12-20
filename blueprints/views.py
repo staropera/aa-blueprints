@@ -215,7 +215,7 @@ def convert_blueprint(blueprint) -> dict:
     return {
         "icn": icon,
         "qty": blueprint.quantity,
-        "id": blueprint.pk,
+        "pk": blueprint.pk,
         "nme": blueprint.eve_type.name,
         "loc": blueprint.location.name_plus,
         "me": blueprint.material_efficiency,
@@ -291,8 +291,8 @@ def view_request_modal(request):
 @permissions_required("blueprints.request_blueprints")
 def create_request(request):
     if request.method == "POST":
-        requested = Blueprint.objects.get(pk=request.POST.get("blueprint_id"))
-        runs = request.POST.get("runs")
+        requested = Blueprint.objects.get(pk=request.POST.get("pk"))
+        runs = request.POST.get("rns")
         if runs == "":
             runs = None
         user = request.user
@@ -338,16 +338,6 @@ def convert_request(request: Request) -> dict:
         "status": request.status,
         "status_display": request.get_status_display(),
     }
-
-
-def requests_query_basic():
-    """returns basic query for requests incl. optimizations"""
-    return Request.objects.select_related(
-        "blueprint",
-        "blueprint__owner",
-        "blueprint__eve_type",
-        "requesting_user__profile__main_character",
-    )
 
 
 @login_required

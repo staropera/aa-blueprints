@@ -14,7 +14,7 @@
 
         <form action="{% url 'blueprints:create_request' %}" method="POST" class="form-horizontal">
             {% csrf_token %}
-            <input type=hidden name="blueprint_id" value="{{ blueprint.blueprint_id }}">
+            <input type=hidden name="pk" value="{{ blueprint.pk }}">
             <div class="form-group">
                 <label class="col-sm-4">{% translate "Blueprint Type" %}</label>
                 <div class='col-sm-8'>{{ blueprint.type_icon }} {{ blueprint.type_name }}</div>

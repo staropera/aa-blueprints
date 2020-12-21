@@ -373,7 +373,9 @@ def list_open_requests(request):
     return JsonResponse(request_rows, safe=False)
 
 
-def mark_request(request, request_id, status, fulfilling_user, closed):
+def mark_request(
+    request, request_id, status, fulfilling_user, closed, *, can_requestor_edit=False
+):
     completed = False
     user_request = Request.objects.get(pk=request_id)
 
@@ -385,11 +387,16 @@ def mark_request(request, request_id, status, fulfilling_user, closed):
         character.pk for character in request.user.character_ownerships.all()
     }
     if (
-        user_request.blueprint.owner.corporation
-        and user_request.blueprint.owner.corporation.corporation_id in corporation_ids
-    ) or (
-        not user_request.blueprint.owner.corporation
-        and user_request.blueprint.owner.pk in character_ownership_ids
+        (
+            user_request.blueprint.owner.corporation
+            and user_request.blueprint.owner.corporation.corporation_id
+            in corporation_ids
+        )
+        or (
+            not user_request.blueprint.owner.corporation
+            and user_request.blueprint.owner.pk in character_ownership_ids
+        )
+        or (can_requestor_edit and user_request.requesting_user == request.user)
     ):
         if closed:
             user_request.closed_at = datetime.utcnow()
@@ -491,7 +498,12 @@ def mark_request_open(request, request_id):
 @require_POST
 def mark_request_cancelled(request, request_id):
     user_request, completed = mark_request(
-        request, request_id, Request.STATUS_CANCELLED, None, True
+        request,
+        request_id,
+        Request.STATUS_CANCELLED,
+        None,
+        True,
+        can_requestor_edit=True,
     )
     if completed:
         messages_plus.info(

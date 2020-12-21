@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-21 16:29-0500\n"
+"POT-Creation-Date: 2020-12-21 17:22-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -177,14 +177,14 @@ msgstr ""
 msgid "%(value)s is not a valid time efficiency"
 msgstr ""
 
-#: views.py:73 views.py:157
+#: views.py:71 views.py:155
 #, python-format
 msgid ""
 "You can only use your main or alt characters to add corporations. However, "
 "character %s is neither. "
 msgstr ""
 
-#: views.py:106
+#: views.py:104
 #, python-format
 msgid ""
 "%(corporation)s has been added with %(character)s as sync character. We have "
@@ -192,94 +192,89 @@ msgid ""
 "once the process is finished."
 msgstr ""
 
-#: views.py:122
+#: views.py:120
 #, python-format
-msgid "%(corporation)s was added as new blueprint owner by %(user)s."
+msgid "%(corporation)s was added as new corporate blueprint owner by %(user)s."
 msgstr ""
 
-#: views.py:182
+#: views.py:180
 #, python-format
 msgid ""
 "%(character)s has been added. We have started fetching blueprints for this "
 "character. You will receive a report once the process is finished."
 msgstr ""
 
-#: views.py:196
+#: views.py:194
 #, python-format
 msgid "%(character)s was added as a new personal blueprint owner."
 msgstr ""
 
-#: views.py:218
+#: views.py:216
 msgid "Yes"
 msgstr ""
 
-#: views.py:220
+#: views.py:218
 msgid "No"
 msgstr ""
 
-#: views.py:292
+#: views.py:294
 msgid "Corporate"
 msgstr ""
 
-#: views.py:296
+#: views.py:298
 msgid "Personal"
 msgstr ""
 
-#: views.py:341
+#: views.py:345
 #, python-format
 msgid "A copy of %(blueprint)s has been requested."
 msgstr ""
 
-#: views.py:457
+#: views.py:461
 #, python-format
 msgid "The request for %(blueprint)s has been closed as fulfilled."
 msgstr ""
 
-#: views.py:466
+#: views.py:470
 #, python-format
 msgid "Fulfilling the request for %(blueprint)s has failed."
 msgstr ""
 
-#: views.py:485
+#: views.py:489
 #, python-format
 msgid "The request for %(blueprint)s has been marked as in progress."
 msgstr ""
 
-#: views.py:495
+#: views.py:499
 #, python-format
 msgid "Marking the request for %(blueprint)s as in progress has failed."
 msgstr ""
 
-#: views.py:514
+#: views.py:518
 #, python-format
 msgid "The request for %(blueprint)s has been re-opened."
 msgstr ""
 
-#: views.py:522
+#: views.py:526
 #, python-format
 msgid "Re-opening the request for %(blueprint)s has failed."
 msgstr ""
 
-#: views.py:546
+#: views.py:550
 #, python-format
 msgid "The request for %(blueprint)s has been closed as cancelled."
 msgstr ""
 
-#: views.py:555
+#: views.py:559
 #, python-format
 msgid "Cancelling the request for %(blueprint)s has failed."
 msgstr ""
 
-#: views.py:579
+#: views.py:590
 #, python-format
 msgid "%(owner)s has been removed as a blueprint owner."
 msgstr ""
 
-#: views.py:588
-#, python-format
-msgid "Removing %(owner)s as a blueprint owner has failed."
-msgstr ""
-
-#: views.py:589
-msgid "owner"
+#: views.py:597
+msgid "Removing the blueprint owner has failed."
 msgstr ""

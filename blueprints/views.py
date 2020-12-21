@@ -117,7 +117,7 @@ def add_corporate_blueprint_owner(request, token):
         if BLUEPRINTS_ADMIN_NOTIFICATIONS_ENABLED:
             notify_admins(
                 message=gettext_lazy(
-                    "%(corporation)s was added as new " "blueprint owner by %(user)s."
+                    "%(corporation)s was added as new corporate blueprint owner by %(user)s."
                 )
                 % {
                     "corporation": owner.corporation.corporation_name,

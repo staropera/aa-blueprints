@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Ability to add personal blueprints
 - Ability to remove blueprint owners
 - Badge in the "Open Requests" tab counting open and in-progress requests
+- Localization
 
 ### Changed
 

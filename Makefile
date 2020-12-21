@@ -26,7 +26,7 @@ tx_push:
 	tx push --source
 
 tx_pull:
-	tx pull -f
+	tx pull -f -a
 
 update_swagger:
 	curl -o $(package)/swagger.json https://esi.evetech.net/latest/swagger.json

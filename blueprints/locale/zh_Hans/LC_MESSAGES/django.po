@@ -3,283 +3,283 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Rebecca Murphy <rebecca@rcmurphy.me>, 2020
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-21 16:29-0500\n"
+"POT-Creation-Date: 2020-12-21 17:22-0500\n"
 "PO-Revision-Date: 2020-12-07 04:19+0000\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/alliance-auth/"
-"teams/107430/zh_CN/)\n"
-"Language: zh_CN\n"
+"Last-Translator: Rebecca Murphy <rebecca@rcmurphy.me>, 2020\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/alliance-auth/teams/107430/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: auth_hooks.py:17 templates/blueprints/base.html:6
 #: templates/blueprints/base.html:11
 msgid "Blueprint Library"
-msgstr ""
+msgstr "蓝图库"
 
 #: templates/blueprints/index.html:11
 msgid "Library"
-msgstr ""
+msgstr "图书馆"
 
 #: templates/blueprints/index.html:15
 msgid "My Requests"
-msgstr ""
+msgstr "我的请求"
 
 #: templates/blueprints/index.html:21
 msgid "Open Requests"
-msgstr ""
+msgstr "打开的请求"
 
 #: templates/blueprints/index.html:30
 msgid "Manage Blueprints"
-msgstr ""
+msgstr "管理蓝图"
 
 #: templates/blueprints/index.html:41 templates/blueprints/index.html:68
 #: templates/blueprints/index.html:86
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: templates/blueprints/index.html:42
 msgid "Quantity"
-msgstr ""
+msgstr "数量"
 
 #: templates/blueprints/index.html:42
 msgid "Qty"
-msgstr ""
+msgstr "数量"
 
 #: templates/blueprints/index.html:43
 msgid "Owner"
-msgstr ""
+msgstr "所有者"
 
 #: templates/blueprints/index.html:44
 #: templates/blueprints/modals/create_request_content.html:27
 #: templates/blueprints/modals/view_request_content.html:25
 msgid "Material Efficiency"
-msgstr ""
+msgstr "材料效率"
 
 #. Translators: Abbreviation for "Material Efficiency"
 #: templates/blueprints/index.html:46
 msgid "ME"
-msgstr ""
+msgstr "ME"
 
 #: templates/blueprints/index.html:48
 #: templates/blueprints/modals/create_request_content.html:31
 #: templates/blueprints/modals/view_request_content.html:29
 msgid "Time Efficiency"
-msgstr ""
+msgstr "时间效率"
 
 #. Translators: Abbreviation for "Time Efficiency"
 #: templates/blueprints/index.html:50
 msgid "TE"
-msgstr ""
+msgstr "TE"
 
 #: templates/blueprints/index.html:52
 msgid "Original"
-msgstr ""
+msgstr "原创"
 
 #: templates/blueprints/index.html:53
 msgid "Runs Remaining"
-msgstr ""
+msgstr "剩余运行"
 
 #: templates/blueprints/index.html:69 templates/blueprints/index.html:87
 #: templates/blueprints/modals/view_request_content.html:33
 msgid "Runs"
-msgstr ""
+msgstr "运行"
 
 #: templates/blueprints/index.html:70 templates/blueprints/index.html:89
 msgid "Requested From"
-msgstr ""
+msgstr "请求来自"
 
 #: templates/blueprints/index.html:88
 msgid "Requestor"
-msgstr ""
+msgstr "请求者"
 
 #: templates/blueprints/index.html:105
 msgid "Add My Blueprints"
-msgstr ""
+msgstr "添加我的蓝图"
 
 #: templates/blueprints/index.html:110
 msgid "Add Corporation Blueprints"
-msgstr ""
+msgstr "添加公司蓝图"
 
 #: templates/blueprints/index.html:117
 msgid "Name"
-msgstr ""
+msgstr "姓名"
 
 #: templates/blueprints/index.html:167
 msgid "Location"
-msgstr ""
+msgstr "位置"
 
 #: templates/blueprints/index.html:168
 msgid "Is BPO?"
-msgstr ""
+msgstr "BPO 是吗？"
 
 #: templates/blueprints/index.html:169 templates/blueprints/index.html:174
 #: templates/blueprints/modals/create_request_content.html:10
 #: templates/blueprints/modals/create_request_content.html:45
 msgid "Create Request"
-msgstr ""
+msgstr "创建请求"
 
 #: templates/blueprints/index.html:170
 msgid "Mark Request as Cancelled"
-msgstr ""
+msgstr "将请求标记为已取消"
 
 #: templates/blueprints/index.html:171
 msgid "Mark Request as Fulfilled"
-msgstr ""
+msgstr "将请求标记为已完成"
 
 #: templates/blueprints/index.html:172
 msgid "Mark Request as In Progress"
-msgstr ""
+msgstr "将请求标记为正在进行"
 
 #: templates/blueprints/index.html:173
 msgid "Mark Request as Open"
-msgstr ""
+msgstr "将请求标记为打开"
 
 #: templates/blueprints/index.html:175
 msgid "Request Information"
-msgstr ""
+msgstr "请求信息"
 
 #: templates/blueprints/index.html:176
 msgid "Remove Blueprints"
-msgstr ""
+msgstr "删除蓝图"
 
 #: templates/blueprints/modals/create_request_content.html:19
 #: templates/blueprints/modals/view_request_content.html:17
 msgid "Blueprint Type"
-msgstr ""
+msgstr "蓝图类型"
 
 #: templates/blueprints/modals/create_request_content.html:23
 #: templates/blueprints/modals/view_request_content.html:21
 msgid "Blueprint Location"
-msgstr ""
+msgstr "蓝图位置"
 
 #: templates/blueprints/modals/modal_dialog.html:13
 msgid "Loading..."
-msgstr ""
+msgstr "正在加载..."
 
 #: templates/blueprints/modals/view_request_content.html:10
 msgid "View Request"
-msgstr ""
+msgstr "查看请求"
 
 #: validators.py:8
 #, python-format
 msgid "%(value)s is not a valid material efficiency"
-msgstr ""
+msgstr "%(value)s 不是有效的材料效率"
 
 #: validators.py:16
 #, python-format
 msgid "%(value)s is not a valid time efficiency"
 msgstr ""
 
-#: views.py:73 views.py:157
+#: views.py:71 views.py:155
 #, python-format
 msgid ""
 "You can only use your main or alt characters to add corporations. However, "
 "character %s is neither. "
-msgstr ""
+msgstr "你只能使用你的主要字符或 alt 字符来添加公司。但是，角色 %s 也不是。"
 
-#: views.py:106
+#: views.py:104
 #, python-format
 msgid ""
-"%(corporation)s has been added with %(character)s as sync character. We have "
-"started fetching blueprints for this corporation. You will receive a report "
-"once the process is finished."
+"%(corporation)s has been added with %(character)s as sync character. We have"
+" started fetching blueprints for this corporation. You will receive a report"
+" once the process is finished."
 msgstr ""
+"%(corporation)s 添加了 %(character)s 作为同步字符。我们已经开始为这家公司获取蓝图。流程完成后，您将收到报告。"
 
-#: views.py:122
+#: views.py:120
 #, python-format
-msgid "%(corporation)s was added as new blueprint owner by %(user)s."
-msgstr ""
+msgid ""
+"%(corporation)s was added as new corporate blueprint owner by %(user)s."
+msgstr "%(corporation)s 被 %(user)s 添加为新的企业蓝图所有者。"
 
-#: views.py:182
+#: views.py:180
 #, python-format
 msgid ""
 "%(character)s has been added. We have started fetching blueprints for this "
 "character. You will receive a report once the process is finished."
-msgstr ""
+msgstr "添加了 %(character)s。我们已经开始为这个角色获取蓝图。流程完成后，您将收到报告。"
 
-#: views.py:196
+#: views.py:194
 #, python-format
 msgid "%(character)s was added as a new personal blueprint owner."
-msgstr ""
+msgstr "%(character)s 被添加为新的个人蓝图所有者。"
+
+#: views.py:216
+msgid "Yes"
+msgstr "是的"
 
 #: views.py:218
-msgid "Yes"
-msgstr ""
-
-#: views.py:220
 msgid "No"
-msgstr ""
+msgstr "不"
 
-#: views.py:292
+#: views.py:294
 msgid "Corporate"
-msgstr ""
+msgstr "公司"
 
-#: views.py:296
+#: views.py:298
 msgid "Personal"
-msgstr ""
+msgstr "个人"
 
-#: views.py:341
+#: views.py:345
 #, python-format
 msgid "A copy of %(blueprint)s has been requested."
-msgstr ""
+msgstr "已请求提供 %(blueprint)s 的副本。"
 
-#: views.py:457
+#: views.py:461
 #, python-format
 msgid "The request for %(blueprint)s has been closed as fulfilled."
-msgstr ""
+msgstr "%(blueprint)s 的请求已经在完成后关闭。"
 
-#: views.py:466
+#: views.py:470
 #, python-format
 msgid "Fulfilling the request for %(blueprint)s has failed."
-msgstr ""
+msgstr "完成 %(blueprint)s 的请求失败。"
 
-#: views.py:485
+#: views.py:489
 #, python-format
 msgid "The request for %(blueprint)s has been marked as in progress."
-msgstr ""
+msgstr "对 %(blueprint)s 的请求已被标记为正在进行中。"
 
-#: views.py:495
+#: views.py:499
 #, python-format
 msgid "Marking the request for %(blueprint)s as in progress has failed."
-msgstr ""
+msgstr "将 %(blueprint)s 的请求标记为正在进行中失败。"
 
-#: views.py:514
+#: views.py:518
 #, python-format
 msgid "The request for %(blueprint)s has been re-opened."
-msgstr ""
+msgstr "对 %(blueprint)s 的请求已重新打开。"
 
-#: views.py:522
+#: views.py:526
 #, python-format
 msgid "Re-opening the request for %(blueprint)s has failed."
-msgstr ""
+msgstr "重新打开 %(blueprint)s 的请求失败。"
 
-#: views.py:546
+#: views.py:550
 #, python-format
 msgid "The request for %(blueprint)s has been closed as cancelled."
-msgstr ""
+msgstr "%(blueprint)s 的请求已因取消而被关闭。"
 
-#: views.py:555
+#: views.py:559
 #, python-format
 msgid "Cancelling the request for %(blueprint)s has failed."
-msgstr ""
+msgstr "取消 %(blueprint)s 的请求失败。"
 
-#: views.py:579
+#: views.py:590
 #, python-format
 msgid "%(owner)s has been removed as a blueprint owner."
-msgstr ""
+msgstr "%(owner)s 作为蓝图所有者已被删除。"
 
-#: views.py:588
-#, python-format
-msgid "Removing %(owner)s as a blueprint owner has failed."
-msgstr ""
-
-#: views.py:589
-msgid "owner"
-msgstr ""
+#: views.py:597
+msgid "Removing the blueprint owner has failed."
+msgstr "删除蓝图所有者失败。"

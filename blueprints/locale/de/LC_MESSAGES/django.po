@@ -3,283 +3,297 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Erik Kalkoken <erik.kalkoken@gmail.com>, 2020
+# Rebecca Murphy <rebecca@rcmurphy.me>, 2020
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-21 16:29-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2020-12-21 17:22-0500\n"
+"PO-Revision-Date: 2020-12-07 04:19+0000\n"
+"Last-Translator: Rebecca Murphy <rebecca@rcmurphy.me>, 2020\n"
+"Language-Team: German (https://www.transifex.com/alliance-auth/teams/107430/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: auth_hooks.py:17 templates/blueprints/base.html:6
 #: templates/blueprints/base.html:11
 msgid "Blueprint Library"
-msgstr ""
+msgstr "Blaupausenbibliothek"
 
 #: templates/blueprints/index.html:11
 msgid "Library"
-msgstr ""
+msgstr "Die Bibliothek"
 
 #: templates/blueprints/index.html:15
 msgid "My Requests"
-msgstr ""
+msgstr "Meine Anfragen"
 
 #: templates/blueprints/index.html:21
 msgid "Open Requests"
-msgstr ""
+msgstr "Offene Anfragen"
 
 #: templates/blueprints/index.html:30
 msgid "Manage Blueprints"
-msgstr ""
+msgstr "Verwalten von Blueprints"
 
 #: templates/blueprints/index.html:41 templates/blueprints/index.html:68
 #: templates/blueprints/index.html:86
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: templates/blueprints/index.html:42
 msgid "Quantity"
-msgstr ""
+msgstr "Menge"
 
 #: templates/blueprints/index.html:42
 msgid "Qty"
-msgstr ""
+msgstr "Menge"
 
 #: templates/blueprints/index.html:43
 msgid "Owner"
-msgstr ""
+msgstr "Inhaber"
 
 #: templates/blueprints/index.html:44
 #: templates/blueprints/modals/create_request_content.html:27
 #: templates/blueprints/modals/view_request_content.html:25
 msgid "Material Efficiency"
-msgstr ""
+msgstr "Materielle Effizienz"
 
 #. Translators: Abbreviation for "Material Efficiency"
 #: templates/blueprints/index.html:46
 msgid "ME"
-msgstr ""
+msgstr "ME"
 
 #: templates/blueprints/index.html:48
 #: templates/blueprints/modals/create_request_content.html:31
 #: templates/blueprints/modals/view_request_content.html:29
 msgid "Time Efficiency"
-msgstr ""
+msgstr "Zeitliche Effizienz"
 
 #. Translators: Abbreviation for "Time Efficiency"
 #: templates/blueprints/index.html:50
 msgid "TE"
-msgstr ""
+msgstr "TE"
 
 #: templates/blueprints/index.html:52
 msgid "Original"
-msgstr ""
+msgstr "Original"
 
 #: templates/blueprints/index.html:53
 msgid "Runs Remaining"
-msgstr ""
+msgstr "Verbleibende Läufe"
 
 #: templates/blueprints/index.html:69 templates/blueprints/index.html:87
 #: templates/blueprints/modals/view_request_content.html:33
 msgid "Runs"
-msgstr ""
+msgstr "läuft"
 
 #: templates/blueprints/index.html:70 templates/blueprints/index.html:89
 msgid "Requested From"
-msgstr ""
+msgstr "Angefragt von"
 
 #: templates/blueprints/index.html:88
 msgid "Requestor"
-msgstr ""
+msgstr "Anforderer"
 
 #: templates/blueprints/index.html:105
 msgid "Add My Blueprints"
-msgstr ""
+msgstr "Meine Blueprints hinzufügen"
 
 #: templates/blueprints/index.html:110
 msgid "Add Corporation Blueprints"
-msgstr ""
+msgstr "Corporation Blueprints hinzufügen"
 
 #: templates/blueprints/index.html:117
 msgid "Name"
-msgstr ""
+msgstr "Nennen"
 
 #: templates/blueprints/index.html:167
 msgid "Location"
-msgstr ""
+msgstr "Standort"
 
 #: templates/blueprints/index.html:168
 msgid "Is BPO?"
-msgstr ""
+msgstr "Ist BPO?"
 
 #: templates/blueprints/index.html:169 templates/blueprints/index.html:174
 #: templates/blueprints/modals/create_request_content.html:10
 #: templates/blueprints/modals/create_request_content.html:45
 msgid "Create Request"
-msgstr ""
+msgstr "Anfrage erstellen"
 
 #: templates/blueprints/index.html:170
 msgid "Mark Request as Cancelled"
-msgstr ""
+msgstr "Antrag als storniert markieren"
 
 #: templates/blueprints/index.html:171
 msgid "Mark Request as Fulfilled"
-msgstr ""
+msgstr "Antrag als erfüllt markieren"
 
 #: templates/blueprints/index.html:172
 msgid "Mark Request as In Progress"
-msgstr ""
+msgstr "Antrag als in Bearbeitung markieren"
 
 #: templates/blueprints/index.html:173
 msgid "Mark Request as Open"
-msgstr ""
+msgstr "Antrag als offen markieren"
 
 #: templates/blueprints/index.html:175
 msgid "Request Information"
-msgstr ""
+msgstr "Informationen anfordern"
 
 #: templates/blueprints/index.html:176
 msgid "Remove Blueprints"
-msgstr ""
+msgstr "Blueprints entfernen"
 
 #: templates/blueprints/modals/create_request_content.html:19
 #: templates/blueprints/modals/view_request_content.html:17
 msgid "Blueprint Type"
-msgstr ""
+msgstr "Blueprint-Typ"
 
 #: templates/blueprints/modals/create_request_content.html:23
 #: templates/blueprints/modals/view_request_content.html:21
 msgid "Blueprint Location"
-msgstr ""
+msgstr "Blueprint-Standort"
 
 #: templates/blueprints/modals/modal_dialog.html:13
 msgid "Loading..."
-msgstr ""
+msgstr "Wird geladen..."
 
 #: templates/blueprints/modals/view_request_content.html:10
 msgid "View Request"
-msgstr ""
+msgstr "Anfrage ansehen"
 
 #: validators.py:8
 #, python-format
 msgid "%(value)s is not a valid material efficiency"
-msgstr ""
+msgstr "%(value)s ist keine gültige Materialeffizienz"
 
 #: validators.py:16
 #, python-format
 msgid "%(value)s is not a valid time efficiency"
-msgstr ""
+msgstr "%(value)s ist keine gültige Zeiteffizienz"
 
-#: views.py:73 views.py:157
+#: views.py:71 views.py:155
 #, python-format
 msgid ""
 "You can only use your main or alt characters to add corporations. However, "
 "character %s is neither. "
 msgstr ""
+"Du kannst nur deine Haupt- oder Alt-Charaktere verwenden, um Corporations "
+"hinzuzufügen. Der Charakter %s ist jedoch keines von beiden."
 
-#: views.py:106
+#: views.py:104
 #, python-format
 msgid ""
-"%(corporation)s has been added with %(character)s as sync character. We have "
-"started fetching blueprints for this corporation. You will receive a report "
-"once the process is finished."
+"%(corporation)s has been added with %(character)s as sync character. We have"
+" started fetching blueprints for this corporation. You will receive a report"
+" once the process is finished."
 msgstr ""
+"%(corporation)s wurde mit %(character)s als Synchronisierungscharakter "
+"hinzugefügt. Wir haben damit begonnen, Blaupausen für diese Corporation zu "
+"laden. Sie erhalten einen Bericht, sobald der Prozess abgeschlossen ist."
 
-#: views.py:122
+#: views.py:120
 #, python-format
-msgid "%(corporation)s was added as new blueprint owner by %(user)s."
+msgid ""
+"%(corporation)s was added as new corporate blueprint owner by %(user)s."
 msgstr ""
+"%(corporation)s wurde von %(user)s als neuer Eigentümer eines Unternehmens-"
+"Blueprints hinzugefügt."
 
-#: views.py:182
+#: views.py:180
 #, python-format
 msgid ""
 "%(character)s has been added. We have started fetching blueprints for this "
 "character. You will receive a report once the process is finished."
 msgstr ""
+"%(character)s wurde hinzugefügt. Wir haben damit begonnen, Blaupausen für "
+"diesen Charakter zu holen. Sie erhalten einen Bericht, sobald der Prozess "
+"abgeschlossen ist."
 
-#: views.py:196
+#: views.py:194
 #, python-format
 msgid "%(character)s was added as a new personal blueprint owner."
 msgstr ""
+"%(character)s wurde als neuer Besitzer eines persönlichen Blueprints "
+"hinzugefügt."
+
+#: views.py:216
+msgid "Yes"
+msgstr "ja"
 
 #: views.py:218
-msgid "Yes"
-msgstr ""
-
-#: views.py:220
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
-#: views.py:292
+#: views.py:294
 msgid "Corporate"
-msgstr ""
+msgstr "Corporate"
 
-#: views.py:296
+#: views.py:298
 msgid "Personal"
-msgstr ""
+msgstr "Persönlich"
 
-#: views.py:341
+#: views.py:345
 #, python-format
 msgid "A copy of %(blueprint)s has been requested."
-msgstr ""
+msgstr "Eine Kopie von %(blueprint)s wurde angefordert."
 
-#: views.py:457
+#: views.py:461
 #, python-format
 msgid "The request for %(blueprint)s has been closed as fulfilled."
-msgstr ""
+msgstr "Die Anfrage für %(blueprint)s wurde als erfüllt geschlossen."
 
-#: views.py:466
+#: views.py:470
 #, python-format
 msgid "Fulfilling the request for %(blueprint)s has failed."
-msgstr ""
+msgstr "Das Ausfüllen der Anfrage für %(blueprint)s ist fehlgeschlagen."
 
-#: views.py:485
+#: views.py:489
 #, python-format
 msgid "The request for %(blueprint)s has been marked as in progress."
-msgstr ""
+msgstr "Der Antrag auf %(blueprint)s wurde als in Bearbeitung markiert."
 
-#: views.py:495
+#: views.py:499
 #, python-format
 msgid "Marking the request for %(blueprint)s as in progress has failed."
 msgstr ""
+"Das Markieren der Anfrage für %(blueprint)s als in Bearbeitung ist "
+"fehlgeschlagen."
 
-#: views.py:514
+#: views.py:518
 #, python-format
 msgid "The request for %(blueprint)s has been re-opened."
-msgstr ""
+msgstr "Die Anfrage für %(blueprint)s wurde erneut geöffnet."
 
-#: views.py:522
+#: views.py:526
 #, python-format
 msgid "Re-opening the request for %(blueprint)s has failed."
-msgstr ""
+msgstr "Das erneute Öffnen der Anfrage für %(blueprint)s ist fehlgeschlagen."
 
-#: views.py:546
+#: views.py:550
 #, python-format
 msgid "The request for %(blueprint)s has been closed as cancelled."
-msgstr ""
+msgstr "Der Antrag für %(blueprint)s wurde wie storniert geschlossen."
 
-#: views.py:555
+#: views.py:559
 #, python-format
 msgid "Cancelling the request for %(blueprint)s has failed."
-msgstr ""
+msgstr "Das Abbrechen der Anfrage für %(blueprint)s ist fehlgeschlagen."
 
-#: views.py:579
+#: views.py:590
 #, python-format
 msgid "%(owner)s has been removed as a blueprint owner."
 msgstr ""
 
-#: views.py:588
-#, python-format
-msgid "Removing %(owner)s as a blueprint owner has failed."
-msgstr ""
-
-#: views.py:589
-msgid "owner"
-msgstr ""
+#: views.py:597
+msgid "Removing the blueprint owner has failed."
+msgstr "Das Entfernen des Blueprint-Besitzers ist fehlgeschlagen."

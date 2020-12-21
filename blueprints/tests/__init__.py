@@ -31,6 +31,7 @@ def create_user_from_evecharacter(character_id: int) -> Tuple[User, CharacterOwn
     user = AuthUtils.add_permission_to_user_by_name(
         "blueprints.add_personal_blueprint_owner", user
     )
+    user = AuthUtils.add_permission_to_user_by_name("blueprints.manage_requests", user)
     character_ownership = add_character_to_user(
         user,
         auth_character,

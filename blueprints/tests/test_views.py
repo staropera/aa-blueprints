@@ -7,13 +7,15 @@ from django.urls import reverse
 
 from eveuniverse.models import EveEntity, EveType
 
-from ..models import Blueprint, Location, Request
+from ..models import Blueprint, Location, Owner, Request
 from ..views import (
     list_blueprints,
+    list_user_owners,
     mark_request_cancelled,
     mark_request_fulfilled,
     mark_request_in_progress,
     mark_request_open,
+    remove_owner,
 )
 from . import create_owner
 from .testdata.load_entities import load_entities
@@ -179,3 +181,25 @@ class TestBlueprintsData(TestViewsBase):
         user_request.refresh_from_db()
         self.assertEquals(user_request.status, "OP")
         self.assertEquals(user_request.fulfulling_user, None)
+
+    def test_list_user_owners(self):
+        request = self.factory.get(reverse("blueprints:list_user_owners"))
+        request.user = self.user
+        response = list_user_owners(request)
+        self.assertEqual(response.status_code, 200)
+        data = json_response_to_python(response)
+        self.assertEqual(len(data), 1)
+        row = data[0]
+        self.assertEqual(row["name"], "Lexcorp")
+        self.assertEqual(row["type"], "corporate")
+
+    @patch(VIEWS_PATH + ".messages_plus")
+    def test_remove_owner(self, mock_messages):
+        request = self.factory.post(
+            reverse("blueprints:remove_owner", args=[self.owner.pk])
+        )
+        request.user = self.user
+        response = remove_owner(request, self.owner.pk)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(mock_messages.info.called)
+        self.assertEqual(Owner.objects.filter(pk=self.owner.pk).first(), None)

@@ -27,6 +27,9 @@ class BlueprintLibraryMenuItem(MenuItemHook):
                     Request.objects.all()
                     .requests_fulfillable_by_user(request.user)
                     .count()
+                    + Request.objects.all()
+                    .requests_being_fulfilled_by_user(request.user)
+                    .count()
                 )
             else:
                 app_count = None

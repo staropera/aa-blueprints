@@ -28,11 +28,20 @@ from .utils import messages_plus, notify_admins
 @login_required
 @permissions_required("blueprints.basic_access")
 def index(request):
-
+    if request.user.has_perm("blueprints.manage_requests"):
+        request_count = (
+            Request.objects.all().requests_fulfillable_by_user(request.user).count()
+            + Request.objects.all()
+            .requests_being_fulfilled_by_user(request.user)
+            .count()
+        )
+    else:
+        request_count = None
     context = {
         "page_title": gettext_lazy(__title__),
         "data_tables_page_length": BLUEPRINTS_DEFAULT_PAGE_LENGTH,
         "data_tables_paging": BLUEPRINTS_PAGING_ENABLED,
+        "request_count": request_count,
     }
     return render(request, "blueprints/index.html", context)
 
@@ -269,6 +278,34 @@ def list_blueprints(request):
     blueprint_rows = [convert_blueprint(blueprint) for blueprint in blueprints_query]
 
     return JsonResponse(blueprint_rows, safe=False)
+
+
+@login_required
+@permissions_required(
+    "blueprints.add_personal_blueprint_owner",
+    "blueprints.add_corporate_blueprint_owner",
+)
+def list_user_owners(request):
+    owners = Owner.objects.filter(character__user=request.user)
+    results = []
+    for owner in owners:
+        if owner.corporation:
+            owner_type = "corporate"
+            owner_type_display = gettext_lazy("Corporate")
+            owner_name = owner.corporation.corporation_name
+        else:
+            owner_type = "personal"
+            owner_type_display = gettext_lazy("Personal")
+            owner_name = owner.character.character.character_name
+        results.append(
+            {
+                "id": owner.pk,
+                "type": owner_type,
+                "type_display": owner_type_display,
+                "name": owner_name,
+            }
+        )
+    return JsonResponse(results, safe=False)
 
 
 @login_required
@@ -522,5 +559,41 @@ def mark_request_cancelled(request, request_id):
                 gettext_lazy("Cancelling the request for %(blueprint)s has failed.")
                 % {"blueprint": user_request.blueprint.eve_type.name}
             ),
+        )
+    return redirect("blueprints:index")
+
+
+@login_required
+@permissions_required(
+    "blueprints.add_personal_blueprint_owner",
+    "blueprints.add_corporate_blueprint_owner",
+)
+@require_POST
+def remove_owner(request, owner_id):
+    owner = Owner.objects.filter(pk=owner_id, character__user=request.user).first()
+    completed = False
+    owner_name = None
+
+    if owner:
+        owner_name = (
+            owner.corporation.corporation_name
+            if owner.corporation
+            else owner.character.character.character_name
+        )
+        owner.delete()
+        completed = True
+
+    if completed:
+        messages_plus.info(
+            request,
+            format_html(
+                gettext_lazy("%(owner)s has been removed as a blueprint owner.")
+                % {"owner": owner_name}
+            ),
+        )
+    else:
+        messages_plus.error(
+            request,
+            format_html(gettext_lazy("Removing the blueprint owner has failed.")),
         )
     return redirect("blueprints:index")

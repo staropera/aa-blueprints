@@ -11,14 +11,24 @@ urlpatterns = [
     ),
     path("modals/view_request", views.view_request_modal, name="view_request_modal"),
     path(
-        "owner/add/character",
+        "owners/add/character",
         views.add_personal_blueprint_owner,
         name="add_personal_blueprint_owner",
     ),
     path(
-        "owner/add/corporation",
+        "owners/add/corporation",
         views.add_corporate_blueprint_owner,
         name="add_corporate_blueprint_owner",
+    ),
+    path(
+        "owners/user",
+        views.list_user_owners,
+        name="list_user_owners",
+    ),
+    path(
+        "owners/<int:owner_id>/remove",
+        views.remove_owner,
+        name="remove_owner",
     ),
     path("blueprints", views.list_blueprints, name="list_blueprints"),
     path("requests/user", views.list_user_requests, name="list_user_requests"),

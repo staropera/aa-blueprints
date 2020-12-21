@@ -20,6 +20,11 @@ $(document).ready(function () {
     var dataTablesPageLength = blueprintsSettings.dataTablesPageLength;
     var dataTablesPaging = blueprintsSettings.dataTablesPaging;
     var csrfToken = blueprintsSettings.csrfToken;
+    var requestInfoText = blueprintsSettings.translation.requestInfo;
+    var markRequestCancelledText = blueprintsSettings.translation.markRequestCancelled;
+    var markRequestFulfilledText = blueprintsSettings.translation.markRequestFulfilled;
+    var markRequestInProgressText = blueprintsSettings.translation.markRequestInProgress;
+    var markRequestOpenText = blueprintsSettings.translation.markRequestOpen;
     /* dataTable def */
     $("#table-open-requests").DataTable({
         ajax: {
@@ -78,11 +83,11 @@ $(document).ready(function () {
                             buttons +=
                                 '<form class="inline" method="post" action="' + cancelRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<button type="submit" class="btn btn-danger" aria-label="Cancel Request"><span class="fas fa-trash"></span></button></form>';
+                                '<button type="submit" class="btn btn-danger" aria-label="' + markRequestCancelledText + '" title="' + markRequestCancelledText + '"><span class="fas fa-trash"></span></button></form>';
                             buttons +=
                                 '<form class="inline" method="post" action="' + inProgressRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<button type="submit" class="btn btn-info" aria-label="Claim Request"><span class="fas fa-clipboard-check"></span></button></form>';
+                                '<button type="submit" class="btn btn-info" aria-label="' + markRequestInProgressText + '" title="' + markRequestInProgressText + '"><span class="fas fa-clipboard-check"></span></button></form>';
                             return buttons;
                         } else if (row["status"] == "IP") {
                             var buttons =
@@ -94,15 +99,15 @@ $(document).ready(function () {
                             buttons +=
                                 '<form class="inline" method="post" action="' + openRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<button type="submit" class="btn btn-warning" aria-label="Re-Open Request"><span class="fas fa-undo"></span></button></form>';
+                                '<button type="submit" class="btn btn-warning" aria-label="' + markRequestOpenText + '" title="' + markRequestOpenText + '"><span class="fas fa-undo"></span></button></form>';
                             buttons +=
                                 '<form class="inline" method="post" action="' + cancelRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<button type="submit" class="btn btn-danger" aria-label="Cancel Request"><span class="fas fa-trash"></span></button></form>';
+                                '<button type="submit" class="btn btn-danger" aria-label="' + markRequestCancelledText + '" title="' + markRequestCancelledText + '"><span class="fas fa-trash"></span></button></form>';
                             buttons +=
                                 '<form class="inline" method="post" action="' +fulfillRequestUrl(data) +'">' +
                                 csrfToken +
-                                '<button type="submit" class="btn btn-success" aria-label="Fulfill Request"><span class="fas fa-clipboard-check"></span></button></form>';
+                                '<button type="submit" class="btn btn-success"  aria-label="' + markRequestFulfilledText + '" title="' + markRequestFulfilledText + '"><span class="fas fa-clipboard-check"></span></button></form>';
                             return buttons;
                         } else {
                             return "";

@@ -11,6 +11,7 @@ $(document).ready(function () {
     var dataTablesPaging = blueprintsSettings.dataTablesPaging;
     var csrfToken = blueprintsSettings.csrfToken;
     var canAddBlueprints = blueprintsSettings.canAddBlueprints;
+    var createRequestText = blueprintsSettings.translation.createRequest;
     /* dataTable def */
     $("#table-blueprints").DataTable({
         ajax: {
@@ -58,7 +59,7 @@ $(document).ready(function () {
                                 createRequestModalUrl +
                                 "?blueprint_id=" +
                                 data +
-                                '" aria-label="Create Request"><span class="fas fa-copy"></span></button>'
+                                '" aria-label="' + createRequestText + '" title="' + createRequestText + '"><span class="fas fa-copy"></span></button>'
                             );
                         } else {
                             return "";

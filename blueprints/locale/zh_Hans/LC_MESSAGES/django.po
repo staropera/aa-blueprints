@@ -8,13 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-19 14:02-0500\n"
+"POT-Creation-Date: 2020-12-21 14:22-0500\n"
 "PO-Revision-Date: 2020-12-07 04:19+0000\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/alliance-auth/teams/107430/zh_CN/)\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/alliance-auth/"
+"teams/107430/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: auth_hooks.py:17 templates/blueprints/base.html:6
@@ -110,14 +111,30 @@ msgstr ""
 msgid "Is BPO?"
 msgstr ""
 
-#: templates/blueprints/modals/create_request.html:13
-#: templates/blueprints/modals/view_request.html:13
-msgid "Loading..."
-msgstr ""
-
+#: templates/blueprints/index.html:142 templates/blueprints/index.html:147
 #: templates/blueprints/modals/create_request_content.html:10
 #: templates/blueprints/modals/create_request_content.html:45
 msgid "Create Request"
+msgstr ""
+
+#: templates/blueprints/index.html:143
+msgid "Mark Request as Cancelled"
+msgstr ""
+
+#: templates/blueprints/index.html:144
+msgid "Mark Request as Fulfilled"
+msgstr ""
+
+#: templates/blueprints/index.html:145
+msgid "Mark Request as In Progress"
+msgstr ""
+
+#: templates/blueprints/index.html:146
+msgid "Mark Request as Open"
+msgstr ""
+
+#: templates/blueprints/index.html:148
+msgid "Request Information"
 msgstr ""
 
 #: templates/blueprints/modals/create_request_content.html:19
@@ -128,6 +145,10 @@ msgstr ""
 #: templates/blueprints/modals/create_request_content.html:23
 #: templates/blueprints/modals/view_request_content.html:21
 msgid "Blueprint Location"
+msgstr ""
+
+#: templates/blueprints/modals/modal_dialog.html:13
+msgid "Loading..."
 msgstr ""
 
 #: templates/blueprints/modals/view_request_content.html:10
@@ -154,9 +175,9 @@ msgstr ""
 #: views.py:95
 #, python-format
 msgid ""
-"%(corporation)s has been added with %(character)s as sync character. We have"
-" started fetching blueprints for this corporation. You will receive a report"
-" once the process is finished."
+"%(corporation)s has been added with %(character)s as sync character. We have "
+"started fetching blueprints for this corporation. You will receive a report "
+"once the process is finished."
 msgstr ""
 
 #: views.py:111
@@ -173,7 +194,7 @@ msgstr ""
 
 #: views.py:185
 #, python-format
-msgid "%(user)s was added as a new personal blueprint owner."
+msgid "%(character)s was added as a new personal blueprint owner."
 msgstr ""
 
 #: views.py:207
@@ -184,47 +205,47 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: views.py:301
+#: views.py:308
 #, python-format
 msgid "A copy of %(blueprint)s has been requested."
 msgstr ""
 
-#: views.py:400
+#: views.py:424
 #, python-format
 msgid "The request for %(blueprint)s has been closed as fulfilled."
 msgstr ""
 
-#: views.py:409
+#: views.py:433
 #, python-format
 msgid "Fulfilling the request for %(blueprint)s has failed."
 msgstr ""
 
-#: views.py:428
+#: views.py:452
 #, python-format
 msgid "The request for %(blueprint)s has been marked as in progress."
 msgstr ""
 
-#: views.py:438
+#: views.py:462
 #, python-format
 msgid "Marking the request for %(blueprint)s as in progress has failed."
 msgstr ""
 
-#: views.py:455
+#: views.py:481
 #, python-format
 msgid "The request for %(blueprint)s has been re-opened."
 msgstr ""
 
-#: views.py:463
+#: views.py:489
 #, python-format
 msgid "Re-opening the request for %(blueprint)s has failed."
 msgstr ""
 
-#: views.py:482
+#: views.py:513
 #, python-format
 msgid "The request for %(blueprint)s has been closed as cancelled."
 msgstr ""
 
-#: views.py:491
+#: views.py:522
 #, python-format
 msgid "Cancelling the request for %(blueprint)s has failed."
 msgstr ""

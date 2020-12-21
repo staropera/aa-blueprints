@@ -138,7 +138,14 @@
             dataTablesPaging: {{ data_tables_paging|yesno:"true,false" }},
             translation: {
                 filterLocation: '{% translate "Location" %}',
-                filterIsOriginal: '{% translate "Is BPO?" %}'
+                filterIsOriginal: '{% translate "Is BPO?" %}',
+                createRequest: '{% translate "Create Request" %}',
+                markRequestCancelled: '{% translate "Mark Request as Cancelled" %}',
+                markRequestFulfilled: '{% translate "Mark Request as Fulfilled" %}',
+                markRequestInProgress: '{% translate "Mark Request as In Progress" %}',
+                markRequestOpen: '{% translate "Mark Request as Open" %}',
+                createRequest: '{% translate "Create Request" %}',
+                requestInfo: '{% translate "Request Information" %}',
             }
         };
 
@@ -157,6 +164,7 @@
     <script type="application/javascript" src="{% static 'blueprints/js/blueprint_list.js' %}" ></script>
     <script type="application/javascript" src="{% static 'blueprints/js/user_request_list.js' %}" ></script>
     <script type="application/javascript" src="{% static 'blueprints/js/open_request_list.js' %}" ></script>
+
 {% endblock %}
 
 {% block extra_script %}

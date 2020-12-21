@@ -20,7 +20,7 @@ This is an blueprints library app for [Alliance Auth](https://gitlab.com/allianc
 
 ### Library
 
-![library](https://i.imgur.com/sJJjnUd.png)
+![library](https://i.imgur.com/LghETdF.png)
 
 ### Create a Request
 

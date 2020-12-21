@@ -11,6 +11,7 @@ $(document).ready(function () {
     var dataTablesPaging = blueprintsSettings.dataTablesPaging;
     var csrfToken = blueprintsSettings.csrfToken;
     var viewRequestModalUrl = blueprintsSettings.viewRequestModalUrl;
+    var markRequestCancelledText = blueprintsSettings.translation.markRequestCancelled;
 
     /* dataTable def */
     $("#table-user-requests").DataTable({
@@ -68,8 +69,8 @@ $(document).ready(function () {
                         buttons +=
                             '<form method="post" class="inline" action="' + cancelRequestUrl(data) + '">' +
                             csrfToken +
-                            '<button type="submit" class="btn btn-danger"><span class="fas fa-trash"></span> </form> ';
-                        return buttons;
+                            '<button type="submit" class="btn btn-danger" aria-label="' + markRequestCancelledText + '" title="' + markRequestCancelledText + '"><span class="fas fa-trash"></span></button></form>';
+                            return buttons;
                     }
 
                     return data;

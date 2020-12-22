@@ -99,17 +99,19 @@
             {% if perms.blueprints.add_personal_blueprint_owner or perms.blueprints.add_corporate_blueprint_owner %}
             <div class="tab-pane panel panel-default" id="tab-manage-blueprints">
                 <div class="panel-body">
-                    <div class="pull-right">
-                        {% if perms.blueprints.add_personal_blueprint_owner %}
-                            <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_personal_blueprint_owner' %}">
-                                {% translate "Add My Blueprints" %}
-                            </a>
-                        {% endif %}
-                        {% if perms.blueprints.add_corporate_blueprint_owner %}
-                            <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_corporate_blueprint_owner' %}">
-                                {% translate "Add Corporation Blueprints" %}
-                            </a>
-                        {% endif %}
+                    <div class="clearfix" style="margin-bottom: 1rem;">
+                        <div class="pull-right">
+                            {% if perms.blueprints.add_personal_blueprint_owner %}
+                                <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_personal_blueprint_owner' %}">
+                                    {% translate "Add My Blueprints" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.blueprints.add_corporate_blueprint_owner %}
+                                <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_corporate_blueprint_owner' %}">
+                                    {% translate "Add Corporation Blueprints" %}
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
                     <table id="table-manage-blueprints" style="width: 100%" class="table table-striped">
                         <thead>

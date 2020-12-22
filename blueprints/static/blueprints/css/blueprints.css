@@ -48,3 +48,7 @@ form.inline {
 .right-column {
   text-align: right;
 }
+
+.pad-right {
+  padding-right: 5px;
+}

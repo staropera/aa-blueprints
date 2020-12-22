@@ -33,6 +33,7 @@ class Migration(migrations.Migration):
                             (6, "Duplicating"),
                             (7, "Reverse Engineering"),
                             (8, "Inventing"),
+                            (9, "Reacting"),
                         ]
                     ),
                 ),

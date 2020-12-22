@@ -57,7 +57,12 @@ form.inline {
 .modal-tab {
   min-height: 300px;
 }
+
 #modalTitle > img {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.pad-right {
+  padding-right: 5px;
 }

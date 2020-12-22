@@ -53,6 +53,10 @@ $(document).ready(function () {
             {
                 render: function (data, type, row) {
                     if (type === "display") {
+<<<<<<< HEAD
+=======
+                        if (row.og !== "" && canAddBlueprints && !row.nme.endsWith(" Formula")) {
+>>>>>>> rework
                             return (
                                 '<button class="btn btn-primary" data-toggle="modal" data-target="#modalViewBlueprintContainer" data-ajax_url="' +
                                 viewBlueprintModalUrl +

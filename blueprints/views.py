@@ -313,11 +313,10 @@ def list_user_owners(request):
 
 
 @login_required
-@permissions_required("blueprints.request_blueprints")
-def create_request_modal(request):
+def view_blueprint_modal(request):
     blueprint = Blueprint.objects.get(pk=request.GET.get("blueprint_id"))
     context = {"blueprint": convert_blueprint(blueprint)}
-    return render(request, "blueprints/modals/create_request_content.html", context)
+    return render(request, "blueprints/modals/view_blueprint_content.html", context)
 
 
 @login_required

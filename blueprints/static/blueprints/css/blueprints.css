@@ -49,6 +49,20 @@ form.inline {
   text-align: right;
 }
 
+.description-row {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.modal-tab {
+  min-height: 300px;
+}
+
+#modalTitle > img {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .pad-right {
   padding-right: 5px;
 }

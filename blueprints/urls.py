@@ -7,7 +7,7 @@ app_name = "blueprints"
 urlpatterns = [
     path("", views.index, name="index"),
     path(
-        "modals/create_request", views.create_request_modal, name="create_request_modal"
+        "modals/view_blueprint", views.view_blueprint_modal, name="view_blueprint_modal"
     ),
     path("modals/view_request", views.view_request_modal, name="view_request_modal"),
     path(

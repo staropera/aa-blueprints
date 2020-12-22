@@ -540,6 +540,56 @@
       ]
     }
   },
+  "Industry": {
+    "get_characters_character_id_industry_jobs": {
+        "1101": [
+            {
+              "activity_id": 5,
+              "blueprint_id": 1027222693618,
+              "blueprint_location_id": 1000000000001,
+              "blueprint_type_id": 33519,
+              "cost": 124795,
+              "duration": 47328,
+              "end_date": "2020-12-22T12:46:02Z",
+              "facility_id": 1030663172761,
+              "installer_id": 1001,
+              "job_id": 445802503,
+              "licensed_runs": 10,
+              "location_id": 1000000000001,
+              "output_location_id": 1000000000001,
+              "probability": 1,
+              "product_type_id": 16228,
+              "runs": 1,
+              "start_date": "2020-12-21T23:37:14Z",
+              "status": "active"
+            }
+        ]
+    },
+    "get_corporations_corporation_id_industry_jobs": {
+        "2101": [
+            {
+              "activity_id": 5,
+              "blueprint_id": 1027222693618,
+              "blueprint_location_id": 1000000000001,
+              "blueprint_type_id": 33519,
+              "cost": 124795,
+              "duration": 47328,
+              "end_date": "2020-12-22T12:46:02Z",
+              "facility_id": 1030663172761,
+              "installer_id": 1001,
+              "job_id": 445802503,
+              "licensed_runs": 10,
+              "location_id": 1000000000001,
+              "output_location_id": 1000000000001,
+              "probability": 1,
+              "product_type_id": 16228,
+              "runs": 1,
+              "start_date": "2020-12-21T23:37:14Z",
+              "status": "active"
+            }
+        ]
+    }
+  },
   "Location": {
     "get_characters_character_id_location": {
       "1001": {

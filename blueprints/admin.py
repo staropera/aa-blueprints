@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Blueprint, Location, Owner, Request
+from .models import Blueprint, IndustryJob, Location, Owner, Request
 
 # Register your models here.
 
@@ -100,9 +100,12 @@ class OwnerAdmin(admin.ModelAdmin):
 
 @admin.register(Request)
 class RequestAdmin(admin.ModelAdmin):
-    list_display = ("_type", "_owner", "_owner", "_fulfilled_by")
+    list_display = ("_type", "_requestor", "_owner", "_fulfilled_by")
 
-    list_select_related = ("blueprint", "requesting_user")
+    list_select_related = (
+        "blueprint__eve_type",
+        "requesting_user__profile__main_character__character_name",
+    )
     search_fields = ["blueprint__eve_type__name"]
 
     def _type(self, obj):
@@ -122,4 +125,28 @@ class RequestAdmin(admin.ModelAdmin):
         )
 
     def has_add_permission(self, request):
+        return False
+
+
+@admin.register(IndustryJob)
+class IndustryJobAdmin(admin.ModelAdmin):
+
+    list_display = ("_blueprint", "_installer", "_activity")
+
+    list_select_related = ("blueprint__eve_type",)
+    search_fields = ["blueprint__eve_type__name"]
+
+    def _blueprint(self, obj):
+        return obj.blueprint.eve_type.name if obj.blueprint.eve_type else None
+
+    def _installer(self, obj):
+        return obj.installer.character_name
+
+    def _activity(self, obj):
+        return obj.get_activity_display()
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
         return False

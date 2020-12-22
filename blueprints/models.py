@@ -2,10 +2,11 @@ from typing import Tuple
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.evelinks import dotlan
-from allianceauth.eveonline.models import EveCorporationInfo
+from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from allianceauth.services.hooks import get_extension_logger
 from esi.errors import TokenExpiredError, TokenInvalidError
 from esi.models import Token
@@ -212,6 +213,70 @@ class Owner(models.Model):
                     )
             Blueprint.objects.filter(pk__in=blueprint_ids_to_remove).delete()
 
+    def update_industry_jobs_esi(self):
+        """updates all blueprints from ESI"""
+
+        if self.is_active:
+            job_ids_to_remove = list(
+                IndustryJob.objects.filter(owner=self).values_list("id", flat=True)
+            )
+            if self.corporation:
+                jobs = self._fetch_corporate_industry_jobs()
+                token = self.token(
+                    [
+                        "esi-universe.read_structures.v1",
+                        "esi-corporations.read_blueprints.v1",
+                    ]
+                )[0]
+            else:
+                jobs = self._fetch_personal_industry_jobs()
+                token = self.token(
+                    [
+                        "esi-universe.read_structures.v1",
+                        "esi-characters.read_blueprints.v1",
+                    ]
+                )[0]
+
+            for job in jobs:
+
+                original = IndustryJob.objects.filter(
+                    owner=self, id=job["job_id"]
+                ).first()
+                blueprint = Blueprint.objects.filter(pk=job["blueprint_id"]).first()
+                if blueprint is not None:
+                    if original is not None:
+                        # We've seen this blueprint coming from ESI, so we know it shouldn't be deleted
+                        job_ids_to_remove.remove(original.id)
+                        original.status = job["status"]
+                        original.save()
+                    else:
+                        installer = EveCharacter.objects.get_character_by_id(
+                            job["installer_id"]
+                        )
+                        if not installer:
+                            installer = EveCharacter.objects.create_character(
+                                job["installer_id"]
+                            )
+                        IndustryJob.objects.create(
+                            id=job["job_id"],
+                            activity=job["activity_id"],
+                            owner=self,
+                            location=self._fetch_location(
+                                job["location_id"],
+                                token=token,
+                            ),
+                            blueprint=Blueprint.objects.get(pk=job["blueprint_id"]),
+                            installer=installer,
+                            runs=job["runs"],
+                            start_date=job["start_date"],
+                            end_date=job["end_date"],
+                            status=job["status"],
+                        )
+                else:
+                    blueprint_id = job["blueprint_id"]
+                    logger.warn(f"Unmatchable blueprint ID: {blueprint_id}")
+            IndustryJob.objects.filter(pk__in=job_ids_to_remove).delete()
+
     @fetch_token_for_owner(["esi-assets.read_corporation_assets.v1"])
     def _fetch_corporate_assets(self, token) -> list:
         return esi.client.Assets.get_corporations_corporation_id_assets(
@@ -228,7 +293,6 @@ class Owner(models.Model):
 
     @fetch_token_for_owner(["esi-corporations.read_blueprints.v1"])
     def _fetch_corporate_blueprints(self, token) -> list:
-        """fetch Blueprints from ESI for self"""
 
         corporation_id = self.corporation.corporation_id
 
@@ -240,7 +304,6 @@ class Owner(models.Model):
 
     @fetch_token_for_owner(["esi-characters.read_blueprints.v1"])
     def _fetch_personal_blueprints(self, token) -> list:
-        """fetch Blueprints from ESI for self"""
 
         character_id = self.character.character.character_id
 
@@ -249,6 +312,28 @@ class Owner(models.Model):
             token=token.valid_access_token(),
         ).results()
         return blueprints
+
+    @fetch_token_for_owner(["esi-industry.read_corporation_jobs.v1"])
+    def _fetch_corporate_industry_jobs(self, token) -> list:
+
+        corporation_id = self.corporation.corporation_id
+
+        jobs = esi.client.Industry.get_corporations_corporation_id_industry_jobs(
+            corporation_id=corporation_id,
+            token=token.valid_access_token(),
+        ).results()
+        return jobs
+
+    @fetch_token_for_owner(["esi-industry.read_character_jobs.v1"])
+    def _fetch_personal_industry_jobs(self, token) -> list:
+
+        character_id = self.character.character.character_id
+
+        jobs = esi.client.Industry.get_characters_character_id_industry_jobs(
+            character_id=character_id,
+            token=token.valid_access_token(),
+        ).results()
+        return jobs
 
     def token(self, scopes=None) -> Tuple[Token, int]:
         """returns a valid Token for the owner"""
@@ -372,6 +457,63 @@ class Blueprint(models.Model):
         return (
             self.eve_type.name + f" ({self.material_efficiency}/{self.time_efficiency})"
         )
+
+
+class IndustryJob(models.Model):
+    id = models.PositiveBigIntegerField(
+        primary_key=True,
+        help_text=("Eve Online job ID"),
+    )
+
+    class Activity(models.IntegerChoices):
+        MANUFACTURING = 1, _("Manufacturing")
+        RESEARCHING_TECHNOLOGY = 2, _("Researching Technology")
+        RESEARCHING_TIME_EFFICIENCY = 3, _("Researching Time Efficiency")
+        RESEARCHING_MATERIAL_EFFICIENCY = 4, _("Researching Material Efficiency")
+        COPYING = 5, _("Copying")
+        DUPLICATING = 6, _("Duplicating")
+        REVERSE_ENGINEERING = 7, _("Reverse Engineering")
+        INVENTING = 8, _("Inventing")
+
+    activity = models.PositiveBigIntegerField(choices=Activity.choices)
+    location = models.ForeignKey(
+        "Location",
+        on_delete=models.CASCADE,
+        help_text=(
+            "Eve Online location ID of the facility in which the job is running"
+        ),
+        related_name="+",
+    )
+    blueprint = models.ForeignKey(
+        Blueprint,
+        on_delete=models.CASCADE,
+        help_text=("Blueprint the job is running"),
+        related_name="jobs",
+    )
+    installer = models.ForeignKey(
+        EveCharacter,
+        on_delete=models.CASCADE,
+        related_name="jobs",
+    )
+    owner = models.ForeignKey(
+        Owner,
+        on_delete=models.CASCADE,
+        related_name="jobs",
+    )
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    runs = models.PositiveIntegerField()
+    status = models.CharField(
+        choices=(
+            ("active", "Active"),
+            ("cancelled", "Cancelled"),
+            ("delivered", "Delivered"),
+            ("paused", "Paused"),
+            ("ready", "Ready"),
+            ("reverted", "Reverted"),
+        ),
+        max_length=10,
+    )
 
 
 class Location(models.Model):

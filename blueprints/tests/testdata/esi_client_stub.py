@@ -96,6 +96,18 @@ _endpoints = [
         needs_token=True,
     ),
     EsiEndpoint(
+        "Industry",
+        "get_characters_character_id_industry_jobs",
+        "character_id",
+        needs_token=True,
+    ),
+    EsiEndpoint(
+        "Industry",
+        "get_corporations_corporation_id_industry_jobs",
+        "corporation_id",
+        needs_token=True,
+    ),
+    EsiEndpoint(
         "Location",
         "get_characters_character_id_location",
         "character_id",

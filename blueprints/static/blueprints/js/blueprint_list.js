@@ -5,13 +5,13 @@ $(document).ready(function () {
 
     var listDataUrl = blueprintsSettings.listDataUrl;
     var createRequestUrl = blueprintsSettings.createRequestUrl;
-    var createRequestModalUrl =
-        blueprintsSettings.createRequestModalUrl;
+    var viewBlueprintModalUrl =
+        blueprintsSettings.viewBlueprintModalUrl;
     var dataTablesPageLength = blueprintsSettings.dataTablesPageLength;
     var dataTablesPaging = blueprintsSettings.dataTablesPaging;
     var csrfToken = blueprintsSettings.csrfToken;
     var canAddBlueprints = blueprintsSettings.canAddBlueprints;
-    var createRequestText = blueprintsSettings.translation.createRequest;
+    var viewBlueprintText = blueprintsSettings.translation.viewBlueprint;
     /* dataTable def */
     $("#table-blueprints").DataTable({
         ajax: {
@@ -53,19 +53,14 @@ $(document).ready(function () {
             {
                 render: function (data, type, row) {
                     if (type === "display") {
-                        if (row.og !== "" && canAddBlueprints) {
                             return (
-                                '<button class="btn btn-success" data-toggle="modal" data-target="#modalCreateRequestContainer" data-ajax_url="' +
-                                createRequestModalUrl +
+                                '<button class="btn btn-primary" data-toggle="modal" data-target="#modalViewBlueprintContainer" data-ajax_url="' +
+                                viewBlueprintModalUrl +
                                 "?blueprint_id=" +
                                 data +
-                                '" aria-label="' + createRequestText + '" title="' + createRequestText + '"><span class="fas fa-copy"></span></button>'
+                                '" aria-label="' + viewBlueprintText + '" title="' + viewBlueprintText + '"><span class="fas fa-info"></span></button>'
                             );
-                        } else {
-                            return "";
                         }
-                    }
-
                     return data;
                 },
                 targets: [8],

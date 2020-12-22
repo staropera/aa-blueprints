@@ -125,7 +125,7 @@
         </div>
     </div>
 
-    {% include 'blueprints/modals/modal_dialog.html' with name="CreateRequest" %}
+    {% include 'blueprints/modals/modal_dialog.html' with name="ViewBlueprint" %}
     {% include 'blueprints/modals/modal_dialog.html' with name="ViewRequest" %}
 {% endblock %}
 
@@ -157,7 +157,7 @@
             createRequestUrl: '{% url "blueprints:create_request" %}',
             listUserOwnerUrl: '{% url "blueprints:list_user_owners" %}',
             removeOwnerUrl: '{% url "blueprints:remove_owner" owner_id=12345 %}',
-            createRequestModalUrl: '{% url "blueprints:create_request_modal" %}',
+            viewBlueprintModalUrl: '{% url "blueprints:view_blueprint_modal" %}',
             viewRequestModalUrl: '{% url "blueprints:view_request_modal" %}',
             csrfToken: '{% csrf_token %}',
             canAddBlueprints: {% if perms.blueprints.request_blueprints %} true {% else %} false {% endif %},
@@ -166,7 +166,7 @@
             translation: {
                 filterLocation: '{% translate "Location" %}',
                 filterIsOriginal: '{% translate "Is BPO?" %}',
-                createRequest: '{% translate "Create Request" %}',
+                viewBlueprint: '{% translate "View Blueprint" %}',
                 markRequestCancelled: '{% translate "Mark Request as Cancelled" %}',
                 markRequestFulfilled: '{% translate "Mark Request as Fulfilled" %}',
                 markRequestInProgress: '{% translate "Mark Request as In Progress" %}',
@@ -177,10 +177,10 @@
             }
         };
 
-        $('#modalCreateRequestContainer').on('show.bs.modal', function(event) {
+        $('#modalViewBlueprintContainer').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget)
                 var ajax_url = button.data('ajax_url');
-                $("#modalCreateRequestContent").load(ajax_url)
+                $("#modalViewBlueprintContent").load(ajax_url)
             });
 
         $('#modalViewRequestContainer').on('show.bs.modal', function(event) {

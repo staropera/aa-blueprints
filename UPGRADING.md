@@ -6,8 +6,21 @@
 
 ### Step 1 - Preparation
 
+#### Prepare Server
 Shut down your supervisor (any running server / worker processes).
 
+#### Change ESI Application Settings
+
+Ensure that your ESI application requests the following roles:
+
+:small_blue_diamond: = New
+ - `esi-assets.read_assets.v1` :small_blue_diamond:
+ - `esi-assets.read_corporation_assets.v1`
+ - `esi-characters.read_blueprints.v1` :small_blue_diamond:
+ - `esi-corporations.read_blueprints.v1`
+ - `esi-industry.read_character_jobs.v1` :small_blue_diamond:
+ - `esi-industry.read_corporation_jobs.v1` :small_blue_diamond:
+ - `esi-universe.read_structures.v1`
 
 ### Step 2 - Reset Migrations
 
@@ -49,5 +62,5 @@ pip install -U aa-blueprints
 ```
 
 ### Step 7 - Completion
-Bring your server back up, setup your blueprint related permissions, and re-add your blueprint owners.
+Bring your server back up, setup your blueprint related permissions (Under Blueprint ), and re-add your blueprint owners.
 Then enjoy the new version of blueprints!

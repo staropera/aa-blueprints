@@ -225,7 +225,7 @@ class Owner(models.Model):
                 token = self.token(
                     [
                         "esi-universe.read_structures.v1",
-                        "esi-corporations.read_blueprints.v1",
+                        "esi-industry.read_corporation_jobs.v1",
                     ]
                 )[0]
             else:
@@ -233,7 +233,7 @@ class Owner(models.Model):
                 token = self.token(
                     [
                         "esi-universe.read_structures.v1",
-                        "esi-characters.read_blueprints.v1",
+                        "esi-industry.read_character_jobs.v1",
                     ]
                 )[0]
 
@@ -245,33 +245,35 @@ class Owner(models.Model):
                 blueprint = Blueprint.objects.filter(pk=job["blueprint_id"]).first()
                 if blueprint is not None:
                     if original is not None:
-                        # We've seen this blueprint coming from ESI, so we know it shouldn't be deleted
+                        # We've seen this job coming from ESI, so we know it shouldn't be deleted
                         job_ids_to_remove.remove(original.id)
                         original.status = job["status"]
                         original.save()
                     else:
-                        installer = EveCharacter.objects.get_character_by_id(
-                            job["installer_id"]
-                        )
-                        if not installer:
-                            installer = EveCharacter.objects.create_character(
+                        # Reject personal listings of corporate jobs and visa-versa
+                        if blueprint.owner == self:
+                            installer = EveCharacter.objects.get_character_by_id(
                                 job["installer_id"]
                             )
-                        IndustryJob.objects.create(
-                            id=job["job_id"],
-                            activity=job["activity_id"],
-                            owner=self,
-                            location=self._fetch_location(
-                                job["location_id"],
-                                token=token,
-                            ),
-                            blueprint=Blueprint.objects.get(pk=job["blueprint_id"]),
-                            installer=installer,
-                            runs=job["runs"],
-                            start_date=job["start_date"],
-                            end_date=job["end_date"],
-                            status=job["status"],
-                        )
+                            if not installer:
+                                installer = EveCharacter.objects.create_character(
+                                    job["installer_id"]
+                                )
+                            IndustryJob.objects.create(
+                                id=job["job_id"],
+                                activity=job["activity_id"],
+                                owner=self,
+                                location=self._fetch_location(
+                                    job["location_id"],
+                                    token=token,
+                                ),
+                                blueprint=Blueprint.objects.get(pk=job["blueprint_id"]),
+                                installer=installer,
+                                runs=job["runs"],
+                                start_date=job["start_date"],
+                                end_date=job["end_date"],
+                                status=job["status"],
+                            )
                 else:
                     blueprint_id = job["blueprint_id"]
                     logger.warn(f"Unmatchable blueprint ID: {blueprint_id}")
@@ -458,6 +460,9 @@ class Blueprint(models.Model):
             self.eve_type.name + f" ({self.material_efficiency}/{self.time_efficiency})"
         )
 
+    def has_industryjob(self):
+        return hasattr(self, "industryjob") and self.industryjob is not None
+
 
 class IndustryJob(models.Model):
     id = models.PositiveBigIntegerField(
@@ -474,8 +479,9 @@ class IndustryJob(models.Model):
         DUPLICATING = 6, _("Duplicating")
         REVERSE_ENGINEERING = 7, _("Reverse Engineering")
         INVENTING = 8, _("Inventing")
+        REACTING = 9, _("Reacting")
 
-    activity = models.PositiveBigIntegerField(choices=Activity.choices)
+    activity = models.PositiveIntegerField(choices=Activity.choices)
     location = models.ForeignKey(
         "Location",
         on_delete=models.CASCADE,
@@ -484,11 +490,10 @@ class IndustryJob(models.Model):
         ),
         related_name="+",
     )
-    blueprint = models.ForeignKey(
+    blueprint = models.OneToOneField(
         Blueprint,
         on_delete=models.CASCADE,
         help_text=("Blueprint the job is running"),
-        related_name="jobs",
     )
     installer = models.ForeignKey(
         EveCharacter,

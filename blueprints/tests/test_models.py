@@ -96,3 +96,13 @@ class TestPersonalOwner(NoSocketsTestCase):
         mock_esi_models.client = esi_client_stub
         self.owner.update_blueprints_esi()
         self.assertEquals(Blueprint.objects.filter(eve_type_id=33519).count(), 1)
+
+    def test_update_industry_jobs_esi(
+        self, mock_eveuniverse_managers, mock_esi_managers, mock_esi_models
+    ):
+        mock_eveuniverse_managers.client = esi_client_stub
+        mock_esi_managers.client = esi_client_stub
+        mock_esi_models.client = esi_client_stub
+        self.owner.update_blueprints_esi()
+        self.owner.update_industry_jobs_esi()
+        self.assertEquals(IndustryJob.objects.count(), 1)

@@ -5,13 +5,13 @@ $(document).ready(function () {
 
     var listDataUrl = blueprintsSettings.listDataUrl;
     var createRequestUrl = blueprintsSettings.createRequestUrl;
-    var createRequestModalUrl =
-        blueprintsSettings.createRequestModalUrl;
+    var viewBlueprintModalUrl =
+        blueprintsSettings.viewBlueprintModalUrl;
     var dataTablesPageLength = blueprintsSettings.dataTablesPageLength;
     var dataTablesPaging = blueprintsSettings.dataTablesPaging;
     var csrfToken = blueprintsSettings.csrfToken;
     var canAddBlueprints = blueprintsSettings.canAddBlueprints;
-    var createRequestText = blueprintsSettings.translation.createRequest;
+    var viewBlueprintText = blueprintsSettings.translation.viewBlueprint;
     /* dataTable def */
     $("#table-blueprints").DataTable({
         ajax: {
@@ -36,6 +36,7 @@ $(document).ready(function () {
             // hidden columns
             { data: "loc" },
             { data: "iog" },
+            { data: "use" }
         ],
 
         lengthMenu: [
@@ -49,23 +50,18 @@ $(document).ready(function () {
 
         columnDefs: [
             { sortable: false, targets: [0, 2, 8] },
-            { visible: false, targets: [9, 10] },
+            { visible: false, targets: [9, 10, 11] },
             {
                 render: function (data, type, row) {
                     if (type === "display") {
-                        if (row.og !== "" && canAddBlueprints && !row.nme.endsWith(" Formula")) {
                             return (
-                                '<button class="btn btn-success" data-toggle="modal" data-target="#modalCreateRequestContainer" data-ajax_url="' +
-                                createRequestModalUrl +
+                                '<button class="btn btn-primary" data-toggle="modal" data-target="#modalViewBlueprintContainer" data-ajax_url="' +
+                                viewBlueprintModalUrl +
                                 "?blueprint_id=" +
                                 data +
-                                '" aria-label="' + createRequestText + '" title="' + createRequestText + '"><span class="fas fa-copy"></span></button>'
+                                '" aria-label="' + viewBlueprintText + '" title="' + viewBlueprintText + '"><span class="fas fa-info"></span></button>'
                             );
-                        } else {
-                            return "";
                         }
-                    }
-
                     return data;
                 },
                 targets: [8],
@@ -134,6 +130,11 @@ $(document).ready(function () {
                         last = group;
                     }
                 });
+        },
+        createdRow: function( row, data, dataIndex ) {
+            if ( data["use"] == true ) {
+                    $(row).addClass( 'info' );
+            }
         },
     });
 });

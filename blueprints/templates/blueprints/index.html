@@ -55,6 +55,9 @@
                             </tr>
                         </thead>
                     </table>
+                    <p class="text-muted">
+                        {% translate "Blueprints in use are highlighted in blue." %}
+                    </p>
                 </div>
             </div>
 
@@ -156,7 +159,7 @@
             cancelRequestUrl:'{% url "blueprints:request_cancelled" request_id=12345 %}',
             openRequestUrl: '{% url "blueprints:request_open" request_id=12345 %}',
             fulfillRequestUrl: '{% url "blueprints:request_fulfilled" request_id=12345 %}',
-            createRequestUrl: '{% url "blueprints:create_request" %}',
+            viewBlueprintUrl: '{% url "blueprints:create_request" %}',
             listUserOwnerUrl: '{% url "blueprints:list_user_owners" %}',
             removeOwnerUrl: '{% url "blueprints:remove_owner" owner_id=12345 %}',
             createRequestModalUrl: '{% url "blueprints:create_request_modal" %}',

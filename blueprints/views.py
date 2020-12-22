@@ -236,6 +236,7 @@ def convert_blueprint(blueprint) -> dict:
         "rns": runs,
         "on": blueprint.owner.name,
         "ot": owner_type,
+        "use": blueprint.has_industryjob(),
     }
 
 
@@ -270,6 +271,7 @@ def list_blueprints(request):
     ).select_related(
         "eve_type",
         "location",
+        "industryjob",
         "owner",
         "owner__corporation",
         "owner__character",

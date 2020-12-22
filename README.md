@@ -58,6 +58,10 @@ CELERYBEAT_SCHEDULE['blueprints_update_all_blueprints'] = {
     'task': 'blueprints.tasks.update_all_blueprints',
     'schedule': crontab(minute=0, hour='*/3'),
 }
+CELERYBEAT_SCHEDULE['blueprints_update_all_industry_jobs'] = {
+    'task': 'blueprints.tasks.update_all_industry_jobs',
+    'schedule': crontab(minute=0, hour='*'),
+}
 CELERYBEAT_SCHEDULE['blueprints_update_all_locations'] = {
     'task': 'blueprints.tasks.update_all_locations',
     'schedule': crontab(minute=0, hour='*/12'),
@@ -79,9 +83,13 @@ Restart your supervisor services for Auth
 
 Update the Eve Online API app used for authentication in your AA installation to include the following scopes:
 
-- `esi-assets.read_corporation_assets.v1`
-- `esi-corporations.read_blueprints.v1`
-- `esi-universe.read_structures.v1`
+ - `esi-assets.read_assets.v1`
+ - `esi-assets.read_corporation_assets.v1`
+ - `esi-characters.read_blueprints.v1`
+ - `esi-corporations.read_blueprints.v1`
+ - `esi-industry.read_character_jobs.v1`
+ - `esi-industry.read_corporation_jobs.v1`
+ - `esi-universe.read_structures.v1`
 
 ### Step 5 - Data import
 

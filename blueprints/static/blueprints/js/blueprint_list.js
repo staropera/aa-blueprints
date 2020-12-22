@@ -53,7 +53,7 @@ $(document).ready(function () {
             {
                 render: function (data, type, row) {
                     if (type === "display") {
-                        if (row.og !== "" && canAddBlueprints) {
+                        if (row.og !== "" && canAddBlueprints && !row.nme.endsWith(" Formula")) {
                             return (
                                 '<button class="btn btn-success" data-toggle="modal" data-target="#modalCreateRequestContainer" data-ajax_url="' +
                                 createRequestModalUrl +

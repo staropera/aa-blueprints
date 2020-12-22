@@ -87,7 +87,7 @@ $(document).ready(function () {
                             buttons +=
                                 '<form class="inline" method="post" action="' + inProgressRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<button type="submit" class="btn btn-info" aria-label="' + markRequestInProgressText + '" title="' + markRequestInProgressText + '"><span class="fas fa-clipboard-check"></span></button></form>';
+                                '<button type="submit" class="btn btn-primary" aria-label="' + markRequestInProgressText + '" title="' + markRequestInProgressText + '"><span class="fas fa-clipboard-check"></span></button></form>';
                             return buttons;
                         } else if (row["status"] == "IP") {
                             var buttons =

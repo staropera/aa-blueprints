@@ -55,7 +55,7 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     if (type === "display") {
                         return (
-                            '<button class="btn btn-primary" data-toggle="modal" data-target="#modalViewBlueprintContainer" data-ajax_url="' +
+                            '<button class="btn btn-info" data-toggle="modal" data-target="#modalViewBlueprintContainer" data-ajax_url="' +
                             viewBlueprintModalUrl +
                             "?blueprint_id=" +
                             data +

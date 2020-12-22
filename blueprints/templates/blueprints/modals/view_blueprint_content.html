@@ -16,6 +16,11 @@
             <li class="active">
                 <a href="#tab-summary" data-toggle="tab">{% translate "Summary" %}</a>
             </li>
+            {% if blueprint.job %}
+            <li>
+                <a href="#tab-current-job" data-toggle="tab">{% translate "Current Job" %}</a>
+            </li>
+            {% endif %}
             {% if perms.blueprints.request_blueprints and blueprint.rns == "" and not blueprint.frm %}
             <li>
                 <a href="#tab-create-request" data-toggle="tab">{% translate "Create Request" %}</a>
@@ -23,7 +28,7 @@
             {% endif %}
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active panel panel-default" id="tab-summary">
+            <div class="tab-pane panel active panel-default" id="tab-summary">
                 <div class="panel-body modal-tab">
                         <div class="row description-row">
                             <div class="col-sm-4">{% translate "Blueprint Location" %}</div>
@@ -39,6 +44,32 @@
                         </div>
                 </div>
             </div>
+            {% if blueprint.job %}
+            <div class="tab-pane panel panel-default" id="tab-current-job">
+                <div class="panel-body modal-tab">
+                    <div class="row description-row">
+                        <div class="col-sm-4">{% translate "Activity" %}</div>
+                        <div class='col-sm-8'>{{ blueprint.job.activity }}</div>
+                    </div>
+                    <div class="row description-row">
+                        <div class="col-sm-4">{% translate "Installer" %}</div>
+                        <div class='col-sm-8'>{{ blueprint.job.installer }}</div>
+                    </div>
+                    <div class="row description-row">
+                        <div class="col-sm-4">{% translate "Runs" %}</div>
+                        <div class='col-sm-8'>{{ blueprint.job.runs }}</div>
+                    </div>
+                    <div class="row description-row">
+                        <div class="col-sm-4">{% translate "Start Date" %}</div>
+                        <div class='col-sm-8'>{{ blueprint.job.start_date }}</div>
+                    </div>
+                    <div class="row description-row">
+                        <div class="col-sm-4">{% translate "End Date" %}</div>
+                        <div class='col-sm-8'>{{ blueprint.job.end_date }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
             {% if perms.blueprints.request_blueprints and blueprint.rns == "" and not blueprint.frm %}
 
             <div class="tab-pane panel panel-default" id="tab-create-request">

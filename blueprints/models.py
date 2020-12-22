@@ -38,6 +38,7 @@ class General(models.Model):
             ("add_personal_blueprint_owner", "Can add personal blueprint owners"),
             ("add_corporate_blueprint_owner", "Can add corporate blueprint owners"),
             ("view_alliance_blueprints", "Can view alliance's blueprints"),
+            ("view_industry_jobs", "Can view details about running industry jobs"),
         )
 
 

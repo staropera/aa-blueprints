@@ -205,7 +205,7 @@ def add_personal_blueprint_owner(request, token):
     return redirect("blueprints:index")
 
 
-def convert_blueprint(blueprint, details=False) -> dict:
+def convert_blueprint(blueprint: Blueprint, user, details=False) -> dict:
     icon = format_html(
         '<img src="{}" width="{}" height="{}">',
         blueprint.eve_type.icon_url(size=64, is_blueprint=True),
@@ -240,6 +240,17 @@ def convert_blueprint(blueprint, details=False) -> dict:
         "use": blueprint.has_industryjob(),
     }
     if details:
+        if blueprint.has_industryjob() and user.has_perm(
+            "blueprints.view_industry_jobs"
+        ):
+            job = {
+                "activity": blueprint.industryjob.get_activity_display(),
+                "installer": blueprint.industryjob.installer.character_name,
+                "runs": blueprint.industryjob.runs,
+                "start_date": blueprint.industryjob.start_date,
+                "end_date": blueprint.industryjob.end_date,
+            }
+            summary.update({"job": job})
         summary.update({"frm": blueprint.eve_type.name.endswith(" Formula")})
     return summary
 
@@ -283,7 +294,9 @@ def list_blueprints(request):
         "location__eve_solar_system",
         "location__eve_type",
     )
-    blueprint_rows = [convert_blueprint(blueprint) for blueprint in blueprints_query]
+    blueprint_rows = [
+        convert_blueprint(blueprint, request.user) for blueprint in blueprints_query
+    ]
 
     return JsonResponse(blueprint_rows, safe=False)
 
@@ -319,7 +332,7 @@ def list_user_owners(request):
 @login_required
 def view_blueprint_modal(request):
     blueprint = Blueprint.objects.get(pk=request.GET.get("blueprint_id"))
-    context = {"blueprint": convert_blueprint(blueprint, details=True)}
+    context = {"blueprint": convert_blueprint(blueprint, request.user, details=True)}
     return render(request, "blueprints/modals/view_blueprint_content.html", context)
 
 

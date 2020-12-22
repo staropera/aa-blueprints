@@ -205,7 +205,7 @@ def add_personal_blueprint_owner(request, token):
     return redirect("blueprints:index")
 
 
-def convert_blueprint(blueprint) -> dict:
+def convert_blueprint(blueprint, details=False) -> dict:
     icon = format_html(
         '<img src="{}" width="{}" height="{}">',
         blueprint.eve_type.icon_url(size=64, is_blueprint=True),
@@ -223,7 +223,8 @@ def convert_blueprint(blueprint) -> dict:
         owner_type = "corporation"
     else:
         owner_type = "character"
-    return {
+
+    summary = {
         "icn": icon,
         "qty": blueprint.quantity,
         "pk": blueprint.pk,
@@ -238,6 +239,9 @@ def convert_blueprint(blueprint) -> dict:
         "ot": owner_type,
         "use": blueprint.has_industryjob(),
     }
+    if details:
+        summary.update({"frm": blueprint.eve_type.name.endswith(" Formula")})
+    return summary
 
 
 @login_required
@@ -315,7 +319,7 @@ def list_user_owners(request):
 @login_required
 def view_blueprint_modal(request):
     blueprint = Blueprint.objects.get(pk=request.GET.get("blueprint_id"))
-    context = {"blueprint": convert_blueprint(blueprint)}
+    context = {"blueprint": convert_blueprint(blueprint, details=True)}
     return render(request, "blueprints/modals/view_blueprint_content.html", context)
 
 

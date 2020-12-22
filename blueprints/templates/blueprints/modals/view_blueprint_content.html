@@ -16,7 +16,7 @@
             <li class="active">
                 <a href="#tab-summary" data-toggle="tab">{% translate "Summary" %}</a>
             </li>
-            {% if perms.blueprints.request_blueprints and blueprint.rns == "" %}
+            {% if perms.blueprints.request_blueprints and blueprint.rns == "" and not blueprint.frm %}
             <li>
                 <a href="#tab-create-request" data-toggle="tab">{% translate "Create Request" %}</a>
             </li>
@@ -39,7 +39,7 @@
                         </div>
                 </div>
             </div>
-            {% if perms.blueprints.request_blueprints and blueprint.rns == "" and not blueprint.nme.endswith(" Formula") %}
+            {% if perms.blueprints.request_blueprints and blueprint.rns == "" and not blueprint.frm %}
 
             <div class="tab-pane panel panel-default" id="tab-create-request">
                 <div class="panel-body modal-tab">

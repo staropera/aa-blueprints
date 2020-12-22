@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-21 17:22-0500\n"
+"POT-Creation-Date: 2020-12-22 18:36-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,42 @@ msgstr ""
 #: auth_hooks.py:17 templates/blueprints/base.html:6
 #: templates/blueprints/base.html:11
 msgid "Blueprint Library"
+msgstr ""
+
+#: models.py:475
+msgid "Manufacturing"
+msgstr ""
+
+#: models.py:476
+msgid "Researching Technology"
+msgstr ""
+
+#: models.py:477
+msgid "Researching Time Efficiency"
+msgstr ""
+
+#: models.py:478
+msgid "Researching Material Efficiency"
+msgstr ""
+
+#: models.py:479
+msgid "Copying"
+msgstr ""
+
+#: models.py:480
+msgid "Duplicating"
+msgstr ""
+
+#: models.py:481
+msgid "Reverse Engineering"
+msgstr ""
+
+#: models.py:482
+msgid "Inventing"
+msgstr ""
+
+#: models.py:483
+msgid "Reacting"
 msgstr ""
 
 #: templates/blueprints/index.html:11
@@ -39,8 +75,8 @@ msgstr ""
 msgid "Manage Blueprints"
 msgstr ""
 
-#: templates/blueprints/index.html:41 templates/blueprints/index.html:68
-#: templates/blueprints/index.html:86
+#: templates/blueprints/index.html:41 templates/blueprints/index.html:71
+#: templates/blueprints/index.html:89
 msgid "Type"
 msgstr ""
 
@@ -57,7 +93,7 @@ msgid "Owner"
 msgstr ""
 
 #: templates/blueprints/index.html:44
-#: templates/blueprints/modals/create_request_content.html:27
+#: templates/blueprints/modals/view_blueprint_content.html:38
 #: templates/blueprints/modals/view_request_content.html:25
 msgid "Material Efficiency"
 msgstr ""
@@ -68,7 +104,7 @@ msgid "ME"
 msgstr ""
 
 #: templates/blueprints/index.html:48
-#: templates/blueprints/modals/create_request_content.html:31
+#: templates/blueprints/modals/view_blueprint_content.html:42
 #: templates/blueprints/modals/view_request_content.html:29
 msgid "Time Efficiency"
 msgstr ""
@@ -86,85 +122,117 @@ msgstr ""
 msgid "Runs Remaining"
 msgstr ""
 
-#: templates/blueprints/index.html:69 templates/blueprints/index.html:87
+#: templates/blueprints/index.html:59
+msgid "Blueprints in use are highlighted in blue."
+msgstr ""
+
+#: templates/blueprints/index.html:72 templates/blueprints/index.html:90
+#: templates/blueprints/modals/view_blueprint_content.html:59
 #: templates/blueprints/modals/view_request_content.html:33
 msgid "Runs"
 msgstr ""
 
-#: templates/blueprints/index.html:70 templates/blueprints/index.html:89
+#: templates/blueprints/index.html:73 templates/blueprints/index.html:92
 msgid "Requested From"
 msgstr ""
 
-#: templates/blueprints/index.html:88
+#: templates/blueprints/index.html:91
 msgid "Requestor"
 msgstr ""
 
-#: templates/blueprints/index.html:105
+#: templates/blueprints/index.html:109
 msgid "Add My Blueprints"
 msgstr ""
 
-#: templates/blueprints/index.html:110
+#: templates/blueprints/index.html:114
 msgid "Add Corporation Blueprints"
 msgstr ""
 
-#: templates/blueprints/index.html:117
+#: templates/blueprints/index.html:122
 msgid "Name"
 msgstr ""
 
-#: templates/blueprints/index.html:167
+#: templates/blueprints/index.html:172
 msgid "Location"
 msgstr ""
 
-#: templates/blueprints/index.html:168
+#: templates/blueprints/index.html:173
 msgid "Is BPO?"
 msgstr ""
 
-#: templates/blueprints/index.html:169 templates/blueprints/index.html:174
-#: templates/blueprints/modals/create_request_content.html:10
-#: templates/blueprints/modals/create_request_content.html:45
-msgid "Create Request"
-msgstr ""
-
-#: templates/blueprints/index.html:170
-msgid "Mark Request as Cancelled"
-msgstr ""
-
-#: templates/blueprints/index.html:171
-msgid "Mark Request as Fulfilled"
-msgstr ""
-
-#: templates/blueprints/index.html:172
-msgid "Mark Request as In Progress"
-msgstr ""
-
-#: templates/blueprints/index.html:173
-msgid "Mark Request as Open"
+#: templates/blueprints/index.html:174
+msgid "View Blueprint"
 msgstr ""
 
 #: templates/blueprints/index.html:175
-msgid "Request Information"
+msgid "Mark Request as Cancelled"
 msgstr ""
 
 #: templates/blueprints/index.html:176
+msgid "Mark Request as Fulfilled"
+msgstr ""
+
+#: templates/blueprints/index.html:177
+msgid "Mark Request as In Progress"
+msgstr ""
+
+#: templates/blueprints/index.html:178
+msgid "Mark Request as Open"
+msgstr ""
+
+#: templates/blueprints/index.html:179
+#: templates/blueprints/modals/view_blueprint_content.html:26
+#: templates/blueprints/modals/view_blueprint_content.html:93
+msgid "Create Request"
+msgstr ""
+
+#: templates/blueprints/index.html:180
+msgid "Request Information"
+msgstr ""
+
+#: templates/blueprints/index.html:181
 msgid "Remove Blueprints"
-msgstr ""
-
-#: templates/blueprints/modals/create_request_content.html:19
-#: templates/blueprints/modals/view_request_content.html:17
-msgid "Blueprint Type"
-msgstr ""
-
-#: templates/blueprints/modals/create_request_content.html:23
-#: templates/blueprints/modals/view_request_content.html:21
-msgid "Blueprint Location"
 msgstr ""
 
 #: templates/blueprints/modals/modal_dialog.html:13
 msgid "Loading..."
 msgstr ""
 
+#: templates/blueprints/modals/view_blueprint_content.html:17
+msgid "Summary"
+msgstr ""
+
+#: templates/blueprints/modals/view_blueprint_content.html:21
+msgid "Current Job"
+msgstr ""
+
+#: templates/blueprints/modals/view_blueprint_content.html:34
+#: templates/blueprints/modals/view_request_content.html:21
+msgid "Blueprint Location"
+msgstr ""
+
+#: templates/blueprints/modals/view_blueprint_content.html:51
+msgid "Activity"
+msgstr ""
+
+#: templates/blueprints/modals/view_blueprint_content.html:55
+msgid "Installer"
+msgstr ""
+
+#: templates/blueprints/modals/view_blueprint_content.html:63
+msgid "Start Date"
+msgstr ""
+
+#: templates/blueprints/modals/view_blueprint_content.html:67
+msgid "End Date"
+msgstr ""
+
 #: templates/blueprints/modals/view_request_content.html:10
 msgid "View Request"
+msgstr ""
+
+#: templates/blueprints/modals/view_request_content.html:17
+msgid "Blueprint Type"
 msgstr ""
 
 #: validators.py:8
@@ -177,14 +245,14 @@ msgstr ""
 msgid "%(value)s is not a valid time efficiency"
 msgstr ""
 
-#: views.py:71 views.py:155
+#: views.py:72 views.py:157
 #, python-format
 msgid ""
 "You can only use your main or alt characters to add corporations. However, "
 "character %s is neither. "
 msgstr ""
 
-#: views.py:104
+#: views.py:105
 #, python-format
 msgid ""
 "%(corporation)s has been added with %(character)s as sync character. We have "
@@ -192,89 +260,89 @@ msgid ""
 "once the process is finished."
 msgstr ""
 
-#: views.py:120
+#: views.py:121
 #, python-format
 msgid "%(corporation)s was added as new corporate blueprint owner by %(user)s."
 msgstr ""
 
-#: views.py:180
+#: views.py:182
 #, python-format
 msgid ""
 "%(character)s has been added. We have started fetching blueprints for this "
 "character. You will receive a report once the process is finished."
 msgstr ""
 
-#: views.py:194
+#: views.py:196
 #, python-format
 msgid "%(character)s was added as a new personal blueprint owner."
 msgstr ""
 
-#: views.py:216
+#: views.py:218
 msgid "Yes"
 msgstr ""
 
-#: views.py:218
+#: views.py:220
 msgid "No"
 msgstr ""
 
-#: views.py:294
+#: views.py:315
 msgid "Corporate"
 msgstr ""
 
-#: views.py:298
+#: views.py:319
 msgid "Personal"
 msgstr ""
 
-#: views.py:345
+#: views.py:365
 #, python-format
 msgid "A copy of %(blueprint)s has been requested."
 msgstr ""
 
-#: views.py:461
+#: views.py:481
 #, python-format
 msgid "The request for %(blueprint)s has been closed as fulfilled."
 msgstr ""
 
-#: views.py:470
+#: views.py:490
 #, python-format
 msgid "Fulfilling the request for %(blueprint)s has failed."
 msgstr ""
 
-#: views.py:489
+#: views.py:509
 #, python-format
 msgid "The request for %(blueprint)s has been marked as in progress."
 msgstr ""
 
-#: views.py:499
+#: views.py:519
 #, python-format
 msgid "Marking the request for %(blueprint)s as in progress has failed."
 msgstr ""
 
-#: views.py:518
+#: views.py:538
 #, python-format
 msgid "The request for %(blueprint)s has been re-opened."
 msgstr ""
 
-#: views.py:526
+#: views.py:546
 #, python-format
 msgid "Re-opening the request for %(blueprint)s has failed."
 msgstr ""
 
-#: views.py:550
+#: views.py:570
 #, python-format
 msgid "The request for %(blueprint)s has been closed as cancelled."
 msgstr ""
 
-#: views.py:559
+#: views.py:579
 #, python-format
 msgid "Cancelling the request for %(blueprint)s has failed."
 msgstr ""
 
-#: views.py:590
+#: views.py:610
 #, python-format
 msgid "%(owner)s has been removed as a blueprint owner."
 msgstr ""
 
-#: views.py:597
+#: views.py:617
 msgid "Removing the blueprint owner has failed."
 msgstr ""

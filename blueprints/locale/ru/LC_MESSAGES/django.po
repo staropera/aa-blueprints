@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-21 17:22-0500\n"
+"POT-Creation-Date: 2020-12-22 18:36-0500\n"
 "PO-Revision-Date: 2020-12-07 04:19+0000\n"
 "Last-Translator: Rebecca Murphy <rebecca@rcmurphy.me>, 2020\n"
 "Language-Team: Russian (https://www.transifex.com/alliance-auth/teams/107430/ru/)\n"
@@ -25,6 +25,42 @@ msgstr ""
 #: templates/blueprints/base.html:11
 msgid "Blueprint Library"
 msgstr "Библиотека схем элементов"
+
+#: models.py:475
+msgid "Manufacturing"
+msgstr "Производство"
+
+#: models.py:476
+msgid "Researching Technology"
+msgstr "Исследовательские технологии"
+
+#: models.py:477
+msgid "Researching Time Efficiency"
+msgstr "Исследование эффективности времени"
+
+#: models.py:478
+msgid "Researching Material Efficiency"
+msgstr "Исследование эффективности материалов"
+
+#: models.py:479
+msgid "Copying"
+msgstr "Копирование"
+
+#: models.py:480
+msgid "Duplicating"
+msgstr "Дублирование"
+
+#: models.py:481
+msgid "Reverse Engineering"
+msgstr "Обратное проектирование"
+
+#: models.py:482
+msgid "Inventing"
+msgstr "Изобретение"
+
+#: models.py:483
+msgid "Reacting"
+msgstr "Реагируя"
 
 #: templates/blueprints/index.html:11
 msgid "Library"
@@ -42,8 +78,8 @@ msgstr "Открытые запросы"
 msgid "Manage Blueprints"
 msgstr "Управление схемами элементов"
 
-#: templates/blueprints/index.html:41 templates/blueprints/index.html:68
-#: templates/blueprints/index.html:86
+#: templates/blueprints/index.html:41 templates/blueprints/index.html:71
+#: templates/blueprints/index.html:89
 msgid "Type"
 msgstr "Тип"
 
@@ -60,7 +96,7 @@ msgid "Owner"
 msgstr "Владелец"
 
 #: templates/blueprints/index.html:44
-#: templates/blueprints/modals/create_request_content.html:27
+#: templates/blueprints/modals/view_blueprint_content.html:38
 #: templates/blueprints/modals/view_request_content.html:25
 msgid "Material Efficiency"
 msgstr "Эффективность материалов"
@@ -71,7 +107,7 @@ msgid "ME"
 msgstr "МЕНЯ"
 
 #: templates/blueprints/index.html:48
-#: templates/blueprints/modals/create_request_content.html:31
+#: templates/blueprints/modals/view_blueprint_content.html:42
 #: templates/blueprints/modals/view_request_content.html:29
 msgid "Time Efficiency"
 msgstr "Эффективность времени"
@@ -89,86 +125,118 @@ msgstr "Оригинал"
 msgid "Runs Remaining"
 msgstr "Остающиеся пробеги"
 
-#: templates/blueprints/index.html:69 templates/blueprints/index.html:87
+#: templates/blueprints/index.html:59
+msgid "Blueprints in use are highlighted in blue."
+msgstr "Используемые схемы элементов выделены синим цветом."
+
+#: templates/blueprints/index.html:72 templates/blueprints/index.html:90
+#: templates/blueprints/modals/view_blueprint_content.html:59
 #: templates/blueprints/modals/view_request_content.html:33
 msgid "Runs"
 msgstr "Прогоняет"
 
-#: templates/blueprints/index.html:70 templates/blueprints/index.html:89
+#: templates/blueprints/index.html:73 templates/blueprints/index.html:92
 msgid "Requested From"
 msgstr "Запрошено от"
 
-#: templates/blueprints/index.html:88
+#: templates/blueprints/index.html:91
 msgid "Requestor"
 msgstr "Запрашивающая сторона"
 
-#: templates/blueprints/index.html:105
+#: templates/blueprints/index.html:109
 msgid "Add My Blueprints"
 msgstr "Добавить мои схемы элементов"
 
-#: templates/blueprints/index.html:110
+#: templates/blueprints/index.html:114
 msgid "Add Corporation Blueprints"
 msgstr "Добавление схем элементов корпорации"
 
-#: templates/blueprints/index.html:117
+#: templates/blueprints/index.html:122
 msgid "Name"
 msgstr "Имя"
 
-#: templates/blueprints/index.html:167
+#: templates/blueprints/index.html:172
 msgid "Location"
 msgstr "Местоположение"
 
-#: templates/blueprints/index.html:168
+#: templates/blueprints/index.html:173
 msgid "Is BPO?"
 msgstr "Является ли BPO?"
 
-#: templates/blueprints/index.html:169 templates/blueprints/index.html:174
-#: templates/blueprints/modals/create_request_content.html:10
-#: templates/blueprints/modals/create_request_content.html:45
-msgid "Create Request"
-msgstr "Создать запрос"
+#: templates/blueprints/index.html:174
+msgid "View Blueprint"
+msgstr "Просмотр схемы элементов"
 
-#: templates/blueprints/index.html:170
+#: templates/blueprints/index.html:175
 msgid "Mark Request as Cancelled"
 msgstr "Пометить запрос как отмененный"
 
-#: templates/blueprints/index.html:171
+#: templates/blueprints/index.html:176
 msgid "Mark Request as Fulfilled"
 msgstr "Пометить запрос как выполненный"
 
-#: templates/blueprints/index.html:172
+#: templates/blueprints/index.html:177
 msgid "Mark Request as In Progress"
 msgstr "Пометить запрос как выполнялся"
 
-#: templates/blueprints/index.html:173
+#: templates/blueprints/index.html:178
 msgid "Mark Request as Open"
 msgstr "Пометить запрос как открытый"
 
-#: templates/blueprints/index.html:175
+#: templates/blueprints/index.html:179
+#: templates/blueprints/modals/view_blueprint_content.html:26
+#: templates/blueprints/modals/view_blueprint_content.html:93
+msgid "Create Request"
+msgstr "Создать запрос"
+
+#: templates/blueprints/index.html:180
 msgid "Request Information"
 msgstr "Запросить информацию"
 
-#: templates/blueprints/index.html:176
+#: templates/blueprints/index.html:181
 msgid "Remove Blueprints"
 msgstr "Удаление схем элементов"
-
-#: templates/blueprints/modals/create_request_content.html:19
-#: templates/blueprints/modals/view_request_content.html:17
-msgid "Blueprint Type"
-msgstr "Тип схемы элементов"
-
-#: templates/blueprints/modals/create_request_content.html:23
-#: templates/blueprints/modals/view_request_content.html:21
-msgid "Blueprint Location"
-msgstr "Расположение схемы элементов"
 
 #: templates/blueprints/modals/modal_dialog.html:13
 msgid "Loading..."
 msgstr "Загрузка..."
 
+#: templates/blueprints/modals/view_blueprint_content.html:17
+msgid "Summary"
+msgstr "Резюме"
+
+#: templates/blueprints/modals/view_blueprint_content.html:21
+msgid "Current Job"
+msgstr "Текущее задание"
+
+#: templates/blueprints/modals/view_blueprint_content.html:34
+#: templates/blueprints/modals/view_request_content.html:21
+msgid "Blueprint Location"
+msgstr "Расположение схемы элементов"
+
+#: templates/blueprints/modals/view_blueprint_content.html:51
+msgid "Activity"
+msgstr "Деятельность"
+
+#: templates/blueprints/modals/view_blueprint_content.html:55
+msgid "Installer"
+msgstr "Установщик"
+
+#: templates/blueprints/modals/view_blueprint_content.html:63
+msgid "Start Date"
+msgstr "Дата начала"
+
+#: templates/blueprints/modals/view_blueprint_content.html:67
+msgid "End Date"
+msgstr "Дата окончания"
+
 #: templates/blueprints/modals/view_request_content.html:10
 msgid "View Request"
 msgstr "Просмотр запроса"
+
+#: templates/blueprints/modals/view_request_content.html:17
+msgid "Blueprint Type"
+msgstr "Тип схемы элементов"
 
 #: validators.py:8
 #, python-format
@@ -180,7 +248,7 @@ msgstr "%(value)s не является допустимой эффективн�
 msgid "%(value)s is not a valid time efficiency"
 msgstr "%(value)s не является допустимой эффективностью времени"
 
-#: views.py:71 views.py:155
+#: views.py:72 views.py:157
 #, python-format
 msgid ""
 "You can only use your main or alt characters to add corporations. However, "
@@ -189,7 +257,7 @@ msgstr ""
 "Вы можете использовать только основные или alt символы для добавления "
 "корпораций. Однако символ %s не является ни другим."
 
-#: views.py:104
+#: views.py:105
 #, python-format
 msgid ""
 "%(corporation)s has been added with %(character)s as sync character. We have"
@@ -200,7 +268,7 @@ msgstr ""
 "синхронизации. Мы начали извлекать чертежи для этой корпорации. Вы получите "
 "отчет, как только процесс будет завершен."
 
-#: views.py:120
+#: views.py:121
 #, python-format
 msgid ""
 "%(corporation)s was added as new corporate blueprint owner by %(user)s."
@@ -208,7 +276,7 @@ msgstr ""
 "%(corporation)s был добавлен в качестве нового владельца корпоративной схемы"
 " элементов %(user)s."
 
-#: views.py:180
+#: views.py:182
 #, python-format
 msgid ""
 "%(character)s has been added. We have started fetching blueprints for this "
@@ -217,79 +285,79 @@ msgstr ""
 "добавлен %(character)s. Мы начали извлекать чертежи для этого персонажа. Вы "
 "получите отчет, как только процесс будет завершен."
 
-#: views.py:194
+#: views.py:196
 #, python-format
 msgid "%(character)s was added as a new personal blueprint owner."
 msgstr ""
 "%(character)s был добавлен в качестве нового владельца личной схемы "
 "элементов."
 
-#: views.py:216
+#: views.py:218
 msgid "Yes"
 msgstr "Да"
 
-#: views.py:218
+#: views.py:220
 msgid "No"
 msgstr "Нет"
 
-#: views.py:294
+#: views.py:315
 msgid "Corporate"
 msgstr "Корпоративный"
 
-#: views.py:298
+#: views.py:319
 msgid "Personal"
 msgstr "Персональный"
 
-#: views.py:345
+#: views.py:365
 #, python-format
 msgid "A copy of %(blueprint)s has been requested."
 msgstr "Запрошена копия %(blueprint)s."
 
-#: views.py:461
+#: views.py:481
 #, python-format
 msgid "The request for %(blueprint)s has been closed as fulfilled."
 msgstr "Запрос на %(blueprint)s был закрыт по мере выполнения."
 
-#: views.py:470
+#: views.py:490
 #, python-format
 msgid "Fulfilling the request for %(blueprint)s has failed."
 msgstr "Не удалось выполнить запрос для %(blueprint)s."
 
-#: views.py:489
+#: views.py:509
 #, python-format
 msgid "The request for %(blueprint)s has been marked as in progress."
 msgstr "Запрос на %(blueprint)s помечен как выполнялся."
 
-#: views.py:499
+#: views.py:519
 #, python-format
 msgid "Marking the request for %(blueprint)s as in progress has failed."
 msgstr "Не удалось пометить запрос на %(blueprint)s как выполнявшийся."
 
-#: views.py:518
+#: views.py:538
 #, python-format
 msgid "The request for %(blueprint)s has been re-opened."
 msgstr "Запрос на %(blueprint)s был вновь открыт."
 
-#: views.py:526
+#: views.py:546
 #, python-format
 msgid "Re-opening the request for %(blueprint)s has failed."
 msgstr "Не удалось повторно открыть запрос для %(blueprint)s."
 
-#: views.py:550
+#: views.py:570
 #, python-format
 msgid "The request for %(blueprint)s has been closed as cancelled."
 msgstr "Запрос на %(blueprint)s был закрыт как отмененный."
 
-#: views.py:559
+#: views.py:579
 #, python-format
 msgid "Cancelling the request for %(blueprint)s has failed."
 msgstr "Не удалось отменить запрос для %(blueprint)s."
 
-#: views.py:590
+#: views.py:610
 #, python-format
 msgid "%(owner)s has been removed as a blueprint owner."
 msgstr "%(owner)s был удален как владелец схемы элементов."
 
-#: views.py:597
+#: views.py:617
 msgid "Removing the blueprint owner has failed."
-msgstr ""
+msgstr "Не удалось удалить владельца схемы элементов."

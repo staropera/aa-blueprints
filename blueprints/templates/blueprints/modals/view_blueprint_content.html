@@ -39,7 +39,7 @@
                         </div>
                 </div>
             </div>
-            {% if perms.blueprints.request_blueprints and blueprint.rns == "" %}
+            {% if perms.blueprints.request_blueprints and blueprint.rns == "" and not blueprint.nme.endswith(" Formula") %}
 
             <div class="tab-pane panel panel-default" id="tab-create-request">
                 <div class="panel-body modal-tab">

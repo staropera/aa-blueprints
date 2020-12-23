@@ -44,6 +44,12 @@
                             <div class="col-sm-4">{% translate "Time Efficiency" %}</div>
                             <div class='col-sm-8'>{{ blueprint.te }}</div>
                         </div>
+                        {% if blueprint.rns and blueprint.rns != "" %}
+                            <div class="row description-row">
+                                <div class="col-sm-4">{% translate "Runs Remaining" %}</div>
+                                <div class='col-sm-8'>{{ blueprint.rns }}</div>
+                            </div>
+                        {% endif %}
                 </div>
             </div>
             {% if blueprint.job %}

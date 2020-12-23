@@ -67,8 +67,12 @@ form.inline {
   padding-right: 5px;
 }
 
-#blueprint-title > img {
+#blueprint-title {
   margin: 15px;
+  margin-top: 0px;
+}
+#blueprint-title > img {
+  margin: 5px;
 }
 
 @media all {

@@ -67,6 +67,10 @@ form.inline {
   padding-right: 5px;
 }
 
+#blueprint-title > img {
+  margin: 15px;
+}
+
 @media all {
   /* Bootstrap Tabs */
   .template-light-mode .nav-tabs > li.active > a {

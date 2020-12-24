@@ -4,4 +4,5 @@ DROP TABLE IF EXISTS blueprints_blueprint;
 DROP TABLE IF EXISTS blueprints_location;
 DROP TABLE IF EXISTS blueprints_owner;
 DROP TABLE IF EXISTS blueprints_request;
+DROP TABLE IF EXISTS blueprints_industryjob;
 SET FOREIGN_KEY_CHECKS=1;

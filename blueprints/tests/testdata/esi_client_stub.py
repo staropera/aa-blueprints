@@ -34,6 +34,11 @@ _endpoints = [
     ),
     EsiEndpoint(
         "Character",
+        "get_characters_character_id_blueprints",
+        "character_id",
+    ),
+    EsiEndpoint(
+        "Character",
         "get_characters_character_id_corporationhistory",
         "character_id",
     ),
@@ -87,6 +92,18 @@ _endpoints = [
     EsiEndpoint(
         "Corporation",
         "get_corporations_corporation_id_blueprints",
+        "corporation_id",
+        needs_token=True,
+    ),
+    EsiEndpoint(
+        "Industry",
+        "get_characters_character_id_industry_jobs",
+        "character_id",
+        needs_token=True,
+    ),
+    EsiEndpoint(
+        "Industry",
+        "get_corporations_corporation_id_industry_jobs",
         "corporation_id",
         needs_token=True,
     ),

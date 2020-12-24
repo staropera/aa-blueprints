@@ -1,0 +1,115 @@
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">
+            &times;
+        </span></button>
+        <h4 class="modal-title" id="modalTitle">{% translate "View Blueprint" %}</h4>
+    </div>
+
+    <div class="modal-body">
+        <div class="row description-row">
+            <h4 id="blueprint-title">{{ blueprint.icn }} {{ blueprint.nme }}</h4>
+        </div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+                <a href="#tab-summary" data-toggle="tab">{% translate "Summary" %}</a>
+            </li>
+            {% if blueprint.job %}
+            <li>
+                <a href="#tab-current-job" data-toggle="tab">{% translate "Current Job" %}</a>
+            </li>
+            {% endif %}
+            {% if perms.blueprints.request_blueprints and blueprint.rns == "" and not blueprint.frm %}
+            <li>
+                <a href="#tab-create-request" data-toggle="tab">{% translate "Create Request" %}</a>
+            </li>
+            {% endif %}
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane panel active panel-default" id="tab-summary">
+                <div class="panel-body modal-tab">
+                        <div class="row description-row">
+                            <div class="col-sm-4">{% translate "Blueprint Location" %}</div>
+                            <div class='col-sm-8'>{{ blueprint.loc }}</div>
+                        </div>
+                        <div class="row description-row">
+                            <div class="col-sm-4">{% translate "Material Efficiency" %}</div>
+                            <div class='col-sm-8'>{{ blueprint.me }}</div>
+                        </div>
+                        <div class="row description-row">
+                            <div class="col-sm-4">{% translate "Time Efficiency" %}</div>
+                            <div class='col-sm-8'>{{ blueprint.te }}</div>
+                        </div>
+                        {% if blueprint.rns and blueprint.rns != "" %}
+                            <div class="row description-row">
+                                <div class="col-sm-4">{% translate "Runs Remaining" %}</div>
+                                <div class='col-sm-8'>{{ blueprint.rns }}</div>
+                            </div>
+                        {% endif %}
+                </div>
+            </div>
+            {% if blueprint.job %}
+            <div class="tab-pane panel panel-default" id="tab-current-job">
+                <div class="panel-body modal-tab">
+                    <div class="row description-row">
+                        <div class="col-sm-4">{% translate "Activity" %}</div>
+                        <div class='col-sm-8'>{{ blueprint.job.activity }}</div>
+                    </div>
+                    <div class="row description-row">
+                        <div class="col-sm-4">{% translate "Installer" %}</div>
+                        <div class='col-sm-8'>{{ blueprint.job.installer }}</div>
+                    </div>
+                    <div class="row description-row">
+                        <div class="col-sm-4">{% translate "Runs" %}</div>
+                        <div class='col-sm-8'>{{ blueprint.job.runs }}</div>
+                    </div>
+                    <div class="row description-row">
+                        <div class="col-sm-4">{% translate "Start Date" %}</div>
+                        <div class='col-sm-8'>{{ blueprint.job.start_date }}</div>
+                    </div>
+                    <div class="row description-row">
+                        <div class="col-sm-4">{% translate "End Date" %}</div>
+                        <div class='col-sm-8'>{{ blueprint.job.end_date }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if perms.blueprints.request_blueprints and blueprint.rns == "" and not blueprint.frm %}
+
+            <div class="tab-pane panel panel-default" id="tab-create-request">
+                <div class="panel-body modal-tab">
+                    <form action="{% url 'blueprints:create_request' %}" method="POST" class="form-horizontal">
+
+                        <input type=hidden name="pk" value="{{ blueprint.pk }}">
+
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="runs" class="col-sm-4">Runs</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="runs" name="runs">
+                                <p class="help-block">Leave blank for maximum runs.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-success">
+                                        {% translate 'Create Request' %}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        </div>
+</div>

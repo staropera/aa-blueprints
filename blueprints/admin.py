@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Blueprint, Location, Request
+from .models import Blueprint, IndustryJob, Location, Owner, Request
 
 # Register your models here.
 
@@ -22,7 +22,7 @@ class BlueprintAdmin(admin.ModelAdmin):
         return obj.eve_type.name if obj.eve_type else None
 
     def _owner(self, obj):
-        return obj.owner.corporation.corporation_name
+        return obj.owner.name
 
     def _original(self, obj):
         return "No" if obj.runs and obj.runs > 0 else "Yes"
@@ -84,21 +84,38 @@ class LocationAdmin(admin.ModelAdmin):
         return False
 
 
-@admin.register(Request)
-class RequestAdmin(admin.ModelAdmin):
-    list_display = ("_type", "_requestor", "_requestee", "_fulfilled_by")
-
-    list_select_related = ("eve_type", "requesting_user")
-    search_fields = ["eve_type__name"]
+@admin.register(Owner)
+class OwnerAdmin(admin.ModelAdmin):
+    list_display = ("character", "_type", "corporation", "is_active")
 
     def _type(self, obj):
-        return obj.eve_type.name if obj.eve_type else None
+        return "Corporate" if obj.corporation else "Personal"
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(Request)
+class RequestAdmin(admin.ModelAdmin):
+    list_display = ("_type", "_requestor", "_owner", "_fulfilled_by")
+
+    list_select_related = (
+        "blueprint__eve_type",
+        "requesting_user__profile__main_character__character_name",
+    )
+    search_fields = ["blueprint__eve_type__name"]
+
+    def _type(self, obj):
+        return obj.blueprint.eve_type.name if obj.blueprint.eve_type else None
 
     def _requestor(self, obj):
         return obj.requesting_user.profile.main_character.character_name
 
-    def _requestee(self, obj):
-        return obj.requestee_corporation.corporation_name
+    def _owner(self, obj):
+        return obj.blueprint.owner.name
 
     def _fulfilled_by(self, obj):
         return (
@@ -106,3 +123,30 @@ class RequestAdmin(admin.ModelAdmin):
             if obj.fulfulling_user
             else None
         )
+
+    def has_add_permission(self, request):
+        return False
+
+
+@admin.register(IndustryJob)
+class IndustryJobAdmin(admin.ModelAdmin):
+
+    list_display = ("_blueprint", "_installer", "_activity")
+
+    list_select_related = ("blueprint__eve_type",)
+    search_fields = ["blueprint__eve_type__name"]
+
+    def _blueprint(self, obj):
+        return obj.blueprint.eve_type.name if obj.blueprint.eve_type else None
+
+    def _installer(self, obj):
+        return obj.installer.character_name
+
+    def _activity(self, obj):
+        return obj.get_activity_display()
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False

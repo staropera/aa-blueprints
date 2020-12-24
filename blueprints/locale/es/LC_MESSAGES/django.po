@@ -3,223 +3,360 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Translators:
+# Rebecca Murphy <rebecca@rcmurphy.me>, 2020
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 00:24-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2020-12-22 18:36-0500\n"
+"PO-Revision-Date: 2020-12-07 04:19+0000\n"
+"Last-Translator: Rebecca Murphy <rebecca@rcmurphy.me>, 2020\n"
+"Language-Team: Spanish (https://www.transifex.com/alliance-auth/teams/107430/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: auth_hooks.py:17 templates/blueprints/base.html:6
 #: templates/blueprints/base.html:11
 msgid "Blueprint Library"
-msgstr ""
+msgstr "Biblioteca de planos"
+
+#: models.py:475
+msgid "Manufacturing"
+msgstr "Fabricación"
+
+#: models.py:476
+msgid "Researching Technology"
+msgstr "Investigación de Tecnología"
+
+#: models.py:477
+msgid "Researching Time Efficiency"
+msgstr "Investigar la eficiencia del tiempo"
+
+#: models.py:478
+msgid "Researching Material Efficiency"
+msgstr "Investigación de la eficiencia de los materiales"
+
+#: models.py:479
+msgid "Copying"
+msgstr "Copiar"
+
+#: models.py:480
+msgid "Duplicating"
+msgstr "Duplicación"
+
+#: models.py:481
+msgid "Reverse Engineering"
+msgstr "Ingeniería inversa"
+
+#: models.py:482
+msgid "Inventing"
+msgstr "Inventar"
+
+#: models.py:483
+msgid "Reacting"
+msgstr "Reaccionar"
 
 #: templates/blueprints/index.html:11
 msgid "Library"
-msgstr ""
+msgstr "Biblioteca"
 
 #: templates/blueprints/index.html:15
 msgid "My Requests"
-msgstr ""
+msgstr "Mis Solicitudes"
 
-#: templates/blueprints/index.html:20
+#: templates/blueprints/index.html:21
 msgid "Open Requests"
-msgstr ""
+msgstr "Solicitudes abiertas"
 
-#: templates/blueprints/index.html:31
-msgid "Add Blueprint Owner"
-msgstr ""
+#: templates/blueprints/index.html:30
+msgid "Manage Blueprints"
+msgstr "Administrar blueprints"
 
-#: templates/blueprints/index.html:39 templates/blueprints/index.html:64
-#: templates/blueprints/index.html:79
+#: templates/blueprints/index.html:41 templates/blueprints/index.html:71
+#: templates/blueprints/index.html:89
 msgid "Type"
-msgstr ""
-
-#: templates/blueprints/index.html:40
-msgid "Quantity"
-msgstr ""
-
-#: templates/blueprints/index.html:40
-msgid "Qty"
-msgstr ""
-
-#: templates/blueprints/index.html:41
-msgid "Owner"
-msgstr ""
+msgstr "Tipo"
 
 #: templates/blueprints/index.html:42
-#: templates/blueprints/modals/create_request_content.html:27
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: templates/blueprints/index.html:42
+msgid "Qty"
+msgstr "Cant."
+
+#: templates/blueprints/index.html:43
+msgid "Owner"
+msgstr "Propietario"
+
+#: templates/blueprints/index.html:44
+#: templates/blueprints/modals/view_blueprint_content.html:38
 #: templates/blueprints/modals/view_request_content.html:25
 msgid "Material Efficiency"
-msgstr ""
+msgstr "Eficiencia material"
 
 #. Translators: Abbreviation for "Material Efficiency"
-#: templates/blueprints/index.html:44
-msgid "ME"
-msgstr ""
-
 #: templates/blueprints/index.html:46
-#: templates/blueprints/modals/create_request_content.html:31
+msgid "ME"
+msgstr "ME"
+
+#: templates/blueprints/index.html:48
+#: templates/blueprints/modals/view_blueprint_content.html:42
 #: templates/blueprints/modals/view_request_content.html:29
 msgid "Time Efficiency"
-msgstr ""
+msgstr "Eficiencia temporal"
 
 #. Translators: Abbreviation for "Time Efficiency"
-#: templates/blueprints/index.html:48
-msgid "TE"
-msgstr ""
-
 #: templates/blueprints/index.html:50
+msgid "TE"
+msgstr "TE"
+
+#: templates/blueprints/index.html:52
 msgid "Original"
-msgstr ""
+msgstr "Original"
 
-#: templates/blueprints/index.html:51
+#: templates/blueprints/index.html:53
 msgid "Runs Remaining"
-msgstr ""
+msgstr "Runciones restantes"
 
-#: templates/blueprints/index.html:65 templates/blueprints/index.html:80
+#: templates/blueprints/index.html:59
+msgid "Blueprints in use are highlighted in blue."
+msgstr "Los planos en uso se resaltan en azul."
+
+#: templates/blueprints/index.html:72 templates/blueprints/index.html:90
+#: templates/blueprints/modals/view_blueprint_content.html:59
 #: templates/blueprints/modals/view_request_content.html:33
 msgid "Runs"
-msgstr ""
+msgstr "Corridas"
 
-#: templates/blueprints/index.html:66 templates/blueprints/index.html:82
+#: templates/blueprints/index.html:73 templates/blueprints/index.html:92
 msgid "Requested From"
-msgstr ""
+msgstr "Solicitada desde"
 
-#: templates/blueprints/index.html:81
+#: templates/blueprints/index.html:91
 msgid "Requestor"
-msgstr ""
+msgstr "Solicitante"
 
-#: templates/blueprints/index.html:127
+#: templates/blueprints/index.html:109
+msgid "Add My Blueprints"
+msgstr "Agregar mis blueprints"
+
+#: templates/blueprints/index.html:114
+msgid "Add Corporation Blueprints"
+msgstr "Agregar blueprints de corporación"
+
+#: templates/blueprints/index.html:122
+msgid "Name"
+msgstr "Nombre"
+
+#: templates/blueprints/index.html:172
 msgid "Location"
-msgstr ""
+msgstr "Ubicación"
 
-#: templates/blueprints/index.html:128
+#: templates/blueprints/index.html:173
 msgid "Is BPO?"
-msgstr ""
+msgstr "¿Es BPO?"
 
-#: templates/blueprints/modals/create_request.html:13
-#: templates/blueprints/modals/view_request.html:13
-msgid "Loading..."
-msgstr ""
+#: templates/blueprints/index.html:174
+msgid "View Blueprint"
+msgstr "Ver blueprint"
 
-#: templates/blueprints/modals/create_request_content.html:10
-#: templates/blueprints/modals/create_request_content.html:45
+#: templates/blueprints/index.html:175
+msgid "Mark Request as Cancelled"
+msgstr "Marcar solicitud como cancelada"
+
+#: templates/blueprints/index.html:176
+msgid "Mark Request as Fulfilled"
+msgstr "Marcar solicitud como gestionada"
+
+#: templates/blueprints/index.html:177
+msgid "Mark Request as In Progress"
+msgstr "Marcar solicitud como en curso"
+
+#: templates/blueprints/index.html:178
+msgid "Mark Request as Open"
+msgstr "Marcar solicitud como abierta"
+
+#: templates/blueprints/index.html:179
+#: templates/blueprints/modals/view_blueprint_content.html:26
+#: templates/blueprints/modals/view_blueprint_content.html:93
 msgid "Create Request"
-msgstr ""
+msgstr "Crear solicitud"
 
-#: templates/blueprints/modals/create_request_content.html:19
-#: templates/blueprints/modals/view_request_content.html:17
-msgid "Blueprint Type"
-msgstr ""
+#: templates/blueprints/index.html:180
+msgid "Request Information"
+msgstr "Solicitar información"
 
-#: templates/blueprints/modals/create_request_content.html:23
+#: templates/blueprints/index.html:181
+msgid "Remove Blueprints"
+msgstr "Quitar blueprints"
+
+#: templates/blueprints/modals/modal_dialog.html:13
+msgid "Loading..."
+msgstr "Cargando..."
+
+#: templates/blueprints/modals/view_blueprint_content.html:17
+msgid "Summary"
+msgstr "Resumen"
+
+#: templates/blueprints/modals/view_blueprint_content.html:21
+msgid "Current Job"
+msgstr "Trabajo actual"
+
+#: templates/blueprints/modals/view_blueprint_content.html:34
 #: templates/blueprints/modals/view_request_content.html:21
 msgid "Blueprint Location"
-msgstr ""
+msgstr "Ubicación del blueprint"
+
+#: templates/blueprints/modals/view_blueprint_content.html:51
+msgid "Activity"
+msgstr "Actividad"
+
+#: templates/blueprints/modals/view_blueprint_content.html:55
+msgid "Installer"
+msgstr "Instalador"
+
+#: templates/blueprints/modals/view_blueprint_content.html:63
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#: templates/blueprints/modals/view_blueprint_content.html:67
+msgid "End Date"
+msgstr "Fecha de finalización"
 
 #: templates/blueprints/modals/view_request_content.html:10
 msgid "View Request"
-msgstr ""
+msgstr "Ver solicitud"
+
+#: templates/blueprints/modals/view_request_content.html:17
+msgid "Blueprint Type"
+msgstr "Tipo de blueprint"
 
 #: validators.py:8
 #, python-format
 msgid "%(value)s is not a valid material efficiency"
-msgstr ""
+msgstr "%(value)s no es una eficiencia de material válida"
 
 #: validators.py:16
 #, python-format
 msgid "%(value)s is not a valid time efficiency"
-msgstr ""
+msgstr "%(value)s no es una eficiencia de tiempo válida"
 
-#: views.py:60
+#: views.py:72 views.py:157
 #, python-format
 msgid ""
 "You can only use your main or alt characters to add corporations. However, "
 "character %s is neither. "
 msgstr ""
+"Solo puedes usar tus caracteres principales o alternativos para añadir "
+"corporaciones. Sin embargo, el carácter %s no es ninguno de los dos."
 
-#: views.py:93
+#: views.py:105
 #, python-format
 msgid ""
-"%(corporation)s has been added with %(character)s as sync character. We have "
-"started fetching blueprints for this corporation. You will receive a report "
-"once the process is finished."
+"%(corporation)s has been added with %(character)s as sync character. We have"
+" started fetching blueprints for this corporation. You will receive a report"
+" once the process is finished."
 msgstr ""
+"%(corporation)s se ha añadido con %(character)s como carácter de "
+"sincronización. Hemos empezado a buscar planos para esta corporación. "
+"Recibirá un informe una vez finalizado el proceso."
 
-#: views.py:109
+#: views.py:121
 #, python-format
-msgid "%(corporation)s was added as new blueprint owner by %(user)s."
+msgid ""
+"%(corporation)s was added as new corporate blueprint owner by %(user)s."
 msgstr ""
+"%(corporation)s fue agregado como nuevo propietario del blueprint "
+"corporativo por %(user)s."
 
-#: views.py:132
+#: views.py:182
+#, python-format
+msgid ""
+"%(character)s has been added. We have started fetching blueprints for this "
+"character. You will receive a report once the process is finished."
+msgstr ""
+"se ha añadido %(character)s. Hemos empezado a buscar planos para este "
+"personaje. Recibirá un informe una vez finalizado el proceso."
+
+#: views.py:196
+#, python-format
+msgid "%(character)s was added as a new personal blueprint owner."
+msgstr ""
+"%(character)s se agregó como un nuevo propietario de blueprint personal."
+
+#: views.py:218
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
-#: views.py:134
+#: views.py:220
 msgid "No"
-msgstr ""
+msgstr "No"
 
-#: views.py:221
+#: views.py:315
+msgid "Corporate"
+msgstr "Corporativo"
+
+#: views.py:319
+msgid "Personal"
+msgstr "Personal"
+
+#: views.py:365
 #, python-format
 msgid "A copy of %(blueprint)s has been requested."
-msgstr ""
+msgstr "Se ha solicitado una copia de %(blueprint)s."
 
-#: views.py:308
-#, python-format
-msgid "The request for %(blueprint)s has been deleted."
-msgstr ""
-
-#: views.py:316
-#, python-format
-msgid "Deleting the request for %(blueprint)s has failed."
-msgstr ""
-
-#: views.py:358
+#: views.py:481
 #, python-format
 msgid "The request for %(blueprint)s has been closed as fulfilled."
-msgstr ""
+msgstr "La solicitud de %(blueprint)s se ha cerrado como cumplida."
 
-#: views.py:367
+#: views.py:490
 #, python-format
 msgid "Fulfilling the request for %(blueprint)s has failed."
-msgstr ""
+msgstr "Se ha producido un error al cumplir la solicitud de %(blueprint)s."
 
-#: views.py:386
+#: views.py:509
 #, python-format
 msgid "The request for %(blueprint)s has been marked as in progress."
-msgstr ""
+msgstr "La solicitud de %(blueprint)s ha sido marcada como en curso."
 
-#: views.py:396
+#: views.py:519
 #, python-format
 msgid "Marking the request for %(blueprint)s as in progress has failed."
-msgstr ""
+msgstr "Error al marcar la solicitud de %(blueprint)s como en curso."
 
-#: views.py:413
+#: views.py:538
 #, python-format
 msgid "The request for %(blueprint)s has been re-opened."
-msgstr ""
+msgstr "Se ha vuelto a abrir la solicitud de %(blueprint)s."
 
-#: views.py:421
+#: views.py:546
 #, python-format
 msgid "Re-opening the request for %(blueprint)s has failed."
-msgstr ""
+msgstr "Error al volver a abrir la solicitud de %(blueprint)s."
 
-#: views.py:440
+#: views.py:570
 #, python-format
 msgid "The request for %(blueprint)s has been closed as cancelled."
-msgstr ""
+msgstr "La solicitud de %(blueprint)s se ha cerrado como cancelada."
 
-#: views.py:449
+#: views.py:579
 #, python-format
 msgid "Cancelling the request for %(blueprint)s has failed."
-msgstr ""
+msgstr "Error al cancelar la solicitud de %(blueprint)s."
+
+#: views.py:610
+#, python-format
+msgid "%(owner)s has been removed as a blueprint owner."
+msgstr "%(owner)s se ha eliminado como propietario del blueprint."
+
+#: views.py:617
+msgid "Removing the blueprint owner has failed."
+msgstr "Error al quitar el propietario del blueprint."

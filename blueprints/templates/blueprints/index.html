@@ -17,21 +17,23 @@
             {% endif %}
             {% if perms.blueprints.manage_requests %}
             <li>
-                <a href="#tab-open-requests" data-toggle="tab">{% translate "Open Requests" %}</a>
+                <a href="#tab-open-requests" data-toggle="tab">
+                    {% translate "Open Requests" %}
+                    {% if request_count %}
+                        &nbsp;<span class="badge">{{ request_count }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endif %}
+            {% if perms.blueprints.add_personal_blueprint_owner or perms.blueprints.add_corporate_blueprint_owner %}
+            <li>
+                <a href="#tab-manage-blueprints" data-toggle="tab">{% translate "Manage Blueprints" %}</a>
             </li>
             {% endif %}
         </ul>
         <div class="tab-content">
             <div class="tab-pane active panel panel-default" id="tab-library">
                 <div class="panel-body">
-                    <div class="pull-right">
-                        {% if perms.blueprints.add_blueprint_owner %}
-                            <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_blueprint_owner' %}">
-                                {% translate "Add Blueprint Owner" %}
-                            </a>
-                        {% endif %}
-                    </div>
-
                     <table id="table-blueprints" style="width: 100%" class="table table-striped">
                         <thead>
                             <tr>
@@ -39,11 +41,11 @@
                                 <th>{% translate "Type" %}</th>
                                 <th><abbr title="{% translate 'Quantity' %}">{% translate "Qty" %}</abbr></th>
                                 <th>{% translate "Owner" %}</th>
-                                <th><abbr title="{% translate 'Material Efficiency' %}">
+                                <th><span class="fas fa-gem pad-right"></span><abbr title="{% translate 'Material Efficiency' %}">
                                     {% comment %}Translators: Abbreviation for "Material Efficiency"{% endcomment %}
                                     {% translate 'ME' %}
                                 </abbr></th>
-                                <th><abbr title="{% translate 'Time Efficiency' %}">
+                                <th><span class="fas fa-hourglass pad-right"></span><abbr title="{% translate 'Time Efficiency' %}">
                                     {% comment %}Translators: Abbreviation for "Time Efficiency"{% endcomment %}
                                     {% translate 'TE' %}
                                 </abbr></th>
@@ -53,6 +55,9 @@
                             </tr>
                         </thead>
                     </table>
+                    <p class="text-muted">
+                        {% translate "Blueprints in use are highlighted in blue." %}
+                    </p>
                 </div>
             </div>
 
@@ -92,11 +97,41 @@
                     </div>
                 </div>
             {% endif %}
+
+
+            {% if perms.blueprints.add_personal_blueprint_owner or perms.blueprints.add_corporate_blueprint_owner %}
+            <div class="tab-pane panel panel-default" id="tab-manage-blueprints">
+                <div class="panel-body">
+                    <div class="clearfix" style="margin-bottom: 1rem;">
+                        <div class="pull-right">
+                            {% if perms.blueprints.add_personal_blueprint_owner %}
+                                <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_personal_blueprint_owner' %}">
+                                    {% translate "Add My Blueprints" %}
+                                </a>
+                            {% endif %}
+                            {% if perms.blueprints.add_corporate_blueprint_owner %}
+                                <a class="btn btn-success btn-tabs" href="{% url 'blueprints:add_corporate_blueprint_owner' %}">
+                                    {% translate "Add Corporation Blueprints" %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <table id="table-manage-blueprints" style="width: 100%" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>{% translate "Name" %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 
-    {% include 'blueprints/modals/create_request.html' %}
-    {% include 'blueprints/modals/view_request.html' %}
+    {% include 'blueprints/modals/modal_dialog.html' with name="ViewBlueprint" %}
+    {% include 'blueprints/modals/modal_dialog.html' with name="ViewRequest" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -116,31 +151,41 @@
             listDataUrl += '?tags={{ active_tags|join:"," }}'
         {% endif %}
 
-        let blueprintsDataTableSettings = {
+        let blueprintsSettings = {
             listDataUrl: listDataUrl,
             openRequestListUrl: '{% url "blueprints:list_open_requests" %}',
             userRequestListUrl: '{% url "blueprints:list_user_requests" %}',
-            inProgressRequestUrl: '{% url "blueprints:request_in_progress" %}',
-            cancelRequestUrl:'{% url "blueprints:request_cancelled" %}',
-            createRequestUrl: '{% url "blueprints:create_request" %}',
-            openRequestUrl: '{% url "blueprints:request_open" %}',
-            createRequestModalUrl: '{% url "blueprints:create_request_modal" %}',
+            inProgressRequestUrl: '{% url "blueprints:request_in_progress" request_id=12345 %}',
+            cancelRequestUrl:'{% url "blueprints:request_cancelled" request_id=12345 %}',
+            openRequestUrl: '{% url "blueprints:request_open" request_id=12345 %}',
+            fulfillRequestUrl: '{% url "blueprints:request_fulfilled" request_id=12345 %}',
+            viewBlueprintUrl: '{% url "blueprints:create_request" %}',
+            listUserOwnerUrl: '{% url "blueprints:list_user_owners" %}',
+            removeOwnerUrl: '{% url "blueprints:remove_owner" owner_id=12345 %}',
+            viewBlueprintModalUrl: '{% url "blueprints:view_blueprint_modal" %}',
             viewRequestModalUrl: '{% url "blueprints:view_request_modal" %}',
-            fulfillRequestUrl: '{% url "blueprints:request_fulfilled" %}',
             csrfToken: '{% csrf_token %}',
             canAddBlueprints: {% if perms.blueprints.request_blueprints %} true {% else %} false {% endif %},
             dataTablesPageLength: {{ data_tables_page_length }},
             dataTablesPaging: {{ data_tables_paging|yesno:"true,false" }},
             translation: {
-                filterLocation: '{% translate "Location" %}',
-                filterIsOriginal: '{% translate "Is BPO?" %}'
+                filterLocation: "{% translate 'Location' %}",
+                filterIsOriginal: "{% translate 'Is BPO?' %}",
+                viewBlueprint: "{% translate 'View Blueprint' %}",
+                markRequestCancelled: "{% translate 'Mark Request as Cancelled' %}",
+                markRequestFulfilled: "{% translate 'Mark Request as Fulfilled' %}",
+                markRequestInProgress: "{% translate 'Mark Request as In Progress' %}",
+                markRequestOpen: "{% translate 'Mark Request as Open' %}",
+                createRequest: "{% translate 'Create Request' %}",
+                requestInfo: "{% translate 'Request Information' %}",
+                removeBlueprints: "{% translate 'Remove Blueprints' %}"
             }
         };
 
-        $('#modalCreateRequestContainer').on('show.bs.modal', function(event) {
+        $('#modalViewBlueprintContainer').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget)
                 var ajax_url = button.data('ajax_url');
-                $("#modalCreateRequestContent").load(ajax_url)
+                $("#modalViewBlueprintContent").load(ajax_url)
             });
 
         $('#modalViewRequestContainer').on('show.bs.modal', function(event) {
@@ -152,6 +197,8 @@
     <script type="application/javascript" src="{% static 'blueprints/js/blueprint_list.js' %}" ></script>
     <script type="application/javascript" src="{% static 'blueprints/js/user_request_list.js' %}" ></script>
     <script type="application/javascript" src="{% static 'blueprints/js/open_request_list.js' %}" ></script>
+    <script type="application/javascript" src="{% static 'blueprints/js/manage_blueprint_list.js' %}" ></script>
+
 {% endblock %}
 
 {% block extra_script %}

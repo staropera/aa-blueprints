@@ -9,19 +9,12 @@ from .utils import LoggerAddTag
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
-def fetch_token_for_owner(
-    scopes=[
-        "esi-universe.read_structures.v1",
-        "esi-corporations.read_blueprints.v1",
-        "esi-assets.read_corporation_assets.v1",
-    ]
-):
+def fetch_token_for_owner(scopes):
     """returns valid token for owner.
     Needs to be attached on an Owner method !!
 
     Args:
-    -scopes: Optionally provide the required scopes.
-    Otherwise will use all scopes defined for this character.
+    -scopes: Provide the required scopes.
     """
 
     def decorator(func):

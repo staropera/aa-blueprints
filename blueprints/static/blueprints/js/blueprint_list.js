@@ -1,16 +1,14 @@
-/* global blueprintsDataTableSettings */
+/* global blueprintsSettings */
 
 $(document).ready(function () {
     "use strict";
 
-    var listDataUrl = blueprintsDataTableSettings.listDataUrl;
-    var createRequestUrl = blueprintsDataTableSettings.createRequestUrl;
-    var createRequestModalUrl =
-        blueprintsDataTableSettings.createRequestModalUrl;
-    var dataTablesPageLength = blueprintsDataTableSettings.dataTablesPageLength;
-    var dataTablesPaging = blueprintsDataTableSettings.dataTablesPaging;
-    var csrfToken = blueprintsDataTableSettings.csrfToken;
-    var canAddBlueprints = blueprintsDataTableSettings.canAddBlueprints;
+    var listDataUrl = blueprintsSettings.listDataUrl;
+    var viewBlueprintModalUrl = blueprintsSettings.viewBlueprintModalUrl;
+    var dataTablesPageLength = blueprintsSettings.dataTablesPageLength;
+    var dataTablesPaging = blueprintsSettings.dataTablesPaging;
+    var viewBlueprintText = blueprintsSettings.translation.viewBlueprint;
+
     /* dataTable def */
     $("#table-blueprints").DataTable({
         ajax: {
@@ -20,21 +18,22 @@ $(document).ready(function () {
         },
 
         columns: [
-            { data: "type_icon" },
-            { data: "type_name" },
+            { data: "icn" },
+            { data: "nme" },
             {
                 className: "right-column",
-                data: "quantity",
+                data: "qty",
             },
-            { data: "owner" },
-            { data: "material_efficiency" },
-            { data: "time_efficiency" },
-            { data: "original" },
-            { data: "runs" },
-            { data: "blueprint_id" },
+            { data: "on" },
+            { data: "me" },
+            { data: "te" },
+            { data: "og" },
+            { data: "rns" },
+            { data: "pk" },
             // hidden columns
-            { data: "location" },
-            { data: "filter_is_original" },
+            { data: "loc" },
+            { data: "iog" },
+            { data: "use" }
         ],
 
         lengthMenu: [
@@ -48,18 +47,33 @@ $(document).ready(function () {
 
         columnDefs: [
             { sortable: false, targets: [0, 2, 8] },
-            { visible: false, targets: [9, 10] },
+            { visible: false, targets: [9, 10, 11] },
             {
                 render: function (data, type, row) {
                     if (type === "display") {
-                        if (row["original"] != "" && canAddBlueprints) {
-                            return (
-                                '<button class="btn btn-success" data-toggle="modal" data-target="#modalCreateRequestContainer" data-ajax_url="' +
-                                createRequestModalUrl +
-                                "?blueprint_id=" +
-                                data +
-                                '" aria-label="Create Request"><span class="fas fa-copy"></span></button>'
-                            );
+                        return (
+                            '<button class="btn btn-sm btn-info btn-square" ' +
+                            'data-toggle="modal" ' +
+                            'data-target="#modalViewBlueprintContainer" ' +
+                            'data-ajax_url="' + viewBlueprintModalUrl + "?blueprint_id=" + data + '" ' +
+                            'aria-label="' + viewBlueprintText + '" ' +
+                            'title="' + viewBlueprintText + '">' +
+                            '<span class="fas fa-info"></span>' +
+                            '</button>'
+                        );
+                    }
+
+                    return data;
+                },
+                targets: [8],
+            },
+            {
+                render: function (data, type, row) {
+                    if (type === "display") {
+                        if (row.ot === "corporation") {
+                            return '<span class="fas fa-briefcase"></span> ' + data;
+                        } else if (row.ot === "character") {
+                            return '<span class="fas fa-user"></span> ' + data;
                         } else {
                             return "";
                         }
@@ -67,7 +81,7 @@ $(document).ready(function () {
 
                     return data;
                 },
-                targets: [8],
+                targets: [3],
             }
         ],
 
@@ -81,7 +95,7 @@ $(document).ready(function () {
                 {
                     idx: 9,
                     title:
-                        blueprintsDataTableSettings.translation.filterLocation,
+                        blueprintsSettings.translation.filterLocation,
                 },
                 { idx: 3 },
                 { idx: 4 },
@@ -89,7 +103,7 @@ $(document).ready(function () {
                 {
                     idx: 10,
                     title:
-                        blueprintsDataTableSettings.translation
+                        blueprintsSettings.translation
                             .filterIsOriginal,
                 },
             ],
@@ -97,26 +111,31 @@ $(document).ready(function () {
             bootstrap: true,
         },
 
-        drawCallback: function (settings) {
+        drawCallback: function(settings) {
             var api = this.api();
             var rows = api.rows({ page: "current" }).nodes();
             var last = null;
 
             api.column(9, { page: "current" })
                 .data()
-                .each(function (group, i) {
+                .each(function(group, i) {
                     if (last !== group) {
                         $(rows)
                             .eq(i)
                             .before(
                                 '<tr class="tr-group"><td colspan="9">' +
-                                    group +
-                                    "</td></tr>"
+                                group +
+                                "</td></tr>"
                             );
 
                         last = group;
                     }
                 });
+        },
+        createdRow: function( row, data, dataIndex ) {
+            if (data.use === true) {
+                $(row).addClass('info');
+            }
         },
     });
 });

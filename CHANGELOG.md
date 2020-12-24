@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 1.0.0b1 - 2020-12-18
+
+### Added
+
+- Ability to add personal blueprints
+- Ability to remove blueprint owners
+- Badge in the "Open Requests" tab counting open and in-progress requests
+- Ability to see blueprints currently in use by industry jobs
+- Localization
+
+### Changed
+
+- Reworked object model for better flexibility and performance
+- Permissions moved to Blueprints >> General to avoid confusion
+
 ## 0.2.1 - 2020-12-18
 
 ### Changed

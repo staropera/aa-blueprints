@@ -20,19 +20,27 @@ This is an blueprints library app for [Alliance Auth](https://gitlab.com/allianc
 
 ### Library
 
-![library](https://i.imgur.com/sJJjnUd.png)
+![library](https://i.imgur.com/62eUbB8.png)
+
+### View Blueprint
+
+![view-blueprint](https://i.imgur.com/g8ge0gA.png)
 
 ### Create a Request
 
-![create-request](https://i.imgur.com/rFaxhYh.png)
+![create-request](https://i.imgur.com/MSt7mZg.png)
 
 ### My Requests
 
-![my-requests](https://i.imgur.com/tB1O2Bv.png)
+![my-requests](https://i.imgur.com/0Tj5jo6.png)
 
 ### Open Requests
 
-![open-requests](https://i.imgur.com/X4mVb6P.png)
+![open-requests](https://i.imgur.com/pQMuLEQ.png)
+
+### Manage Blueprints
+
+![manage-blueprints](https://i.imgur.com/ap1vc4h.png)
 
 # Installation
 
@@ -53,10 +61,15 @@ Make sure you are in the virtual environment (venv) of your Alliance Auth instal
 - Add 'blueprints' to `INSTALLED_APPS` in `settings/local.py`.
 - Add the following automated task definition:
 
+
 ```python
 CELERYBEAT_SCHEDULE['blueprints_update_all_blueprints'] = {
     'task': 'blueprints.tasks.update_all_blueprints',
     'schedule': crontab(minute=0, hour='*/3'),
+}
+CELERYBEAT_SCHEDULE['blueprints_update_all_industry_jobs'] = {
+    'task': 'blueprints.tasks.update_all_industry_jobs',
+    'schedule': crontab(minute=0, hour='*'),
 }
 CELERYBEAT_SCHEDULE['blueprints_update_all_locations'] = {
     'task': 'blueprints.tasks.update_all_locations',
@@ -79,9 +92,13 @@ Restart your supervisor services for Auth
 
 Update the Eve Online API app used for authentication in your AA installation to include the following scopes:
 
-- `esi-assets.read_corporation_assets.v1`
-- `esi-corporations.read_blueprints.v1`
-- `esi-universe.read_structures.v1`
+ - `esi-assets.read_assets.v1`
+ - `esi-assets.read_corporation_assets.v1`
+ - `esi-characters.read_blueprints.v1`
+ - `esi-corporations.read_blueprints.v1`
+ - `esi-industry.read_character_jobs.v1`
+ - `esi-industry.read_corporation_jobs.v1`
+ - `esi-universe.read_structures.v1`
 
 ### Step 5 - Data import
 
@@ -90,6 +107,21 @@ Load EVE Online type data from ESI:
 ```bash
 python manage.py blueprints_load_types
 ```
+
+# Permissions
+
+| ID                               | Description                                  | Notes                                                                          |
+|----------------------------------|----------------------------------------------|--------------------------------------------------------------------------------|
+| `basic_access`                   | Can access this app                          |                                                                                |
+| `request_blueprints`             | Can request blueprints                       |                                                                                |
+| `manage_requests`                | Can review and accept blueprint requests     |                                                                                |
+| `add_personal_blueprint_owner`   | Can add personal blueprint owners            |                                                                                |
+| `add_corporate_blueprint_owner`  | Can add corporate blueprint owners           | :warning: Should only be given to directors or the CEO.                        |
+| `view_alliance_blueprints`       | Can view alliance's blueprints               |                                                                                |
+| `view_industry_jobs`             | Can view details about running industry jobs | :warning: This permission will let someone see _all_ industry job information. |
+
+# Upgrading
+See [UPGRADING.md](UPGRADING.md).
 
 # Authors
 

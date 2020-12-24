@@ -23,18 +23,22 @@ pre-commit-check:
     - pre-commit run --all-files
 
 .test-py36:
+  needs: []
   stage: test
   image: python:3.6-buster
 
 .test-py37:
+  needs: []
   stage: test
   image: python:3.7-buster
 
 .test-py38:
+  needs: []
   stage: test
   image: python:3.8-buster
 
 .test-py39:
+  needs: []
   stage: test
   image: python:3.9-buster
 

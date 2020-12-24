@@ -7,4 +7,4 @@ minimum_perc = 0
 source_file = blueprints/locale/en/LC_MESSAGES/django.po
 source_lang = en_US
 type = PO
-lang_map = zh_CN: zh_Hans, es_ES: es, de_DE: de, en_US: en, ko_KR: ko, ru_RU: ru
+lang_map = zh_CN: zh_Hans, es_ES: es, de_DE: de, en_US: en, fr_FR: fr, ja_JP: ja, ko_KR: ko, ru_RU: ru

@@ -25,6 +25,21 @@
   }
 }
 
+/* buttons
+------------------------------------------------------------------------------------- */
+@media all {
+    /* the squared ones ... */
+    .btn-square {
+        width: 45px;
+        height: 45px;
+    }
+
+    .btn-sm.btn-square {
+        width: 35px;
+        height: 35px;
+    }
+}
+
 /* FIX: AA .tr-group
    I really hate to use !important -.-
    But it is what it is ...
@@ -47,4 +62,67 @@ form.inline {
 
 .right-column {
   text-align: right;
+}
+
+.description-row {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.modal-tab {
+  min-height: 300px;
+}
+
+#modalTitle > img {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.pad-right {
+  padding-right: 5px;
+}
+
+#blueprint-title {
+  margin: 15px;
+  margin-top: 0px;
+}
+#blueprint-title > img {
+  margin: 5px;
+}
+
+@media all {
+  /* Bootstrap Tabs */
+  .template-light-mode .nav-tabs > li.active > a {
+      background-color: rgb(236, 240, 241) !important;
+      color: rgb(0, 0, 0) !important;
+  }
+
+  .template-dark-mode .nav-tabs > li.active > a {
+      background-color: rgb(70, 69, 69) !important;
+      color: rgb(255, 255, 255) !important;
+  }
+
+  .panel-tabs {
+      border-top: none;
+      border-top-left-radius: 0%;
+      border-top-right-radius: 0%;
+  }
+
+  /* Datatables row group headers */
+  .template-light-mode .table > tbody > .table-group > td {
+      background-color: rgb(105, 105, 105);
+      color: rgb(255, 255, 255);
+      font-weight: bold;
+  }
+
+  .template-dark-mode .table > tbody > .table-group > td {
+      background-color: rgb(105, 105, 105);
+      color: rgb(255, 255, 255);
+      font-weight: bold;
+  }
+
+  /* other */
+  .nowrap {
+      white-space: nowrap;
+  }
 }

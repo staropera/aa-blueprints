@@ -14,246 +14,246 @@ msgstr ""
 "POT-Creation-Date: 2020-12-22 18:36-0500\n"
 "PO-Revision-Date: 2020-12-07 04:19+0000\n"
 "Last-Translator: Rebecca Murphy <rebecca@rcmurphy.me>, 2020\n"
-"Language-Team: Korean (https://www.transifex.com/alliance-auth/teams/107430/ko/)\n"
+"Language-Team: Japanese (https://www.transifex.com/alliance-auth/teams/107430/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: auth_hooks.py:17 templates/blueprints/base.html:6
 #: templates/blueprints/base.html:11
 msgid "Blueprint Library"
-msgstr "청사진 라이브러리"
+msgstr "ブループリントライブラリ"
 
 #: models.py:475
 msgid "Manufacturing"
-msgstr "제조"
+msgstr "製造業"
 
 #: models.py:476
 msgid "Researching Technology"
-msgstr "기술 연구"
+msgstr "技術の研究中"
 
 #: models.py:477
 msgid "Researching Time Efficiency"
-msgstr "시간 효율성 연구"
+msgstr "時間効率の調査"
 
 #: models.py:478
 msgid "Researching Material Efficiency"
-msgstr "재료 효율성 연구"
+msgstr "材料効率の調査"
 
 #: models.py:479
 msgid "Copying"
-msgstr "복사 중"
+msgstr "コピー中"
 
 #: models.py:480
 msgid "Duplicating"
-msgstr "복제 중"
+msgstr "複製中"
 
 #: models.py:481
 msgid "Reverse Engineering"
-msgstr "리버스 엔지니어링"
+msgstr "リバースエンジニアリング"
 
 #: models.py:482
 msgid "Inventing"
-msgstr "분류: 발명"
+msgstr "発明する"
 
 #: models.py:483
 msgid "Reacting"
-msgstr "반응"
+msgstr "反応する"
 
 #: templates/blueprints/index.html:11
 msgid "Library"
-msgstr "도서관"
+msgstr "図書館"
 
 #: templates/blueprints/index.html:15
 msgid "My Requests"
-msgstr "내 요청"
+msgstr "マイリクエスト"
 
 #: templates/blueprints/index.html:21
 msgid "Open Requests"
-msgstr "미결 요청"
+msgstr "オープンリクエスト"
 
 #: templates/blueprints/index.html:30
 msgid "Manage Blueprints"
-msgstr "블루프린트 관리"
+msgstr "ブループリントの管理"
 
 #: templates/blueprints/index.html:41 templates/blueprints/index.html:71
 #: templates/blueprints/index.html:89
 msgid "Type"
-msgstr "유형"
+msgstr "タイプ"
 
 #: templates/blueprints/index.html:42
 msgid "Quantity"
-msgstr "수량"
+msgstr "数量"
 
 #: templates/blueprints/index.html:42
 msgid "Qty"
-msgstr "수량"
+msgstr "数量"
 
 #: templates/blueprints/index.html:43
 msgid "Owner"
-msgstr "소유자"
+msgstr "所有者"
 
 #: templates/blueprints/index.html:44
 #: templates/blueprints/modals/view_blueprint_content.html:38
 #: templates/blueprints/modals/view_request_content.html:25
 msgid "Material Efficiency"
-msgstr "재료 효율성"
+msgstr "材料効率"
 
 #. Translators: Abbreviation for "Material Efficiency"
 #: templates/blueprints/index.html:46
 msgid "ME"
-msgstr "ME"
+msgstr "私に"
 
 #: templates/blueprints/index.html:48
 #: templates/blueprints/modals/view_blueprint_content.html:42
 #: templates/blueprints/modals/view_request_content.html:29
 msgid "Time Efficiency"
-msgstr "시간 효율성"
+msgstr "時間効率"
 
 #. Translators: Abbreviation for "Time Efficiency"
 #: templates/blueprints/index.html:50
 msgid "TE"
-msgstr "TE"
+msgstr "てー"
 
 #: templates/blueprints/index.html:52
 msgid "Original"
-msgstr "오리지널"
+msgstr "オリジナル"
 
 #: templates/blueprints/index.html:53
 msgid "Runs Remaining"
-msgstr "남은 실행"
+msgstr "残りのラン"
 
 #: templates/blueprints/index.html:59
 msgid "Blueprints in use are highlighted in blue."
-msgstr "사용 중인 청사진은 파란색으로 강조 표시됩니다."
+msgstr "使用中のブループリントは青色で強調表示されます。"
 
 #: templates/blueprints/index.html:72 templates/blueprints/index.html:90
 #: templates/blueprints/modals/view_blueprint_content.html:59
 #: templates/blueprints/modals/view_request_content.html:33
 msgid "Runs"
-msgstr "실행"
+msgstr "実行する"
 
 #: templates/blueprints/index.html:73 templates/blueprints/index.html:92
 msgid "Requested From"
-msgstr "요청된 부터"
+msgstr "リクエスト元"
 
 #: templates/blueprints/index.html:91
 msgid "Requestor"
-msgstr "요청자"
+msgstr "リクエスタ"
 
 #: templates/blueprints/index.html:109
 msgid "Add My Blueprints"
-msgstr "내 청사진 추가"
+msgstr "マイブループリントの追加"
 
 #: templates/blueprints/index.html:114
 msgid "Add Corporation Blueprints"
-msgstr "회사 청사진 추가"
+msgstr "コーポレーションブループリントの追加"
 
 #: templates/blueprints/index.html:122
 msgid "Name"
-msgstr "이름"
+msgstr "名前"
 
 #: templates/blueprints/index.html:172
 msgid "Location"
-msgstr "위치"
+msgstr "所在地"
 
 #: templates/blueprints/index.html:173
 msgid "Is BPO?"
-msgstr "BPO는 무엇입니까?"
+msgstr "BPOですか？"
 
 #: templates/blueprints/index.html:174
 msgid "View Blueprint"
-msgstr "청사진 보기"
+msgstr "ブループリントを見る"
 
 #: templates/blueprints/index.html:175
 msgid "Mark Request as Cancelled"
-msgstr "요청을 취소됨으로 표시"
+msgstr "リクエストをキャンセル済みとしてマークする"
 
 #: templates/blueprints/index.html:176
 msgid "Mark Request as Fulfilled"
-msgstr "요청을 이행됨으로 표시"
+msgstr "リクエストを履行済みとしてマークする"
 
 #: templates/blueprints/index.html:177
 msgid "Mark Request as In Progress"
-msgstr "요청을 진행 중으로 표시"
+msgstr "リクエストを進行中としてマークする"
 
 #: templates/blueprints/index.html:178
 msgid "Mark Request as Open"
-msgstr "요청을 미결 상태로 표시"
+msgstr "リクエストをオープンとしてマークする"
 
 #: templates/blueprints/index.html:179
 #: templates/blueprints/modals/view_blueprint_content.html:26
 #: templates/blueprints/modals/view_blueprint_content.html:93
 msgid "Create Request"
-msgstr "요청 생성"
+msgstr "リクエストの作成"
 
 #: templates/blueprints/index.html:180
 msgid "Request Information"
-msgstr "정보 요청"
+msgstr "情報をリクエストする"
 
 #: templates/blueprints/index.html:181
 msgid "Remove Blueprints"
-msgstr "블루프린트 제거"
+msgstr "ブループリントの削除"
 
 #: templates/blueprints/modals/modal_dialog.html:13
 msgid "Loading..."
-msgstr "로드 중..."
+msgstr "ロード中..."
 
 #: templates/blueprints/modals/view_blueprint_content.html:17
 msgid "Summary"
-msgstr "요약"
+msgstr "要約"
 
 #: templates/blueprints/modals/view_blueprint_content.html:21
 msgid "Current Job"
-msgstr "현재 작업"
+msgstr "現在のジョブ"
 
 #: templates/blueprints/modals/view_blueprint_content.html:34
 #: templates/blueprints/modals/view_request_content.html:21
 msgid "Blueprint Location"
-msgstr "청사진 위치"
+msgstr "ブループリントの場所"
 
 #: templates/blueprints/modals/view_blueprint_content.html:51
 msgid "Activity"
-msgstr "활동"
+msgstr "アクティビティ"
 
 #: templates/blueprints/modals/view_blueprint_content.html:55
 msgid "Installer"
-msgstr "설치 프로그램"
+msgstr "インストーラ"
 
 #: templates/blueprints/modals/view_blueprint_content.html:63
 msgid "Start Date"
-msgstr "시작 날짜"
+msgstr "開始日"
 
 #: templates/blueprints/modals/view_blueprint_content.html:67
 msgid "End Date"
-msgstr "종료 날짜"
+msgstr "終了日"
 
 #: templates/blueprints/modals/view_request_content.html:10
 msgid "View Request"
-msgstr "요청 보기"
+msgstr "リクエストを表示"
 
 #: templates/blueprints/modals/view_request_content.html:17
 msgid "Blueprint Type"
-msgstr "청사진 유형"
+msgstr "ブループリントタイプ"
 
 #: validators.py:8
 #, python-format
 msgid "%(value)s is not a valid material efficiency"
-msgstr "%(value)s은 (는) 유효한 재료 효율이 아닙니다."
+msgstr "%(value)sは有効な材料効率ではありません"
 
 #: validators.py:16
 #, python-format
 msgid "%(value)s is not a valid time efficiency"
-msgstr ""
+msgstr "%(value)sは有効な時間効率ではありません"
 
 #: views.py:72 views.py:157
 #, python-format
 msgid ""
 "You can only use your main or alt characters to add corporations. However, "
 "character %s is neither. "
-msgstr ""
+msgstr "法人を追加するには、メイン文字または代替文字のみを使用できます。ただし、文字 %s はどちらもありません。"
 
 #: views.py:105
 #, python-format
@@ -267,86 +267,86 @@ msgstr ""
 #, python-format
 msgid ""
 "%(corporation)s was added as new corporate blueprint owner by %(user)s."
-msgstr ""
+msgstr "%(corporation)s は、%(user)s によって、新しいコーポレートブループリントオーナーとして追加された。"
 
 #: views.py:182
 #, python-format
 msgid ""
 "%(character)s has been added. We have started fetching blueprints for this "
 "character. You will receive a report once the process is finished."
-msgstr ""
+msgstr "%(character)sを追加しました。このキャラクターの設計図の取得を開始しました。プロセスが完了すると、レポートが届きます。"
 
 #: views.py:196
 #, python-format
 msgid "%(character)s was added as a new personal blueprint owner."
-msgstr "%(character)s이 새로운 개인 청사진 소유자로 추가되었습니다."
+msgstr "%(character)s が新しいパーソナルブループリント所有者として追加されました。"
 
 #: views.py:218
 msgid "Yes"
-msgstr "예"
+msgstr "はい"
 
 #: views.py:220
 msgid "No"
-msgstr "아니요"
+msgstr "いいえな"
 
 #: views.py:315
 msgid "Corporate"
-msgstr "기업"
+msgstr "コーポレート"
 
 #: views.py:319
 msgid "Personal"
-msgstr "개인"
+msgstr "個人用"
 
 #: views.py:365
 #, python-format
 msgid "A copy of %(blueprint)s has been requested."
-msgstr ""
+msgstr "%(blueprint)s のコピーが要求されました。"
 
 #: views.py:481
 #, python-format
 msgid "The request for %(blueprint)s has been closed as fulfilled."
-msgstr "%(blueprint)s에 대한 요청이 이행됨에 따라 마감되었습니다."
+msgstr "%(blueprint)s の要求は完了済みとして閉じられました。"
 
 #: views.py:490
 #, python-format
 msgid "Fulfilling the request for %(blueprint)s has failed."
-msgstr "%(blueprint)s에 대한 요청을 이행하지 못했습니다."
+msgstr "%(blueprint)s の要求を実行できませんでした。"
 
 #: views.py:509
 #, python-format
 msgid "The request for %(blueprint)s has been marked as in progress."
-msgstr "%(blueprint)s에 대한 요청이 진행 중인 것으로 표시되었습니다."
+msgstr "%(blueprint)s の要求は、進行中としてマークされています。"
 
 #: views.py:519
 #, python-format
 msgid "Marking the request for %(blueprint)s as in progress has failed."
-msgstr "%(blueprint)s에 대한 요청을 진행 중으로 표시하지 못했습니다."
+msgstr "%(blueprint)s の要求を処理中としてマークできませんでした。"
 
 #: views.py:538
 #, python-format
 msgid "The request for %(blueprint)s has been re-opened."
-msgstr "%(blueprint)s에 대한 요청이 다시 열렸습니다."
+msgstr "%(blueprint)s のリクエストが再開されました。"
 
 #: views.py:546
 #, python-format
 msgid "Re-opening the request for %(blueprint)s has failed."
-msgstr "%(blueprint)s에 대한 요청을 다시 열지 못했습니다."
+msgstr "%(blueprint)s の要求を再オープンできませんでした。"
 
 #: views.py:570
 #, python-format
 msgid "The request for %(blueprint)s has been closed as cancelled."
-msgstr "%(blueprint)s에 대한 요청이 취소됨에 따라 마감되었습니다."
+msgstr "%(blueprint)s の要求はキャンセルされたとして閉じられました。"
 
 #: views.py:579
 #, python-format
 msgid "Cancelling the request for %(blueprint)s has failed."
-msgstr "%(blueprint)s에 대한 요청을 취소하지 못했습니다."
+msgstr "%(blueprint)s の要求のキャンセルに失敗しました。"
 
 #: views.py:610
 #, python-format
 msgid "%(owner)s has been removed as a blueprint owner."
-msgstr "%(owner)s이 (가) 청사진 소유자로 제거되었습니다."
+msgstr "%(owner)s は、設計図の所有者として削除されました。"
 
 #: views.py:617
 msgid "Removing the blueprint owner has failed."
-msgstr "Blueprint 소유자를 제거하지 못했습니다."
+msgstr "ブループリント所有者の削除に失敗しました。"

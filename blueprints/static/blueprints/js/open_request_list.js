@@ -1,17 +1,29 @@
-/* global blueprintsDataTableSettings */
+/* global blueprintsSettings */
 
 $(document).ready(function () {
     "use strict";
 
-    var openRequestListUrl = blueprintsDataTableSettings.openRequestListUrl;
-    var openRequestUrl = blueprintsDataTableSettings.openRequestUrl;
-    var cancelRequestUrl = blueprintsDataTableSettings.cancelRequestUrl;
-    var fulfillRequestUrl = blueprintsDataTableSettings.fulfillRequestUrl;
-    var inProgressRequestUrl = blueprintsDataTableSettings.inProgressRequestUrl;
-    var viewRequestModalUrl = blueprintsDataTableSettings.viewRequestModalUrl;
-    var dataTablesPageLength = blueprintsDataTableSettings.dataTablesPageLength;
-    var dataTablesPaging = blueprintsDataTableSettings.dataTablesPaging;
-    var csrfToken = blueprintsDataTableSettings.csrfToken;
+    var openRequestListUrl = blueprintsSettings.openRequestListUrl;
+    function openRequestUrl(id) {
+        return blueprintsSettings.openRequestUrl.replace("12345", id);
+    }
+    function cancelRequestUrl(id) {
+        return blueprintsSettings.cancelRequestUrl.replace("12345", id);
+    }
+    function fulfillRequestUrl(id) {
+        return blueprintsSettings.fulfillRequestUrl.replace("12345", id);
+    }
+    function inProgressRequestUrl(id) {
+        return blueprintsSettings.inProgressRequestUrl.replace("12345", id);
+    }
+    var viewRequestModalUrl = blueprintsSettings.viewRequestModalUrl;
+    var dataTablesPageLength = blueprintsSettings.dataTablesPageLength;
+    var dataTablesPaging = blueprintsSettings.dataTablesPaging;
+    var csrfToken = blueprintsSettings.csrfToken;
+    var markRequestCancelledText = blueprintsSettings.translation.markRequestCancelled;
+    var markRequestFulfilledText = blueprintsSettings.translation.markRequestFulfilled;
+    var markRequestInProgressText = blueprintsSettings.translation.markRequestInProgress;
+    var markRequestOpenText = blueprintsSettings.translation.markRequestOpen;
     /* dataTable def */
     $("#table-open-requests").DataTable({
         ajax: {
@@ -25,18 +37,21 @@ $(document).ready(function () {
             { data: "type_name" },
             { data: "runs" },
             { data: "requestor" },
-            { data: "requestee" },
+            { data: "owner_name" },
             {
                 className: "right-column",
                 data: "request_id",
             },
+            // hidden columns
             {
                 data: "status",
             },
             {
                 data: "status_display",
             },
-            // hidden columns
+            {
+                data: "owner_type",
+            },
         ],
 
         lengthMenu: [
@@ -50,53 +65,50 @@ $(document).ready(function () {
 
         columnDefs: [
             { sortable: false, targets: [0, 5] },
-            { visible: false, targets: [6, 7] },
+            { visible: false, targets: [6, 7, 8] },
             {
                 // The `data` parameter refers to the data for the cell (defined by the
                 // `data` option, which defaults to the column being worked with, in
                 // this case `data: 0`.
                 render: function (data, type, row) {
                     if (type === "display") {
-                        if (row["status"] == "OP") {
-                            var buttons =
-                                '<button class="btn btn-info" data-toggle="modal" data-target="#modalViewRequestContainer" data-ajax_url="' +
+                        var buttons = '';
+
+                        if (row.status === "OP") {
+                            buttons +=
+                                '<button class="btn btn-info btn-sm btn-square" data-toggle="modal" data-target="#modalViewRequestContainer" data-ajax_url="' +
                                 viewRequestModalUrl +
                                 "?request_id=" +
                                 data +
                                 '" aria-label="Request Info"><span class="fas fa-info-circle"></span></button>';
                             buttons +=
-                                '<form class="inline" method="post" action="' + cancelRequestUrl + '">' +
+                                '<form class="inline" method="post" action="' + cancelRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' + data + '" />' +
-                                '<button type="submit" class="btn btn-danger" aria-label="Cancel Request"><span class="fas fa-trash"></span></button></form>';
+                                '<button type="submit" class="btn btn-danger btn-sm btn-square" aria-label="' + markRequestCancelledText + '" title="' + markRequestCancelledText + '"><span class="fas fa-trash"></span></button></form>';
                             buttons +=
-                                '<form class="inline" method="post" action="' + inProgressRequestUrl + '">' +
+                                '<form class="inline" method="post" action="' + inProgressRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' + data + '" />' +
-                                '<button type="submit" class="btn btn-info" aria-label="Claim Request"><span class="fas fa-clipboard-check"></span></button></form>';
+                                '<button type="submit" class="btn btn-primary btn-sm btn-square" aria-label="' + markRequestInProgressText + '" title="' + markRequestInProgressText + '"><span class="fas fa-clipboard-check"></span></button></form>';
                             return buttons;
-                        } else if (row["status"] == "IP") {
-                            var buttons =
-                                '<button class="btn btn-info" data-toggle="modal" data-target="#modalViewRequestContainer" data-ajax_url="' +
+                        } else if (row.status === "IP") {
+                            buttons +=
+                                '<button class="btn btn-info btn-sm btn-square" data-toggle="modal" data-target="#modalViewRequestContainer" data-ajax_url="' +
                                 viewRequestModalUrl +
                                 "?request_id=" +
                                 data +
                                 '" aria-label="Request Info"><span class="fas fa-info-circle"></span></button>';
                             buttons +=
-                                '<form class="inline" method="post" action="' + openRequestUrl + '">' +
+                                '<form class="inline" method="post" action="' + openRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' + data + '" />' +
-                                '<button type="submit" class="btn btn-warning" aria-label="Re-Open Request"><span class="fas fa-undo"></span></button></form>';
+                                '<button type="submit" class="btn btn-warning btn-sm btn-square" aria-label="' + markRequestOpenText + '" title="' + markRequestOpenText + '"><span class="fas fa-undo"></span></button></form>';
                             buttons +=
-                                '<form class="inline" method="post" action="' + cancelRequestUrl + '">' +
+                                '<form class="inline" method="post" action="' + cancelRequestUrl(data) + '">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' + data + '" />' +
-                                '<button type="submit" class="btn btn-danger" aria-label="Cancel Request"><span class="fas fa-trash"></span></button></form>';
+                                '<button type="submit" class="btn btn-danger btn-sm btn-square" aria-label="' + markRequestCancelledText + '" title="' + markRequestCancelledText + '"><span class="fas fa-trash"></span></button></form>';
                             buttons +=
-                                '<form class="inline" method="post" action="' +fulfillRequestUrl +'">' +
+                                '<form class="inline" method="post" action="' +fulfillRequestUrl(data) +'">' +
                                 csrfToken +
-                                '<input type="hidden" name="request_id" value="' + data + '" />' +
-                                '<button type="submit" class="btn btn-success" aria-label="Fulfill Request"><span class="fas fa-clipboard-check"></span></button></form>';
+                                '<button type="submit" class="btn btn-success btn-sm btn-square"  aria-label="' + markRequestFulfilledText + '" title="' + markRequestFulfilledText + '"><span class="fas fa-clipboard-check"></span></button></form>';
                             return buttons;
                         } else {
                             return "";
@@ -107,6 +119,22 @@ $(document).ready(function () {
                 },
                 targets: [5],
             },
+            {
+                render: function (data, type, row) {
+                    if (type === "display") {
+                        if (row.owner_type === "corporation") {
+                            return '<span class="fas fa-briefcase"></span> ' + data;
+                        } else if (row.owner_type === "character") {
+                            return '<span class="fas fa-user"></span> ' + data;
+                        } else {
+                            return "";
+                        }
+                    }
+
+                    return data;
+                },
+                targets: [4],
+            }
         ],
 
         order: [

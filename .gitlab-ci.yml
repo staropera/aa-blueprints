@@ -1,5 +1,6 @@
 stages:
   - pre-commit
+  - review
   - test
   - deploy
 
@@ -79,3 +80,15 @@ deploy-pypi:
 
   only:
     - tags
+
+
+danger:
+  needs: []
+  stage: review
+  before_script:
+    - gem install danger-gitlab
+  script:
+    - danger --verbose
+
+include:
+  - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'

@@ -11,8 +11,8 @@ before_script:
   - python -V
   - pip install tox
 
-pre-commit-check:
-  stage: pre-commit
+pre-commit:
+  stage: review
   image: python:3.6-buster
   variables:
     PRE_COMMIT_HOME: ${CI_PROJECT_DIR}/.cache/pre-commit
@@ -86,9 +86,9 @@ danger:
   needs: []
   stage: review
   before_script:
-    - gem install danger-gitlab
+    - gem install danger-gitlab danger-commit_lint
   script:
-    - danger --verbose
+    - danger --fail-on-errors=true
 
 include:
   - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'

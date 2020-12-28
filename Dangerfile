@@ -14,7 +14,7 @@ has_app_changes = !git.modified_files.grep(/^blueprints\/(?!tests\/)(.*)\.py/).e
 has_test_changes = !git.modified_files.grep(/^blueprints\/tests/).empty?
 
 if has_app_changes && !has_test_changes && git.lines_of_code > 20
-  fail("Tests were not updated!", sticky: false)
+  warn("Tests were not updated!", sticky: false)
 end
 
 has_po_changes = !git.modified_files.grep(/^blueprints\/locale\/([a-zA-Z_-]+)\/LC_MESSAGES\/django.po/).empty?

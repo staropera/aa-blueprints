@@ -13,6 +13,7 @@ from allianceauth.authentication.decorators import permissions_required
 from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from esi.decorators import token_required
+from eveuniverse.models import EveType
 
 from . import __title__, tasks
 from .app_settings import (
@@ -206,13 +207,14 @@ def add_personal_blueprint_owner(request, token):
 
 
 def convert_blueprint(blueprint: Blueprint, user, details=False) -> dict:
+    variant = EveType.IconVariant.BPC if blueprint.runs else EveType.IconVariant.BPO
     icon = format_html(
         '<img src="{}" width="{}" height="{}">',
-        blueprint.eve_type.icon_url(size=64, is_blueprint=True),
+        blueprint.eve_type.icon_url(size=64, variant=variant),
         BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
         BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
     )
-    runs = "" if not blueprint.runs or blueprint.runs < 1 else blueprint.runs
+    runs = "" if not blueprint.runs or blueprint.runs == -1 else blueprint.runs
     original = "✓" if not blueprint.runs or blueprint.runs == -1 else ""
     filter_is_original = (
         gettext_lazy("Yes")
@@ -370,9 +372,12 @@ def create_request(request):
 
 
 def convert_request(request: Request) -> dict:
+    variant = (
+        EveType.IconVariant.BPC if request.blueprint.runs else EveType.IconVariant.BPO
+    )
     icon = format_html(
         '<img src="{}" width="{}" height="{}">',
-        request.blueprint.eve_type.icon_url(size=64, is_blueprint=True),
+        request.blueprint.eve_type.icon_url(size=64, variant=variant),
         BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
         BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
     )

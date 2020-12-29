@@ -351,7 +351,7 @@ def view_request_modal(request):
 def create_request(request):
     if request.method == "POST":
         requested = Blueprint.objects.get(pk=request.POST.get("pk"))
-        runs = request.POST.get("rns")
+        runs = request.POST.get("runs")
         if runs == "":
             runs = None
         user = request.user

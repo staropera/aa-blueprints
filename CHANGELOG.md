@@ -7,6 +7,10 @@ and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/)
 ## [Unreleased]
 
 
+## [1.0.1] - 12/28/2020
+### Fixed
+- Regression involving manually specified run counts
+
 ## [1.0.0] - 12/28/2020
 ### Added
 - Proper BPC icon support

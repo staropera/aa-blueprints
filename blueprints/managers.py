@@ -241,7 +241,7 @@ class RequestQuerySet(models.QuerySet):
         ).filter(
             (
                 Q(blueprint__owner__corporation__corporation_id__in=corporation_ids)
-                | Q(blueprint__owner__pk__in=character_ownership_ids)
+                | Q(blueprint__owner__character__pk__in=character_ownership_ids)
             )
             & Q(closed_at=None)
             & Q(status="OP")
@@ -259,7 +259,7 @@ class RequestQuerySet(models.QuerySet):
         ).filter(
             (
                 Q(blueprint__owner__corporation__corporation_id__in=corporation_ids)
-                | Q(blueprint__owner__pk__in=character_ownership_ids)
+                | Q(blueprint__owner__character__pk__in=character_ownership_ids)
             )
             & Q(closed_at=None)
             & Q(status="IP")

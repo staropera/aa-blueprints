@@ -7,11 +7,15 @@ and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/)
 ## [Unreleased]
 
 
-## [1.0.1] - 12/28/2020
+## [1.0.2] - 2021-01-03
+### Fixed
+- Requests not showing for alts
+
+## [1.0.1] - 2020-12-28
 ### Fixed
 - Regression involving manually specified run counts
 
-## [1.0.0] - 12/28/2020
+## [1.0.0] - 2020-12-28
 ### Added
 - Proper BPC icon support
 

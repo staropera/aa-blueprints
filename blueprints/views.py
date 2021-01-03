@@ -456,7 +456,7 @@ def mark_request(
         )
         or (
             not user_request.blueprint.owner.corporation
-            and user_request.blueprint.owner.pk in character_ownership_ids
+            and user_request.blueprint.owner.character.pk in character_ownership_ids
         )
         or (can_requestor_edit and user_request.requesting_user == request.user)
     ):

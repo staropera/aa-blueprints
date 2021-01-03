@@ -104,7 +104,7 @@ class RequestAdmin(admin.ModelAdmin):
 
     list_select_related = (
         "blueprint__eve_type",
-        "requesting_user__profile__main_character__character_name",
+        "requesting_user__profile__main_character",
     )
     search_fields = ["blueprint__eve_type__name"]
 

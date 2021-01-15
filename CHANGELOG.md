@@ -6,7 +6,7 @@ and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/)
 
 ## [Unreleased]
 
-## [1.0.4] - 2021-01-15
+## [1.1.0] - 2021-01-15
 ### Changed
 - Significantly reduced load time of blueprints page for large datasets
 

@@ -143,7 +143,7 @@
 
 {% block extra_javascript %}
     {% include 'bundles/datatables-js.html' %}
-    <script type="application/javascript" src="{% static 'blueprints/js/filterDropDown.min.js' %}" ></script>
+    <script type="application/javascript" src="{% static 'blueprints/js/vendor/filterDropDown.min.js' %}" ></script>
 
     <script type="application/javascript">
         let listDataUrl = '{% url "blueprints:list_blueprints" %}';
@@ -171,6 +171,7 @@
             dataTablesPaging: {{ data_tables_paging|yesno:"true,false" }},
             translation: {
                 filterLocation: "{% translate 'Location' %}",
+                filterOwner: "{% translate 'Owner' %}",
                 filterIsOriginal: "{% translate 'Is BPO?' %}",
                 viewBlueprint: "{% translate 'View Blueprint' %}",
                 markRequestCancelled: "{% translate 'Mark Request as Cancelled' %}",

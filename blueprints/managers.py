@@ -4,7 +4,7 @@ from typing import Tuple
 from bravado.exception import HTTPForbidden, HTTPUnauthorized
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Case, Q, Value, When
+from django.db.models import Case, F, Q, Value, When
 from django.utils.timezone import now
 
 from allianceauth.eveonline.models import EveAllianceInfo, EveCorporationInfo
@@ -28,6 +28,20 @@ class BlueprintQuerySet(models.QuerySet):
             is_bpo=Case(
                 When(runs=None, then=Value("yes")),
                 default=Value("no"),
+                output_field=models.CharField(),
+            )
+        )
+
+    def annotate_owner_name(self) -> models.QuerySet:
+        return self.select_related(
+            "owner__character__character", "owner__corporation"
+        ).annotate(
+            owner_name=Case(
+                When(
+                    owner__corporation=None,
+                    then=F("owner__character__character__character_name"),
+                ),
+                default=F("owner__corporation__corporation_name"),
                 output_field=models.CharField(),
             )
         )

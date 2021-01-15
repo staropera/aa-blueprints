@@ -11,6 +11,7 @@ from django.views.decorators.http import require_POST
 from allianceauth.authentication.decorators import permissions_required
 from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
+from allianceauth.services.hooks import get_extension_logger
 from esi.decorators import token_required
 from eveuniverse.models import EveType
 
@@ -22,7 +23,9 @@ from ..app_settings import (
     BLUEPRINTS_PAGING_ENABLED,
 )
 from ..models import Blueprint, Owner, Request
-from ..utils import messages_plus, notify_admins
+from ..utils import LoggerAddTag, messages_plus, notify_admins
+
+logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
 @login_required
@@ -273,7 +276,9 @@ def list_blueprints(request):
 def list_blueprints_ffd(request):
     """filterDropDown endpoint with server-side processing for blueprints list"""
     result = dict()
-    blueprint_query = Blueprint.objects.user_has_access(request.user)
+    blueprint_query = Blueprint.objects.user_has_access(
+        request.user
+    ).annotate_owner_name()
     columns = request.GET.get("columns")
     if columns:
         for column in columns.split(","):
@@ -283,13 +288,15 @@ def list_blueprints_ffd(request):
                 options = blueprint_query.values_list("material_efficiency", flat=True)
             elif column == "time_efficiency":
                 options = blueprint_query.values_list("time_efficiency", flat=True)
+            elif column == "owner":
+                options = blueprint_query.values_list("owner_name", flat=True)
             elif column == "is_original":
                 options = map(
                     lambda x: "yes" if x is None else "no",
                     blueprint_query.values_list("runs", flat=True),
                 )
             else:
-                raise ValueError(f"Invalid column name '{column}'")
+                options = [f"** ERROR: Invalid column name '{column}' **"]
 
             result[column] = sorted(list(set(options)))
 

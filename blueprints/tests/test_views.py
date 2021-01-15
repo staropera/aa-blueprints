@@ -210,14 +210,15 @@ class TestListBlueprintsFdd(TestViewsBase):
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
-        cls.owner = create_owner(character_id=1101, corporation_id=2101)
+        cls.owner_1001 = create_owner(character_id=1001, corporation_id=None)
+        cls.owner_1002 = create_owner(character_id=1002, corporation_id=2001)
 
     def test_should_return_list_of_options(self):
         # given
         Blueprint.objects.create(
             location=Location.objects.get(id=60003760),
             eve_type=EveType.objects.get(id=33519),
-            owner=self.owner,
+            owner=self.owner_1001,
             runs=10,
             location_flag="AssetSafety",
             material_efficiency=10,
@@ -227,7 +228,7 @@ class TestListBlueprintsFdd(TestViewsBase):
         Blueprint.objects.create(
             location=Location.objects.get(id=1000000000001),
             eve_type=EveType.objects.get(id=33519),
-            owner=self.owner,
+            owner=self.owner_1002,
             location_flag="AssetSafety",
             material_efficiency=20,
             time_efficiency=40,
@@ -236,9 +237,9 @@ class TestListBlueprintsFdd(TestViewsBase):
         # when
         request = self.factory.get(
             reverse("blueprints:list_blueprints_ffd")
-            + "?columns=location,material_efficiency,time_efficiency,is_original"
+            + "?columns=location,owner,material_efficiency,time_efficiency,is_original"
         )
-        request.user = self.owner.character.user
+        request.user = self.owner_1001.character.user
         response = list_blueprints_ffd(request)
         # then
         self.assertEqual(response.status_code, 200)
@@ -250,6 +251,7 @@ class TestListBlueprintsFdd(TestViewsBase):
                     "Amamake - Test Structure Alpha",
                     "Jita IV - Moon 4 - Caldari Navy Assembly Plant",
                 ],
+                "owner": ["Bruce Wayne", "Wayne Technologies"],
                 "material_efficiency": [10, 20],
                 "time_efficiency": [30, 40],
                 "is_original": ["no", "yes"],

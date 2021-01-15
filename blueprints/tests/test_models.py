@@ -121,33 +121,34 @@ class TestBlueprintsBase(NoSocketsTestCase):
         load_locations()
 
 
-class TestBlueprintQuerySetAnnotateIsBpo(TestBlueprintsBase):
+class TestBlueprintQuerySet(TestBlueprintsBase):
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
-        cls.owner = create_owner(character_id=1101, corporation_id=2101)
-
-    def test_should_return_list_of_options(self):
         # given
+        cls.owner_1001 = create_owner(character_id=1001, corporation_id=None)
         Blueprint.objects.create(
             location=Location.objects.get(id=60003760),
             eve_type=EveType.objects.get(id=33519),
-            owner=self.owner,
+            owner=cls.owner_1001,
             runs=10,
             location_flag="AssetSafety",
             material_efficiency=10,
             time_efficiency=30,
             item_id=1,
         )
+        cls.owner_1002 = create_owner(character_id=1002, corporation_id=2001)
         Blueprint.objects.create(
             location=Location.objects.get(id=1000000000001),
             eve_type=EveType.objects.get(id=33519),
-            owner=self.owner,
+            owner=cls.owner_1002,
             location_flag="AssetSafety",
             material_efficiency=20,
             time_efficiency=40,
             item_id=2,
         )
+
+    def test_should_annotate_is_bpo(self):
         # when
         result = Blueprint.objects.all().annotate_is_bpo().values()
         # then
@@ -157,6 +158,17 @@ class TestBlueprintQuerySetAnnotateIsBpo(TestBlueprintsBase):
         obj = result[1]
         self.assertEqual(obj["item_id"], 2)
         self.assertEqual(obj["is_bpo"], "yes")
+
+    def test_should_annotate_owner_name(self):
+        # when
+        result = Blueprint.objects.all().annotate_owner_name().values()
+        # then
+        obj = result[0]
+        self.assertEqual(obj["item_id"], 1)
+        self.assertEqual(obj["owner_name"], "Bruce Wayne")
+        obj = result[1]
+        self.assertEqual(obj["item_id"], 2)
+        self.assertEqual(obj["owner_name"], "Wayne Technologies")
 
 
 class TestBlueprintManagerUserHasAccess(TestBlueprintsBase):

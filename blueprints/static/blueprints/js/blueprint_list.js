@@ -37,7 +37,13 @@ $(document).ready(function () {
                 data: 'quantity'
             },
             {
-                name: "owner", target: [3], data: 'owner'
+                name: "owner",
+                target: [3],
+                data: 'owner',
+                render: {
+                    _: 'display',
+                    sort: 'sort'
+                }
             },
             { name: "material_efficiency", target: [4], data: 'material_efficiency' },
             { name: "time_efficiency", target: [5], data: 'time_efficiency' },
@@ -93,6 +99,10 @@ $(document).ready(function () {
                 {
                     idx: 9,
                     title: blueprintsSettings.translation.filterLocation,
+                },
+                {
+                    idx: 3,
+                    title: blueprintsSettings.translation.filterOwner,
                 },
                 { idx: 4 },
                 { idx: 5 },

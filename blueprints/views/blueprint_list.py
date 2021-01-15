@@ -74,8 +74,9 @@ class BlueprintListJson(BaseDatatableView):
             else:
                 return qs
 
-        qs = qs.annotate_is_bpo()
+        qs = qs.annotate_is_bpo().annotate_owner_name()
         qs = apply_search_filter(qs, 9, "location__name")
+        qs = apply_search_filter(qs, 3, "owner_name")
         qs = apply_search_filter(qs, 4, "material_efficiency")
         qs = apply_search_filter(qs, 5, "time_efficiency")
         qs = apply_search_filter(qs, 6, "is_bpo")
@@ -87,7 +88,6 @@ class BlueprintListJson(BaseDatatableView):
         return qs
 
     def render_column(self, row, column):
-        # We want to render user as a custom column
         if column == "eve_type_id":
             variant = EveType.IconVariant.BPC if row.runs else EveType.IconVariant.BPO
             return format_html(
@@ -104,13 +104,22 @@ class BlueprintListJson(BaseDatatableView):
         elif column == "is_original":
             return "Yes" if row.is_original else "No"
         elif column == "owner":
-            return (
-                "<span class='fas fa-briefcase'></span>&nbsp;"
-                + row.owner.corporation.corporation_name
-                if row.owner.corporation
-                else "<span class='fas fa-user'></span>&nbsp;"
-                + row.owner.character.character.character_name
-            )
+            if row.owner.corporation:
+                return {
+                    "display": (
+                        "<span class='fas fa-briefcase'></span>&nbsp;"
+                        + row.owner.corporation.corporation_name
+                    ),
+                    "sort": row.owner.corporation.corporation_name,
+                }
+            else:
+                return {
+                    "display": (
+                        "<span class='fas fa-user'></span>&nbsp;"
+                        + row.owner.character.character.character_name
+                    ),
+                    "sort": row.owner.character.character.character_name,
+                }
         else:
             return super(BlueprintListJson, self).render_column(row, column)
 

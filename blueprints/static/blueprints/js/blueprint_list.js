@@ -4,6 +4,7 @@ $(document).ready(function () {
     "use strict";
 
     var listDataUrl = blueprintsSettings.listDataUrl;
+    var listDataFddUrl = blueprintsSettings.listDataFddUrl;
     var viewBlueprintModalUrl = blueprintsSettings.viewBlueprintModalUrl;
     var dataTablesPageLength = blueprintsSettings.dataTablesPageLength;
     var dataTablesPaging = blueprintsSettings.dataTablesPaging;
@@ -13,27 +14,39 @@ $(document).ready(function () {
     $("#table-blueprints").DataTable({
         ajax: {
             url: listDataUrl,
-            dataSrc: "",
             cache: false,
         },
 
+        "processing": true,
+        "serverSide": true,
         columns: [
-            { data: "icn" },
-            { data: "nme" },
+            {
+                name: "eve_type_id",
+                target: [0],
+                data: "eve_type_id"
+            },
+            {
+                name: "eve_type",
+                target: [1],
+                data: "eve_type"
+            },
             {
                 className: "right-column",
-                data: "qty",
+                name: "quantity",
+                target: [2],
+                data: 'quantity'
             },
-            { data: "on" },
-            { data: "me" },
-            { data: "te" },
-            { data: "og" },
-            { data: "rns" },
-            { data: "pk" },
+            {
+                name: "owner", target: [3], data: 'owner'
+            },
+            { name: "material_efficiency", target: [4], data: 'material_efficiency' },
+            { name: "time_efficiency", target: [5], data: 'time_efficiency' },
+            { name: "is_original", target: [6], data: 'is_original' },
+            { name: "runs", target: [7], data: 'runs' },
+            { name: "pk", target: [8], data: 'pk' },
             // hidden columns
-            { data: "loc" },
-            { data: "iog" },
-            { data: "use" }
+            { name: "location", target: [9], data: 'location' },
+            { name: "industryjob", target: [10], data: 'industryjob' },
         ],
 
         lengthMenu: [
@@ -47,7 +60,8 @@ $(document).ready(function () {
 
         columnDefs: [
             { sortable: false, targets: [0, 2, 8] },
-            { visible: false, targets: [9, 10, 11] },
+            { visible: false, targets: [9, 10,] },
+            { searchable: false, targets: [0, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
             {
                 render: function (data, type, row) {
                     if (type === "display") {
@@ -67,58 +81,39 @@ $(document).ready(function () {
                 },
                 targets: [8],
             },
-            {
-                render: function (data, type, row) {
-                    if (type === "display") {
-                        if (row.ot === "corporation") {
-                            return '<span class="fas fa-briefcase"></span> ' + data;
-                        } else if (row.ot === "character") {
-                            return '<span class="fas fa-user"></span> ' + data;
-                        } else {
-                            return "";
-                        }
-                    }
 
-                    return data;
-                },
-                targets: [3],
-            }
         ],
 
         order: [
             [9, "asc"],
-            [1, "asc"],
         ],
 
         filterDropDown: {
             columns: [
                 {
                     idx: 9,
-                    title:
-                        blueprintsSettings.translation.filterLocation,
+                    title: blueprintsSettings.translation.filterLocation,
                 },
-                { idx: 3 },
                 { idx: 4 },
                 { idx: 5 },
                 {
-                    idx: 10,
-                    title:
-                        blueprintsSettings.translation
-                            .filterIsOriginal,
+                    idx: 6,
+                    title: blueprintsSettings.translation.filterIsOriginal,
                 },
             ],
+            ajax: listDataFddUrl,
             autoSize: false,
             bootstrap: true,
         },
 
-        drawCallback: function(settings) {
+        drawCallback: function (settings) {
             var api = this.api();
             var rows = api.rows({ page: "current" }).nodes();
             var last = null;
 
             api.column(9, { page: "current" })
                 .data()
-                .each(function(group, i) {
+                .each(function (group, i) {
                     if (last !== group) {
                         $(rows)
                             .eq(i)
@@ -132,7 +127,7 @@ $(document).ready(function () {
                     }
                 });
         },
-        createdRow: function( row, data, dataIndex ) {
+        createdRow: function (row, data, dataIndex) {
             if (data.use === true) {
                 $(row).addClass('info');
             }

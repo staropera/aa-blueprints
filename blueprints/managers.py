@@ -4,9 +4,10 @@ from typing import Tuple
 from bravado.exception import HTTPForbidden, HTTPUnauthorized
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Q
+from django.db.models import Case, Q, Value, When
 from django.utils.timezone import now
 
+from allianceauth.eveonline.models import EveAllianceInfo, EveCorporationInfo
 from allianceauth.services.hooks import get_extension_logger
 from esi.models import Token
 from eveuniverse.models import EveEntity, EveSolarSystem, EveType
@@ -19,6 +20,63 @@ from .providers import esi
 from .utils import LoggerAddTag
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
+
+
+class BlueprintQuerySet(models.QuerySet):
+    def annotate_is_bpo(self) -> models.QuerySet:
+        return self.annotate(
+            is_bpo=Case(
+                When(runs=None, then=Value("yes")),
+                default=Value("no"),
+                output_field=models.CharField(),
+            )
+        )
+
+
+class BlueprintManager(models.Manager):
+    def get_queryset(self) -> models.QuerySet:
+        return BlueprintQuerySet(self.model, using=self._db)
+
+    def user_has_access(self, user) -> models.QuerySet:
+        from .models import Owner
+
+        corporation_ids = set(
+            user.character_ownerships.select_related("character").values_list(
+                "character__corporation_id", flat=True
+            )
+        )
+        if user.has_perm("blueprints.view_alliance_blueprints"):
+            alliance_ids = list(
+                EveAllianceInfo.objects.filter(
+                    evecorporationinfo__corporation_id__in=corporation_ids
+                ).values_list("id", flat=True)
+            )  # we use the django ID here to avoid a join later
+            corporation_ids = corporation_ids | set(
+                EveCorporationInfo.objects.filter(
+                    alliance_id__in=alliance_ids
+                ).values_list("corporation_id", flat=True)
+            )
+
+        personal_owner_ids = [
+            owner.pk
+            for owner in Owner.objects.filter(corporation__isnull=True)
+            if owner.character.character.corporation_id in corporation_ids
+        ]
+        blueprints_query = self.filter(
+            Q(owner__corporation__corporation_id__in=corporation_ids)
+            | Q(owner__pk__in=personal_owner_ids)
+        ).select_related(
+            "eve_type",
+            "location",
+            "industryjob",
+            "owner",
+            "owner__corporation",
+            "owner__character",
+            "location",
+            "location__eve_solar_system",
+            "location__eve_type",
+        )
+        return blueprints_query
 
 
 class LocationManager(models.Manager):

@@ -6,6 +6,9 @@ and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/)
 
 ## [Unreleased]
 
+## [1.0.3] - 2021-01-14
+### Added
+- Building python wheels in addition to source packages, for faster installation
 
 ## [1.0.2] - 2021-01-03
 ### Fixed

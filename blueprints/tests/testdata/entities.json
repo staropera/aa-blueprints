@@ -31,6 +31,16 @@
       "alliance_ticker": "WYN"
     },
     {
+      "character_id": 1004,
+      "character_name": "Kara Danvers",
+      "corporation_id": 2002,
+      "corporation_name": "Wayne Food",
+      "corporation_ticker": "WYF",
+      "alliance_id": 3001,
+      "alliance_name": "Wayne Enterprises",
+      "alliance_ticker": "WYN"
+    },
+    {
       "character_id": 1101,
       "character_name": "Lex Luther",
       "corporation_id": 2101,
@@ -44,15 +54,15 @@
       "character_id": 1102,
       "character_name": "Harley Quinn",
       "corporation_id": 2102,
-      "corporation_name": "Harley Quinn inc.",
-      "corporation_ticker": "HQ"
+      "corporation_name": "Suicide Squad",
+      "corporation_ticker": "SSQ"
     },
     {
       "character_id": 1103,
       "character_name": "Floyd Lawton",
-      "corporation_id": 2103,
+      "corporation_id": 2102,
       "corporation_name": "Suicide Squad",
-      "corporation_ticker": "SS"
+      "corporation_ticker": "SSQ"
     }
   ],
   "EveEntity": [

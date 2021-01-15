@@ -8,8 +8,9 @@ from django.urls import reverse
 from eveuniverse.models import EveEntity, EveType
 
 from ..models import Blueprint, Location, Owner, Request
-from ..views import (
-    list_blueprints,
+from ..views.blueprint_list import BlueprintListJson
+from ..views.regular_views import (
+    list_blueprints_ffd,
     list_user_owners,
     mark_request_cancelled,
     mark_request_fulfilled,
@@ -23,7 +24,7 @@ from .testdata.load_eveuniverse import load_eveuniverse
 from .testdata.load_locations import load_locations
 
 MODELS_PATH = "blueprints.models"
-VIEWS_PATH = "blueprints.views"
+VIEWS_PATH = "blueprints.views.regular_views"
 
 
 def response_content_to_str(content) -> str:
@@ -67,13 +68,13 @@ class TestBlueprintsData(TestViewsBase):
     def test_blueprints_data(self):
         request = self.factory.get(reverse("blueprints:list_blueprints"))
         request.user = self.user
-        response = list_blueprints(request)
+        response = BlueprintListJson.as_view()(request)
         self.assertEqual(response.status_code, 200)
-        data = json_response_to_python(response)
+        data = json_response_to_python(response)["data"]
         self.assertEqual(len(data), 1)
         row = data[0]
-        self.assertEqual(row["nme"], "Mobile Tractor Unit Blueprint")
-        self.assertEqual(row["loc"], "Jita IV - Moon 4 - Caldari Navy Assembly Plant")
+        self.assertEqual(row[1], "Mobile Tractor Unit Blueprint")
+        self.assertEqual(row[9], "Jita IV - Moon 4 - Caldari Navy Assembly Plant")
 
     def test_my_requests_data(self):
 
@@ -87,13 +88,13 @@ class TestBlueprintsData(TestViewsBase):
 
         request = self.factory.get(reverse("blueprints:list_user_requests"))
         request.user = self.user
-        response = list_blueprints(request)
+        response = BlueprintListJson.as_view()(request)
         self.assertEqual(response.status_code, 200)
-        data = json_response_to_python(response)
+        data = json_response_to_python(response)["data"]
         self.assertEqual(len(data), 1)
         row = data[0]
-        self.assertEqual(row["nme"], "Mobile Tractor Unit Blueprint")
-        self.assertEqual(row["loc"], "Jita IV - Moon 4 - Caldari Navy Assembly Plant")
+        self.assertEqual(row[1], "Mobile Tractor Unit Blueprint")
+        self.assertEqual(row[9], "Jita IV - Moon 4 - Caldari Navy Assembly Plant")
 
     @patch(VIEWS_PATH + ".messages_plus")
     def test_mark_request_in_progress(self, mock_messages):
@@ -203,3 +204,54 @@ class TestBlueprintsData(TestViewsBase):
         self.assertEqual(response.status_code, 302)
         self.assertTrue(mock_messages.info.called)
         self.assertEqual(Owner.objects.filter(pk=self.owner.pk).first(), None)
+
+
+class TestListBlueprintsFdd(TestViewsBase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        cls.owner = create_owner(character_id=1101, corporation_id=2101)
+
+    def test_should_return_list_of_options(self):
+        # given
+        Blueprint.objects.create(
+            location=Location.objects.get(id=60003760),
+            eve_type=EveType.objects.get(id=33519),
+            owner=self.owner,
+            runs=10,
+            location_flag="AssetSafety",
+            material_efficiency=10,
+            time_efficiency=30,
+            item_id=1,
+        )
+        Blueprint.objects.create(
+            location=Location.objects.get(id=1000000000001),
+            eve_type=EveType.objects.get(id=33519),
+            owner=self.owner,
+            location_flag="AssetSafety",
+            material_efficiency=20,
+            time_efficiency=40,
+            item_id=2,
+        )
+        # when
+        request = self.factory.get(
+            reverse("blueprints:list_blueprints_ffd")
+            + "?columns=location,material_efficiency,time_efficiency,is_original"
+        )
+        request.user = self.owner.character.user
+        response = list_blueprints_ffd(request)
+        # then
+        self.assertEqual(response.status_code, 200)
+        data = json_response_to_python(response)
+        self.assertDictEqual(
+            data,
+            {
+                "location": [
+                    "Amamake - Test Structure Alpha",
+                    "Jita IV - Moon 4 - Caldari Navy Assembly Plant",
+                ],
+                "material_efficiency": [10, 20],
+                "time_efficiency": [30, 40],
+                "is_original": ["no", "yes"],
+            },
+        )

@@ -143,7 +143,7 @@
 
 {% block extra_javascript %}
     {% include 'bundles/datatables-js.html' %}
-    <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}" ></script>
+    <script type="application/javascript" src="{% static 'blueprints/js/filterDropDown.min.js' %}" ></script>
 
     <script type="application/javascript">
         let listDataUrl = '{% url "blueprints:list_blueprints" %}';
@@ -153,6 +153,7 @@
 
         let blueprintsSettings = {
             listDataUrl: listDataUrl,
+            listDataFddUrl: '{% url "blueprints:list_blueprints_ffd" %}',
             openRequestListUrl: '{% url "blueprints:list_open_requests" %}',
             userRequestListUrl: '{% url "blueprints:list_user_requests" %}',
             inProgressRequestUrl: '{% url "blueprints:request_in_progress" request_id=12345 %}',

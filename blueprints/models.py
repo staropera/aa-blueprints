@@ -15,7 +15,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem, EveType
 from . import __title__
 from .constants import EVE_LOCATION_FLAGS
 from .decorators import fetch_token_for_owner
-from .managers import LocationManager, RequestManager
+from .managers import BlueprintManager, LocationManager, RequestManager
 from .providers import esi
 from .utils import LoggerAddTag, make_logger_prefix
 from .validators import validate_material_efficiency, validate_time_efficiency
@@ -452,6 +452,12 @@ class Blueprint(models.Model):
         help_text="Time efficiency of the blueprint",
         validators=[validate_time_efficiency],
     )
+
+    objects = BlueprintManager()
+
+    @property
+    def is_original(self):
+        return not self.runs
 
     class Meta:
         default_permissions = ()

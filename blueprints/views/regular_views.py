@@ -2,7 +2,6 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.utils.html import format_html
@@ -15,15 +14,15 @@ from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from esi.decorators import token_required
 from eveuniverse.models import EveType
 
-from . import __title__, tasks
-from .app_settings import (
+from .. import __title__, tasks
+from ..app_settings import (
     BLUEPRINTS_ADMIN_NOTIFICATIONS_ENABLED,
     BLUEPRINTS_DEFAULT_PAGE_LENGTH,
     BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
     BLUEPRINTS_PAGING_ENABLED,
 )
-from .models import Blueprint, Owner, Request
-from .utils import messages_plus, notify_admins
+from ..models import Blueprint, Owner, Request
+from ..utils import messages_plus, notify_admins
 
 
 @login_required
@@ -257,50 +256,44 @@ def convert_blueprint(blueprint: Blueprint, user, details=False) -> dict:
     return summary
 
 
+"""
 @login_required
 @permissions_required("blueprints.basic_access")
 def list_blueprints(request):
-
-    corporation_ids = set(
-        request.user.character_ownerships.select_related("character").values_list(
-            "character__corporation_id", flat=True
-        )
-    )
-    corporations = list(
-        EveCorporationInfo.objects.filter(corporation_id__in=corporation_ids)
-    )
-    if request.user.has_perm("blueprints.view_alliance_blueprints"):
-        alliances = {
-            corporation.alliance for corporation in corporations if corporation.alliance
-        }
-        for alliance in alliances:
-            corporations += alliance.evecorporationinfo_set.all()
-
-        corporations = list(set(corporations))
-
-    personal_owner_ids = list()
-    for owner in Owner.objects.filter(corporation=None):
-        if owner.character.character.corporation_id in corporation_ids:
-            personal_owner_ids.append(owner.pk)
-
-    blueprints_query = Blueprint.objects.filter(
-        Q(owner__corporation__in=corporations) | Q(owner__pk__in=personal_owner_ids)
-    ).select_related(
-        "eve_type",
-        "location",
-        "industryjob",
-        "owner",
-        "owner__corporation",
-        "owner__character",
-        "location",
-        "location__eve_solar_system",
-        "location__eve_type",
-    )
     blueprint_rows = [
-        convert_blueprint(blueprint, request.user) for blueprint in blueprints_query
+        convert_blueprint(blueprint, request.user)
+        for blueprint in Blueprint.objects.user_has_access(request.user)
     ]
-
     return JsonResponse(blueprint_rows, safe=False)
+"""
+
+
+@login_required
+@permissions_required("blueprints.basic_access")
+def list_blueprints_ffd(request):
+    """filterDropDown endpoint with server-side processing for blueprints list"""
+    result = dict()
+    blueprint_query = Blueprint.objects.user_has_access(request.user)
+    columns = request.GET.get("columns")
+    if columns:
+        for column in columns.split(","):
+            if column == "location":
+                options = blueprint_query.values_list("location__name", flat=True)
+            elif column == "material_efficiency":
+                options = blueprint_query.values_list("material_efficiency", flat=True)
+            elif column == "time_efficiency":
+                options = blueprint_query.values_list("time_efficiency", flat=True)
+            elif column == "is_original":
+                options = map(
+                    lambda x: "yes" if x is None else "no",
+                    blueprint_query.values_list("runs", flat=True),
+                )
+            else:
+                raise ValueError(f"Invalid column name '{column}'")
+
+            result[column] = sorted(list(set(options)))
+
+    return JsonResponse(result, safe=False)
 
 
 @login_required

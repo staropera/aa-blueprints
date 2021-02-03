@@ -75,7 +75,7 @@ class BlueprintListJson(BaseDatatableView):
                 return qs
 
         qs = qs.annotate_is_bpo().annotate_owner_name()
-        qs = apply_search_filter(qs, 9, "location__name")
+        qs = apply_search_filter(qs, 9, "location__name_plus")
         qs = apply_search_filter(qs, 3, "owner_name")
         qs = apply_search_filter(qs, 4, "material_efficiency")
         qs = apply_search_filter(qs, 5, "time_efficiency")
@@ -100,7 +100,6 @@ class BlueprintListJson(BaseDatatableView):
             )
         elif column == "location":
             return row.location.name_plus
-
         elif column == "is_original":
             return "Yes" if row.is_original else "No"
         elif column == "owner":

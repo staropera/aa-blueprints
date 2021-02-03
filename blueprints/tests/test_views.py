@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
+from allianceauth.tests.auth_utils import AuthUtils
 from eveuniverse.models import EveEntity, EveType
 
 from ..models import Blueprint, Location, Owner, Request
@@ -50,6 +51,9 @@ class TestBlueprintsData(TestViewsBase):
     def setUpClass(cls) -> None:
         super().setUpClass()
         cls.owner = create_owner(character_id=1101, corporation_id=2101)
+        cls.owner.character.user = AuthUtils.add_permission_to_user_by_name(
+            "blueprints.view_blueprint_locations", cls.owner.character.user
+        )
         cls.user = cls.owner.character.user
         cls.corporation_2001 = EveEntity.objects.get(id=2101)
         cls.jita_44 = Location.objects.get(id=60003760)
@@ -211,9 +215,13 @@ class TestListBlueprintsFdd(TestViewsBase):
     def setUpClass(cls) -> None:
         super().setUpClass()
         cls.owner_1001 = create_owner(character_id=1001, corporation_id=None)
+        cls.owner_1001.character.user = AuthUtils.add_permission_to_user_by_name(
+            "blueprints.view_blueprint_locations", cls.owner_1001.character.user
+        )
         cls.owner_1002 = create_owner(character_id=1002, corporation_id=2001)
 
     def test_should_return_list_of_options(self):
+
         # given
         Blueprint.objects.create(
             location=Location.objects.get(id=60003760),

@@ -1,4 +1,5 @@
 from django.utils.html import format_html
+from django.utils.translation import gettext_lazy
 from django_datatables_view.base_datatable_view import BaseDatatableView
 
 from allianceauth.services.hooks import get_extension_logger
@@ -53,6 +54,12 @@ class BlueprintListJson(BaseDatatableView):
     # and make it return huge amount of data
     max_display_length = 500
 
+    def initialize(self, *args, **kwargs):
+        super(BlueprintListJson, self).initialize(*args, **kwargs)
+        self._user_has_location_permission = self.request.user.has_perm(
+            "blueprints.view_blueprint_locations"
+        )
+
     def get_initial_queryset(self):
         # return queryset used as base for futher sorting/filtering
         # these are simply objects displayed in datatable
@@ -99,7 +106,10 @@ class BlueprintListJson(BaseDatatableView):
                 BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
             )
         elif column == "location":
-            return row.location.name_plus
+            if self._user_has_location_permission:
+                return row.location.name_plus
+            else:
+                return gettext_lazy("(Unknown)")
         elif column == "is_original":
             return "Yes" if row.is_original else "No"
         elif column == "owner":

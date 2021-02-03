@@ -228,12 +228,16 @@ def convert_blueprint(blueprint: Blueprint, user, details=False) -> dict:
     else:
         owner_type = "character"
 
+    if user.has_perm("blueprints.view_blueprint_locations"):
+        location = blueprint.location.name_plus
+    else:
+        location = gettext_lazy("(Unknown)")
     summary = {
         "icn": icon,
         "qty": blueprint.quantity,
         "pk": blueprint.pk,
         "nme": blueprint.eve_type.name,
-        "loc": blueprint.location.name_plus,
+        "loc": location,
         "me": blueprint.material_efficiency,
         "te": blueprint.time_efficiency,
         "og": original,
@@ -283,7 +287,12 @@ def list_blueprints_ffd(request):
     if columns:
         for column in columns.split(","):
             if column == "location":
-                options = blueprint_query.values_list("location__name_plus", flat=True)
+                if request.user.has_perm("blueprints.view_blueprint_locations"):
+                    options = blueprint_query.values_list(
+                        "location__name_plus", flat=True
+                    )
+                else:
+                    options = []
             elif column == "material_efficiency":
                 options = blueprint_query.values_list("material_efficiency", flat=True)
             elif column == "time_efficiency":
@@ -342,7 +351,7 @@ def view_blueprint_modal(request):
 @permissions_required(("blueprints.request_blueprints", "blueprints.manage_requests"))
 def view_request_modal(request):
     user_request = Request.objects.get(pk=request.GET.get("request_id"))
-    context = {"request": convert_request(user_request)}
+    context = {"request": convert_request(user_request, request.user)}
     return render(request, "blueprints/modals/view_request_content.html", context)
 
 
@@ -371,7 +380,7 @@ def create_request(request):
     return redirect("blueprints:index")
 
 
-def convert_request(request: Request) -> dict:
+def convert_request(request: Request, user) -> dict:
     variant = (
         EveType.IconVariant.BPC if request.blueprint.runs else EveType.IconVariant.BPO
     )
@@ -386,6 +395,12 @@ def convert_request(request: Request) -> dict:
         owner_type = "corporation"
     else:
         owner_type = "character"
+
+    if user.has_perm("blueprints.view_blueprint_locations"):
+        location = request.blueprint.location.name_plus
+    else:
+        location = gettext_lazy("(Unknown)")
+
     return {
         "request_id": request.pk,
         "type_icon": icon,
@@ -393,7 +408,7 @@ def convert_request(request: Request) -> dict:
         "owner_name": request.blueprint.owner.name,
         "owner_type": owner_type,
         "requestor": request.requesting_user.profile.main_character.character_name,
-        "location": request.blueprint.location.name_plus,
+        "location": location,
         "material_efficiency": request.blueprint.material_efficiency,
         "time_efficiency": request.blueprint.time_efficiency,
         "runs": request.runs if request.runs else "",
@@ -411,8 +426,8 @@ def list_user_requests(request):
     request_query = Request.objects.select_related_default().filter(
         requesting_user=request.user, closed_at=None
     )
-    for request in request_query:
-        request_rows.append(convert_request(request))
+    for req in request_query:
+        request_rows.append(convert_request(req, request.user))
 
     return JsonResponse(request_rows, safe=False)
 
@@ -429,8 +444,8 @@ def list_open_requests(request):
         request.user
     )
 
-    for request in requests:
-        request_rows.append(convert_request(request))
+    for req in requests:
+        request_rows.append(convert_request(req, request.user))
 
     return JsonResponse(request_rows, safe=False)
 

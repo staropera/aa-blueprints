@@ -283,7 +283,7 @@ def list_blueprints_ffd(request):
     if columns:
         for column in columns.split(","):
             if column == "location":
-                options = blueprint_query.values_list("location__name", flat=True)
+                options = blueprint_query.values_list("location__name_plus", flat=True)
             elif column == "material_efficiency":
                 options = blueprint_query.values_list("material_efficiency", flat=True)
             elif column == "time_efficiency":

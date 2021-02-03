@@ -76,21 +76,45 @@ class BlueprintManager(models.Manager):
             for owner in Owner.objects.filter(corporation__isnull=True)
             if owner.character.character.corporation_id in corporation_ids
         ]
-        blueprints_query = self.filter(
-            Q(owner__corporation__corporation_id__in=corporation_ids)
-            | Q(owner__pk__in=personal_owner_ids)
-        ).select_related(
-            "eve_type",
-            "location",
-            "industryjob",
-            "owner",
-            "owner__corporation",
-            "owner__character",
-            "location",
-            "location__eve_solar_system",
-            "location__eve_type",
+        blueprints_query = (
+            self.filter(
+                Q(owner__corporation__corporation_id__in=corporation_ids)
+                | Q(owner__pk__in=personal_owner_ids)
+            )
+            .select_related(
+                "eve_type",
+                "location",
+                "industryjob",
+                "owner",
+                "owner__corporation",
+                "owner__character",
+                "location",
+                "location__eve_solar_system",
+                "location__eve_type",
+            )
+            .annotate(
+                location__name_plus=Case(
+                    When(
+                        Q(location__name="") & ~Q(location__parent=None),
+                        then=F("location__parent__name"),
+                    ),
+                    default=F("location__name"),
+                    output_field=models.CharField(),
+                )
+            )
         )
         return blueprints_query
+
+
+class LocationQuerySet(models.QuerySet):
+    def annotate_name_plus(self) -> models.QuerySet:
+        return self.annotate(
+            name_plus=Case(
+                When(Q(name="") & ~Q(parent=None), then=F("parent__name")),
+                default=F("name"),
+                output_field=models.CharField(),
+            )
+        )
 
 
 class LocationManager(models.Manager):
@@ -110,6 +134,9 @@ class LocationManager(models.Manager):
     """
 
     _UPDATE_EMPTY_GRACE_MINUTES = 5
+
+    def get_queryset(self) -> models.QuerySet:
+        return LocationQuerySet(self.model, using=self._db)
 
     def get_or_create_esi(self, id: int, token: Token) -> Tuple[models.Model, bool]:
         """gets or creates location object with data fetched from ESI

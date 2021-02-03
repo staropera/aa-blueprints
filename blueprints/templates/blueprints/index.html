@@ -167,6 +167,7 @@
             viewRequestModalUrl: '{% url "blueprints:view_request_modal" %}',
             csrfToken: '{% csrf_token %}',
             canAddBlueprints: {% if perms.blueprints.request_blueprints %} true {% else %} false {% endif %},
+            canViewLocations: {% if perms.blueprints.view_blueprint_locations %} true {% else %} false {% endif %},
             dataTablesPageLength: {{ data_tables_page_length }},
             dataTablesPaging: {{ data_tables_paging|yesno:"true,false" }},
             translation: {

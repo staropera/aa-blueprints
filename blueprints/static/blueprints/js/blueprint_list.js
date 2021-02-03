@@ -9,6 +9,33 @@ $(document).ready(function () {
     var dataTablesPageLength = blueprintsSettings.dataTablesPageLength;
     var dataTablesPaging = blueprintsSettings.dataTablesPaging;
     var viewBlueprintText = blueprintsSettings.translation.viewBlueprint;
+    var canViewLocations = blueprintsSettings.canViewLocations;
+
+    var filterDropDown = {
+        columns: [
+            {
+                idx: 3,
+                title: blueprintsSettings.translation.filterOwner,
+            },
+            { idx: 4 },
+            { idx: 5 },
+            {
+                idx: 6,
+                title: blueprintsSettings.translation.filterIsOriginal,
+            },
+        ],
+        ajax: listDataFddUrl,
+        autoSize: false,
+        bootstrap: true,
+    }
+
+    if (canViewLocations) {
+        filterDropDown.columns.unshift({
+            idx: 9,
+            title: blueprintsSettings.translation.filterLocation,
+        })
+    }
+
 
     /* dataTable def */
     $("#table-blueprints").DataTable({
@@ -94,48 +121,29 @@ $(document).ready(function () {
             [9, "asc"],
         ],
 
-        filterDropDown: {
-            columns: [
-                {
-                    idx: 9,
-                    title: blueprintsSettings.translation.filterLocation,
-                },
-                {
-                    idx: 3,
-                    title: blueprintsSettings.translation.filterOwner,
-                },
-                { idx: 4 },
-                { idx: 5 },
-                {
-                    idx: 6,
-                    title: blueprintsSettings.translation.filterIsOriginal,
-                },
-            ],
-            ajax: listDataFddUrl,
-            autoSize: false,
-            bootstrap: true,
-        },
+        filterDropDown: filterDropDown,
 
         drawCallback: function (settings) {
             var api = this.api();
             var rows = api.rows({ page: "current" }).nodes();
             var last = null;
+            if(canViewLocations) {
+                api.column(9, { page: "current" })
+                    .data()
+                    .each(function (group, i) {
+                        if (last !== group) {
+                            $(rows)
+                                .eq(i)
+                                .before(
+                                    '<tr class="tr-group"><td colspan="9">' +
+                                    group +
+                                    "</td></tr>"
+                                );
 
-            api.column(9, { page: "current" })
-                .data()
-                .each(function (group, i) {
-                    if (last !== group) {
-                        $(rows)
-                            .eq(i)
-                            .before(
-                                '<tr class="tr-group"><td colspan="9">' +
-                                group +
-                                "</td></tr>"
-                            );
-
-                        last = group;
-                    }
-                });
+                            last = group;
+                        }
+                    });
+            }
         },
         createdRow: function (row, data, dataIndex) {
             if (data.use === true) {

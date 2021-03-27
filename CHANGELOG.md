@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/).
 
 ## [Unreleased]
+### Fixed
+- Remember last active tab (Issue #6)
 
 ## [1.1.1] - 2021-02-03
 ### Added

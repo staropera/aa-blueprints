@@ -90,7 +90,7 @@ class BlueprintListJson(BaseDatatableView):
 
         search = self.request.GET.get("search[value]", None)
         if search:
-            qs = qs.filter(eve_type__name__istartswith=search)
+            qs = qs.filter(eve_type__name__icontains=search)
 
         return qs
 

@@ -10,7 +10,8 @@ and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/)
 
 ### Fixed
 - Remember last active tab (Issue #6)
-
+- Empty owners breaks blueprint list.
+- Empty owner can not be deleted.
 
 ## [1.1.1] - 2021-02-03
 ### Added

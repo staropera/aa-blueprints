@@ -73,7 +73,9 @@ class BlueprintManager(models.Manager):
 
         personal_owner_ids = [
             owner.pk
-            for owner in Owner.objects.filter(corporation__isnull=True)
+            for owner in Owner.objects.filter(
+                corporation__isnull=True, character__isnull=False
+            )
             if owner.character.character.corporation_id in corporation_ids
         ]
         blueprints_query = (

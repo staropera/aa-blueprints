@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
+from allianceauth.eveonline.models import EveCorporationInfo
 from allianceauth.tests.auth_utils import AuthUtils
 from eveuniverse.models import EveEntity, EveType
 
@@ -208,6 +209,38 @@ class TestBlueprintsData(TestViewsBase):
         self.assertEqual(response.status_code, 302)
         self.assertTrue(mock_messages.info.called)
         self.assertEqual(Owner.objects.filter(pk=self.owner.pk).first(), None)
+
+    def test_should_handle_owner_without_character(self):
+        # given
+        Owner.objects.create(
+            corporation=EveCorporationInfo.objects.get(corporation_id=2001)
+        )  # owner without character
+        request = self.factory.get(reverse("blueprints:list_blueprints"))
+        request.user = self.user
+        # when
+        response = BlueprintListJson.as_view()(request)
+        # then
+        self.assertEqual(response.status_code, 200)
+        data = json_response_to_python(response)["data"]
+        self.assertEqual(len(data), 1)
+        row = data[0]
+        self.assertEqual(row[1], "Mobile Tractor Unit Blueprint")
+        self.assertEqual(row[9], "Jita IV - Moon 4 - Caldari Navy Assembly Plant")
+
+    def test_should_handle_empty_owner(self):
+        # given
+        Owner.objects.create()  # empty owner
+        request = self.factory.get(reverse("blueprints:list_blueprints"))
+        request.user = self.user
+        # when
+        response = BlueprintListJson.as_view()(request)
+        # then
+        self.assertEqual(response.status_code, 200)
+        data = json_response_to_python(response)["data"]
+        self.assertEqual(len(data), 1)
+        row = data[0]
+        self.assertEqual(row[1], "Mobile Tractor Unit Blueprint")
+        self.assertEqual(row[9], "Jita IV - Moon 4 - Caldari Navy Assembly Plant")
 
 
 class TestListBlueprintsFdd(TestViewsBase):

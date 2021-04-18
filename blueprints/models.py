@@ -95,12 +95,18 @@ class Owner(models.Model):
     class Meta:
         default_permissions = ()
 
+    def __str__(self):
+        return self.name
+
     @property
     def name(self) -> str:
-        if self.corporation:
-            return self.corporation.corporation_name
-        else:
-            return self.character.character.character_name
+        try:
+            if self.corporation:
+                return self.corporation.corporation_name
+            else:
+                return self.character.character.character_name
+        except AttributeError:
+            return ""
 
     def update_locations_esi(self):
         if self.corporation:
@@ -406,12 +412,6 @@ class Owner(models.Model):
             return make_logger_prefix(self.corporation.corporation_ticker)
         else:
             return make_logger_prefix(self.character.character.character_name)
-
-    def __str__(self):
-        if self.corporation:
-            return self.corporation.corporation_name
-        else:
-            return self.character.character.character_name
 
 
 class Blueprint(models.Model):

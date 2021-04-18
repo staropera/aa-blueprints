@@ -1,10 +1,10 @@
 from unittest.mock import patch
 
-from allianceauth.eveonline.models import EveCharacter
+from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from allianceauth.tests.auth_utils import AuthUtils
 from eveuniverse.models import EveType
 
-from ..models import Blueprint, IndustryJob, Location
+from ..models import Blueprint, IndustryJob, Location, Owner
 from . import add_character_to_user, create_owner
 from .testdata.esi_client_stub import esi_client_stub
 from .testdata.load_entities import load_entities
@@ -29,6 +29,36 @@ class TestCorporateOwner(NoSocketsTestCase):
 
     def setUp(self) -> None:
         self.owner = create_owner(character_id=1101, corporation_id=2101)
+
+    def test_should_return_corporation_name_for_owner(
+        self, mock_eveuniverse_managers, mock_esi_managers, mock_esi_models
+    ):
+        # when
+        result = str(self.owner)
+        # then
+        self.assertEqual(result, "Lexcorp")
+
+    def test_should_return_corporation_name_for_owner_with_no_character(
+        self, mock_eveuniverse_managers, mock_esi_managers, mock_esi_models
+    ):
+        # given
+        owner = Owner.objects.create(
+            corporation=EveCorporationInfo.objects.get(corporation_id=2001)
+        )
+        # when
+        result = str(owner)
+        # then
+        self.assertEqual(result, "Wayne Technologies")
+
+    def test_should_return_empty_string_for_empty_owner(
+        self, mock_eveuniverse_managers, mock_esi_managers, mock_esi_models
+    ):
+        # given
+        owner = Owner.objects.create()
+        # when
+        result = str(owner)
+        # then
+        self.assertEqual(result, "")
 
     def test_update_locations_esi(
         self, mock_eveuniverse_managers, mock_esi_managers, mock_esi_models

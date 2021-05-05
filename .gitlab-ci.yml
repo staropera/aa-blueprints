@@ -81,10 +81,10 @@ deploy-pypi:
   only:
     - tags
 
-
 danger:
   needs: []
   stage: review
+  image: ruby:2.5
   before_script:
     - gem install danger-gitlab
   script:

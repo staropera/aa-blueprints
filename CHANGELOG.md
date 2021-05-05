@@ -5,8 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/).
 
 ## [Unreleased]
+### Added
 ### Changed
-- Search filter now works with "contains" instead of "starts with"
+### Fixed
+
+## [1.1.2] - 2021-05-05
+### Changed
+- Search filter now matches pattens anywhere not only at the beginning of a string
 
 ### Fixed
 - Remember last active tab (Issue #6)

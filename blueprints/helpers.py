@@ -5,10 +5,10 @@ from typing import Optional
 import requests
 
 from allianceauth.services.hooks import get_extension_logger
+from app_utils.logging import LoggerAddTag
 
 from . import __title__, __version__
 from .app_settings import BLUEPRINTS_ESI_ERROR_LIMIT_THRESHOLD
-from .utils import LoggerAddTag
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 

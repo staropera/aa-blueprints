@@ -4,10 +4,10 @@ from unittest.mock import patch
 from django.http import JsonResponse
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
+from eveuniverse.models import EveEntity, EveType
 
 from allianceauth.eveonline.models import EveCorporationInfo
 from allianceauth.tests.auth_utils import AuthUtils
-from eveuniverse.models import EveEntity, EveType
 
 from ..models import Blueprint, Location, Owner, Request
 from ..views.blueprint_list import BlueprintListJson

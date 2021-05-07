@@ -1,5 +1,4 @@
 from django.test import TestCase
-
 from esi.errors import TokenError
 from esi.models import Token
 

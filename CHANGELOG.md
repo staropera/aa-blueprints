@@ -7,6 +7,9 @@ and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/)
 ## [Unreleased]
 ### Added
 ### Changed
+
+- Migrated to allianceauth-app-utils
+
 ### Fixed
 
 ## [1.1.2] - 2021-05-05

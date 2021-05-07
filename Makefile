@@ -40,3 +40,6 @@ create_testdata:
 
 graph_models:
 	python ../myauth/manage.py graph_models $(package) --arrow-shape normal -o $(appname)_models.png
+
+coverage:
+	coverage run ../myauth/manage.py test $(package) --keepdb --failfast --debug-mode && coverage html && coverage report

@@ -3,15 +3,16 @@ import random
 from bravado.exception import HTTPBadGateway, HTTPGatewayTimeout, HTTPServiceUnavailable
 from celery import shared_task
 
+from esi.models import Token
+
 from allianceauth.services.hooks import get_extension_logger
 from allianceauth.services.tasks import QueueOnce
-from esi.models import Token
+from app_utils.logging import LoggerAddTag
 
 from . import __title__
 from .app_settings import BLUEPRINTS_TASKS_TIME_LIMIT
 from .helpers import EsiErrorLimitExceeded, EsiOffline
 from .models import Location, Owner
-from .utils import LoggerAddTag
 
 DEFAULT_TASK_PRIORITY = 6
 

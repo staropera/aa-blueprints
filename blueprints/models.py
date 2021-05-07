@@ -3,21 +3,21 @@ from typing import Tuple
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from esi.errors import TokenExpiredError, TokenInvalidError
+from esi.models import Token
+from eveuniverse.models import EveEntity, EveSolarSystem, EveType
 
 from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.evelinks import dotlan
 from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from allianceauth.services.hooks import get_extension_logger
-from esi.errors import TokenExpiredError, TokenInvalidError
-from esi.models import Token
-from eveuniverse.models import EveEntity, EveSolarSystem, EveType
+from app_utils.logging import LoggerAddTag, make_logger_prefix
 
 from . import __title__
 from .constants import EVE_LOCATION_FLAGS
 from .decorators import fetch_token_for_owner
 from .managers import BlueprintManager, LocationManager, RequestManager
 from .providers import esi
-from .utils import LoggerAddTag, make_logger_prefix
 from .validators import validate_material_efficiency, validate_time_efficiency
 
 NAMES_MAX_LENGTH = 100

@@ -5,9 +5,9 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.test import TestCase
+from esi.models import Scope, Token
 
 from allianceauth.eveonline.models import EveCharacter
-from esi.models import Scope, Token
 
 
 def _get_random_string(char_count):

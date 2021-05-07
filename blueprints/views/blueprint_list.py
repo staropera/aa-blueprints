@@ -1,14 +1,15 @@
-from django.utils.html import format_html
-from django.utils.translation import gettext_lazy
 from django_datatables_view.base_datatable_view import BaseDatatableView
 
-from allianceauth.services.hooks import get_extension_logger
+from django.utils.html import format_html
+from django.utils.translation import gettext_lazy
 from eveuniverse.models import EveType
+
+from allianceauth.services.hooks import get_extension_logger
+from app_utils.logging import LoggerAddTag
 
 from .. import __title__
 from ..app_settings import BLUEPRINTS_LIST_ICON_OUTPUT_SIZE
 from ..models import Blueprint
-from ..utils import LoggerAddTag
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 

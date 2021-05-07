@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from bravado.exception import HTTPNotFound
+
 from django.test import TestCase
 
 from .main import EsiClientStub, EsiEndpoint

@@ -2,22 +2,23 @@ import datetime as dt
 from typing import Tuple
 
 from bravado.exception import HTTPForbidden, HTTPUnauthorized
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Case, F, Q, Value, When
 from django.utils.timezone import now
+from esi.models import Token
+from eveuniverse.models import EveEntity, EveSolarSystem, EveType
 
 from allianceauth.eveonline.models import EveAllianceInfo, EveCorporationInfo
 from allianceauth.services.hooks import get_extension_logger
-from esi.models import Token
-from eveuniverse.models import EveEntity, EveSolarSystem, EveType
+from app_utils.logging import LoggerAddTag
 
 from . import __title__
 from .app_settings import BLUEPRINTS_LOCATION_STALE_HOURS
 from .constants import EVE_TYPE_ID_SOLAR_SYSTEM
 from .helpers import fetch_esi_status
 from .providers import esi
-from .utils import LoggerAddTag
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 

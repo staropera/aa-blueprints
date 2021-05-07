@@ -1,8 +1,10 @@
 from unittest.mock import patch
 
+from eveuniverse.models import EveType
+
 from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from allianceauth.tests.auth_utils import AuthUtils
-from eveuniverse.models import EveType
+from app_utils.testing import NoSocketsTestCase
 
 from ..models import Blueprint, IndustryJob, Location, Owner
 from . import add_character_to_user, create_owner
@@ -10,7 +12,6 @@ from .testdata.esi_client_stub import esi_client_stub
 from .testdata.load_entities import load_entities
 from .testdata.load_eveuniverse import load_eveuniverse
 from .testdata.load_locations import load_locations
-from .utils import NoSocketsTestCase
 
 MANAGERS_PATH = "blueprints.managers"
 MODELS_PATH = "blueprints.models"

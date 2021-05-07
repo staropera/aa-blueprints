@@ -1,14 +1,14 @@
 from typing import Tuple
 
 from django.contrib.auth.models import User
+from esi.models import Token
 
 from allianceauth.authentication.models import CharacterOwnership
 from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from allianceauth.tests.auth_utils import AuthUtils
-from esi.models import Token
+from app_utils.testing import add_new_token
 
 from ..models import Owner
-from .utils import add_new_token
 
 
 def create_owner(character_id, corporation_id):

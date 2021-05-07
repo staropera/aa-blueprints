@@ -6,6 +6,7 @@ from collections import namedtuple
 from typing import Any, List
 
 from bravado.exception import HTTPInternalServerError, HTTPNotFound
+
 from django.utils.dateparse import parse_datetime
 
 

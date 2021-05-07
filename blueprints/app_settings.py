@@ -1,4 +1,4 @@
-from .utils import clean_setting
+from app_utils.django import clean_setting
 
 # put your app settings here
 

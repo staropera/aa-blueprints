@@ -1,10 +1,11 @@
 from functools import wraps
 
-from allianceauth.services.hooks import get_extension_logger
 from esi.errors import TokenError
 
+from allianceauth.services.hooks import get_extension_logger
+from app_utils.logging import LoggerAddTag
+
 from . import __title__
-from .utils import LoggerAddTag
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 

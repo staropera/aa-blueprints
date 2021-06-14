@@ -10,6 +10,12 @@ and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/)
 
 ### Changed
 
+### Fixed
+
+## [1.1.3] - 2021-06-14
+
+### Changed
+
 - Migrated to allianceauth-app-utils
 - Reduce DB calls and add index for speeding up counting open requests
 - Reduce DB calls when fetching the blueprint list

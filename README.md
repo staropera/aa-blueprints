@@ -9,9 +9,9 @@ This is an blueprints library app for [Alliance Auth](https://gitlab.com/allianc
 ![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
-# Overview
+## Overview
 
-## Features
+### Features
 
 - Lists blueprints owned by corporation or alliance (configurable with permissions)
 - Collects requests for blueprint copies
@@ -22,45 +22,44 @@ This is an blueprints library app for [Alliance Auth](https://gitlab.com/allianc
 
 ![library](https://i.imgur.com/62eUbB8.png)
 
-### View Blueprint
+#### View Blueprint
 
 ![view-blueprint](https://i.imgur.com/g8ge0gA.png)
 
-### Create a Request
+#### Create a Request
 
 ![create-request](https://i.imgur.com/MSt7mZg.png)
 
-### My Requests
+#### My Requests
 
 ![my-requests](https://i.imgur.com/0Tj5jo6.png)
 
-### Open Requests
+#### Open Requests
 
 ![open-requests](https://i.imgur.com/pQMuLEQ.png)
 
-### Manage Blueprints
+#### Manage Blueprints
 
 ![manage-blueprints](https://i.imgur.com/ap1vc4h.png)
 
-# Installation
+## Installation
 
-## Requirements
+### Requirements
 
 AA Blueprints needs the app [django-eveuniverse](https://gitlab.com/ErikKalkoken/django-eveuniverse) to function. Please make sure it is installed before before continuing.
 
-## Steps
+### Steps
 
-### Step 1 - Install the Package
+#### Step 1 - Install the Package
 
 Make sure you are in the virtual environment (venv) of your Alliance Auth installation. Then install the newest release from PyPI:
 
 `pip install aa-blueprints`
 
-### Step 2 - Configure AA
+#### Step 2 - Configure AA
 
 - Add 'blueprints' to `INSTALLED_APPS` in `settings/local.py`.
 - Add the following automated task definition:
-
 
 ```python
 CELERYBEAT_SCHEDULE['blueprints_update_all_blueprints'] = {
@@ -77,7 +76,7 @@ CELERYBEAT_SCHEDULE['blueprints_update_all_locations'] = {
 }
 ```
 
-### Step 3 - Finalize App installation
+#### Step 3 - Finalize App installation
 
 Run migrations & copy static files:
 
@@ -88,19 +87,19 @@ python manage.py collectstatic
 
 Restart your supervisor services for Auth
 
-### Step 4 - Update EVE Online API Application
+#### Step 4 - Update EVE Online API Application
 
 Update the Eve Online API app used for authentication in your AA installation to include the following scopes:
 
- - `esi-assets.read_assets.v1`
- - `esi-assets.read_corporation_assets.v1`
- - `esi-characters.read_blueprints.v1`
- - `esi-corporations.read_blueprints.v1`
- - `esi-industry.read_character_jobs.v1`
- - `esi-industry.read_corporation_jobs.v1`
- - `esi-universe.read_structures.v1`
+- `esi-assets.read_assets.v1`
+- `esi-assets.read_corporation_assets.v1`
+- `esi-characters.read_blueprints.v1`
+- `esi-corporations.read_blueprints.v1`
+- `esi-industry.read_character_jobs.v1`
+- `esi-industry.read_corporation_jobs.v1`
+- `esi-universe.read_structures.v1`
 
-### Step 5 - Data import
+#### Step 5 - Data import
 
 Load EVE Online type data from ESI:
 
@@ -108,7 +107,7 @@ Load EVE Online type data from ESI:
 python manage.py blueprints_load_types
 ```
 
-# Permissions
+## Permissions
 
 | ID                               | Description                                  | Notes                                                                          |
 |----------------------------------|----------------------------------------------|--------------------------------------------------------------------------------|
@@ -120,10 +119,11 @@ python manage.py blueprints_load_types
 | `view_alliance_blueprints`       | Can view alliance's blueprints               |                                                                                |
 | `view_industry_jobs`             | Can view details about running industry jobs | :warning: This permission will let someone see _all_ industry job information. |
 
-# Upgrading
+## Upgrading
+
 See [UPGRADING.md](UPGRADING.md).
 
-# Authors
+## Authors
 
 The main authors (in alphabetical order):
 

@@ -34,12 +34,7 @@ logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 @permissions_required("blueprints.basic_access")
 def index(request):
     if request.user.has_perm("blueprints.manage_requests"):
-        request_count = (
-            Request.objects.all().requests_fulfillable_by_user(request.user).count()
-            + Request.objects.all()
-            .requests_being_fulfilled_by_user(request.user)
-            .count()
-        )
+        request_count = Request.objects.open_requests_total_count(request.user)
     else:
         request_count = None
     context = {
@@ -453,7 +448,7 @@ def list_open_requests(request):
 
 
 def mark_request(
-    request, request_id, status, fulfilling_user, closed, *, can_requestor_edit=False
+    request, request_id, status, fulfulling_user, closed, *, can_requestor_edit=False
 ):
     completed = False
     user_request = Request.objects.get(pk=request_id)
@@ -481,7 +476,7 @@ def mark_request(
             user_request.closed_at = datetime.utcnow()
         else:
             user_request.closed_at = None
-        user_request.fulfulling_user = fulfilling_user
+        user_request.fulfulling_user = fulfulling_user
         user_request.status = status
         user_request.save()
         completed = True

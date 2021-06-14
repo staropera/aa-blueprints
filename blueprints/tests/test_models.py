@@ -1,13 +1,15 @@
+import datetime as dt
 from unittest.mock import patch
 
+from django.utils.timezone import now
 from eveuniverse.models import EveType
 
 from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from allianceauth.tests.auth_utils import AuthUtils
 from app_utils.testing import NoSocketsTestCase
 
-from ..models import Blueprint, IndustryJob, Location, Owner
-from . import add_character_to_user, create_owner
+from ..models import Blueprint, IndustryJob, Location, Owner, Request
+from . import add_character_to_user, create_owner, create_user_from_evecharacter
 from .testdata.esi_client_stub import esi_client_stub
 from .testdata.load_entities import load_entities
 from .testdata.load_eveuniverse import load_eveuniverse
@@ -290,3 +292,132 @@ class TestBlueprintManagerUserHasAccess(TestBlueprintsBase):
         qs = Blueprint.objects.user_has_access(self.user)
         # then
         self.assertSetEqual(set(qs.values_list("item_id", flat=True)), {1, 2, 3, 5, 6})
+
+
+class TestRequestManager(TestBlueprintsBase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        # given
+        cls.user_1002, _ = create_user_from_evecharacter(1002)
+        cls.owner_1001 = create_owner(character_id=1001, corporation_id=2001)
+        cls.user_1001 = cls.owner_1001.character.user
+        cls.bp_1 = Blueprint.objects.create(
+            location=Location.objects.get(id=60003760),
+            eve_type=EveType.objects.get(id=33519),
+            owner=cls.owner_1001,
+            location_flag="AssetSafety",
+            material_efficiency=10,
+            time_efficiency=30,
+            item_id=2,
+        )
+        cls.owner_1101 = create_owner(character_id=1101, corporation_id=2101)
+        cls.bp_2 = Blueprint.objects.create(
+            location=Location.objects.get(id=60003760),
+            eve_type=EveType.objects.get(id=33519),
+            owner=cls.owner_1101,
+            location_flag="AssetSafety",
+            material_efficiency=10,
+            time_efficiency=30,
+            item_id=3,
+        )
+
+    def test_should_return_fulfillable_requests(self):
+        # given
+        req_1 = Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_OPEN,
+        )
+        Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_FULFILLED,
+        )
+        Request.objects.create(
+            blueprint=self.bp_2,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_OPEN,
+        )
+        Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_OPEN,
+            closed_at=now() - dt.timedelta(days=1),
+        )
+        # when
+        result = Request.objects.all().requests_fulfillable_by_user(self.user_1001)
+        # then
+        result_pks = set(result.values_list("pk", flat=True))
+        self.assertSetEqual(result_pks, {req_1.pk})
+
+    def test_should_return_requests_being_fulfilled(self):
+        # given
+        req_1 = Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_IN_PROGRESS,
+            fulfulling_user=self.user_1001,
+        )
+        Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_OPEN,
+        )
+        Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_FULFILLED,
+        )
+        Request.objects.create(
+            blueprint=self.bp_2,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_OPEN,
+        )
+        Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_IN_PROGRESS,
+            fulfulling_user=self.user_1001,
+            closed_at=now() - dt.timedelta(days=1),
+        )
+        # when
+        result = Request.objects.all().requests_being_fulfilled_by_user(self.user_1001)
+        # then
+        result_pks = set(result.values_list("pk", flat=True))
+        self.assertSetEqual(result_pks, {req_1.pk})
+
+    def test_should_return_open_requests_total_count(self):
+        # given
+        Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_IN_PROGRESS,
+            fulfulling_user=self.user_1001,
+        )
+        Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_OPEN,
+        )
+        Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_FULFILLED,
+        )
+        Request.objects.create(
+            blueprint=self.bp_2,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_OPEN,
+        )
+        Request.objects.create(
+            blueprint=self.bp_1,
+            requesting_user=self.user_1002,
+            status=Request.STATUS_IN_PROGRESS,
+            fulfulling_user=self.user_1001,
+            closed_at=now() - dt.timedelta(days=1),
+        )
+        # when
+        result = Request.objects.open_requests_total_count(self.user_1001)
+        # then
+        self.assertEqual(result, 2)

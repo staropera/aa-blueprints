@@ -8,7 +8,7 @@ from .models import Request
 
 
 class BlueprintLibraryMenuItem(MenuItemHook):
-    """ This class ensures only authorized users will see the menu entry """
+    """This class ensures only authorized users will see the menu entry"""
 
     def __init__(self):
         # setup menu entry for sidebar
@@ -23,14 +23,7 @@ class BlueprintLibraryMenuItem(MenuItemHook):
     def render(self, request):
         if request.user.has_perm("blueprints.basic_access"):
             if request.user.has_perm("blueprints.manage_requests"):
-                app_count = (
-                    Request.objects.all()
-                    .requests_fulfillable_by_user(request.user)
-                    .count()
-                    + Request.objects.all()
-                    .requests_being_fulfilled_by_user(request.user)
-                    .count()
-                )
+                app_count = Request.objects.open_requests_total_count(request.user)
             else:
                 app_count = None
             self.count = app_count if app_count and app_count > 0 else None

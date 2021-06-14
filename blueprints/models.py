@@ -686,6 +686,7 @@ class Request(models.Model):
         help_text="Status of the blueprint request",
         choices=STATUS_CHOICES,
         max_length=2,
+        db_index=True,
     )
 
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)

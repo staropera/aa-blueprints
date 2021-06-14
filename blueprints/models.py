@@ -272,7 +272,7 @@ class Owner(models.Model):
                                 activity=job["activity_id"],
                                 owner=self,
                                 location=self._fetch_location(
-                                    job["location_id"],
+                                    job["output_location_id"],
                                     token=token,
                                 ),
                                 blueprint=Blueprint.objects.get(pk=job["blueprint_id"]),

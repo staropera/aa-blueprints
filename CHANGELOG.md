@@ -5,7 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/).
 
 ## [Unreleased]
+
 ### Added
+
 ### Changed
 
 - Migrated to allianceauth-app-utils
@@ -14,6 +16,8 @@ and this project adheres to [PEP-440](https://www.python.org/dev/peps/pep-0440/)
 - Add tests for finding and counting open requests for a user
 
 ### Fixed
+
+- `KeyError: 'location_id'` (Issue #8)
 
 ## [1.1.2] - 2021-05-05
 ### Changed

@@ -1,6 +1,7 @@
 import datetime as dt
 from unittest.mock import patch
 
+from django.utils.dateparse import parse_datetime
 from django.utils.timezone import now
 from eveuniverse.models import EveType
 
@@ -8,7 +9,7 @@ from allianceauth.eveonline.models import EveCharacter, EveCorporationInfo
 from allianceauth.tests.auth_utils import AuthUtils
 from app_utils.testing import NoSocketsTestCase
 
-from ..models import Blueprint, IndustryJob, Location, Owner, Request
+from ..models import Blueprint, Location, Owner, Request
 from . import add_character_to_user, create_owner, create_user_from_evecharacter
 from .testdata.esi_client_stub import esi_client_stub
 from .testdata.load_entities import load_entities
@@ -86,15 +87,26 @@ class TestCorporateOwner(NoSocketsTestCase):
         self.owner.update_blueprints_esi()
         self.assertEquals(Blueprint.objects.filter(eve_type_id=33519).count(), 1)
 
-    def test_update_industry_jobs_esi(
+    def test_should_update_industry_jobs_esi(
         self, mock_eveuniverse_managers, mock_esi_managers, mock_esi_models
     ):
+        # given
         mock_eveuniverse_managers.client = esi_client_stub
         mock_esi_managers.client = esi_client_stub
         mock_esi_models.client = esi_client_stub
         self.owner.update_blueprints_esi()
+        # when
         self.owner.update_industry_jobs_esi()
-        self.assertEquals(IndustryJob.objects.count(), 1)
+        # then
+        self.assertEquals(self.owner.jobs.count(), 1)
+        obj = self.owner.jobs.first()
+        self.assertEqual(obj.id, 100000002)
+        self.assertEqual(obj.activity, 5)
+        self.assertEqual(obj.location_id, 1000000000001)
+        self.assertEqual(obj.installer, EveCharacter.objects.get(character_id=1001))
+        self.assertEqual(obj.runs, 1)
+        self.assertEqual(obj.start_date, parse_datetime("2020-12-21T23:37:14Z"))
+        self.assertEqual(obj.status, "active")
 
 
 @patch(MODELS_PATH + ".esi")
@@ -134,15 +146,26 @@ class TestPersonalOwner(NoSocketsTestCase):
         self.owner.update_blueprints_esi()
         self.assertEquals(Blueprint.objects.filter(eve_type_id=33519).count(), 1)
 
-    def test_update_industry_jobs_esi(
+    def test_should_update_industry_jobs_esi(
         self, mock_eveuniverse_managers, mock_esi_managers, mock_esi_models
     ):
+        # given
         mock_eveuniverse_managers.client = esi_client_stub
         mock_esi_managers.client = esi_client_stub
         mock_esi_models.client = esi_client_stub
         self.owner.update_blueprints_esi()
+        # when
         self.owner.update_industry_jobs_esi()
-        self.assertEquals(IndustryJob.objects.count(), 1)
+        # then
+        self.assertEquals(self.owner.jobs.count(), 1)
+        obj = self.owner.jobs.first()
+        self.assertEqual(obj.id, 100000001)
+        self.assertEqual(obj.activity, 5)
+        self.assertEqual(obj.location_id, 1000000000001)
+        self.assertEqual(obj.installer, EveCharacter.objects.get(character_id=1001))
+        self.assertEqual(obj.runs, 1)
+        self.assertEqual(obj.start_date, parse_datetime("2020-12-21T23:37:14Z"))
+        self.assertEqual(obj.status, "active")
 
 
 class TestBlueprintsBase(NoSocketsTestCase):

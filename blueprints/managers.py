@@ -332,39 +332,45 @@ class LocationManager(models.Manager):
 
 
 class RequestQuerySet(models.QuerySet):
-    def requests_fulfillable_by_user(self, user: User) -> models.QuerySet:
-        ownerships = user.character_ownerships.all()
+    def requests_fulfillable_by_user(
+        self, user: User, character_ownerships=None
+    ) -> models.QuerySet:
+        if not character_ownerships:
+            character_ownerships = user.character_ownerships.select_related("character")
         corporation_ids = {
-            character.character.corporation_id for character in ownerships
+            ownership.character.corporation_id for ownership in character_ownerships
         }
-        character_ownership_ids = {character.pk for character in ownerships}
+        character_ownership_pks = {ownership.pk for ownership in character_ownerships}
         request_query = self.select_related(
             "blueprint__owner", "blueprint__owner__corporation"
         ).filter(
             (
                 Q(blueprint__owner__corporation__corporation_id__in=corporation_ids)
-                | Q(blueprint__owner__character__pk__in=character_ownership_ids)
+                | Q(blueprint__owner__character__pk__in=character_ownership_pks)
             )
             & Q(closed_at=None)
-            & Q(status="OP")
+            & Q(status=self.model.STATUS_OPEN)
         )
         return request_query
 
-    def requests_being_fulfilled_by_user(self, user: User) -> models.QuerySet:
-        ownerships = user.character_ownerships.all()
+    def requests_being_fulfilled_by_user(
+        self, user: User, character_ownerships=None
+    ) -> models.QuerySet:
+        if not character_ownerships:
+            character_ownerships = user.character_ownerships.select_related("character")
         corporation_ids = {
-            character.character.corporation_id for character in ownerships
+            ownership.character.corporation_id for ownership in character_ownerships
         }
-        character_ownership_ids = {character.pk for character in ownerships}
+        character_ownership_pks = {ownership.pk for ownership in character_ownerships}
         request_query = self.select_related(
             "blueprint__owner", "blueprint__owner__corporation"
         ).filter(
             (
                 Q(blueprint__owner__corporation__corporation_id__in=corporation_ids)
-                | Q(blueprint__owner__character__pk__in=character_ownership_ids)
+                | Q(blueprint__owner__character__pk__in=character_ownership_pks)
             )
             & Q(closed_at=None)
-            & Q(status="IP")
+            & Q(status=self.model.STATUS_IN_PROGRESS)
             & Q(fulfulling_user=user)
         )
         return request_query
@@ -380,4 +386,14 @@ class RequestManager(models.Manager):
             "blueprint__owner",
             "blueprint__eve_type",
             "requesting_user__profile__main_character",
+        )
+
+    def open_requests_total_count(self, user: User) -> int:
+        """Return total count of open requests for user"""
+        character_ownerships = user.character_ownerships.select_related("character")
+        return (
+            self.all().requests_fulfillable_by_user(user, character_ownerships).count()
+            + self.all()
+            .requests_being_fulfilled_by_user(user, character_ownerships)
+            .count()
         )

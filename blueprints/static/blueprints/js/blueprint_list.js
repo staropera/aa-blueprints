@@ -48,9 +48,9 @@ $(document).ready(function () {
         "serverSide": true,
         columns: [
             {
-                name: "eve_type_id",
+                name: "eve_type_icon",
                 target: [0],
-                data: "eve_type_id"
+                data: "eve_type_icon"
             },
             {
                 name: "eve_type",

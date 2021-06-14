@@ -20,7 +20,7 @@ class BlueprintListJson(BaseDatatableView):
 
     # define the columns that will be returned
     columns = [
-        "eve_type_id",
+        "eve_type_icon",
         "eve_type",
         "quantity",
         "owner",
@@ -38,7 +38,7 @@ class BlueprintListJson(BaseDatatableView):
     # displayed by datatables. For non sortable columns use empty
     # value like ''
     order_columns = [
-        "eve_type_id",
+        "eve_type_icon",
         "eve_type",
         "",
         "owner",
@@ -96,13 +96,11 @@ class BlueprintListJson(BaseDatatableView):
         return qs
 
     def render_column(self, row, column):
-        if column == "eve_type_id":
+        if column == "eve_type_icon":
             variant = EveType.IconVariant.BPC if row.runs else EveType.IconVariant.BPO
             return format_html(
                 '<img src="{}" width="{}" height="{}">',
-                EveType.objects.get(pk=row.eve_type_id).icon_url(
-                    size=64, variant=variant
-                ),
+                row.eve_type.icon_url(size=64, variant=variant),
                 BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
                 BLUEPRINTS_LIST_ICON_OUTPUT_SIZE,
             )
